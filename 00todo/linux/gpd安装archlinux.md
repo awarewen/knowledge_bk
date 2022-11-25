@@ -182,12 +182,12 @@ x 可以是 0,1,2,3 ,分别对应不同的旋转
 
 ## 改变ttyN 下字体大小
 
-在 `/usr/share/kbd/consolefonts/` 下放了terminus 字体包中的许多字体
+在 `/usr/share/kbd/consolefonts/` 下放了terminus-font 字体包中的许多字体
 使用setfont font_name可以立即使字体设置生效
 我选择的是ter-u32b
 
 - 持久化
-创建 `/etc/vconsole.conf` ，其中输入 `FONT=ter-u32b` 设置字体名称即可
+在安装完基础系统后创建vconsole.conf文件写入 FONT=ter-u32b
 
 ## 分区label重写
 
