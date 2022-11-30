@@ -139,13 +139,14 @@ echo "[archlinuxcn]\nServer = https://repo.huaweicloud.com/archlinuxcn/$arch" >>
 
 ```
 fcitx5
-fcitx5-chinese-addons
+fcitx5-chinese-addons # 
 fcitx5-configtool
 fcitx5-gtk
 fcitx5-input-support
-fcitx5-material-color
-fcitx5-pinyin-moegirl
-fcitx5-pinyin-sougou
+fcitx5-material-color # theme
+#*# 
+fcitx5-pinyin-moegirl 
+~fcitx5-pinyin-sougou~
 fcitx5-pinyin-zhwiki
 fcitx5-qt
 ```

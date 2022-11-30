@@ -381,9 +381,17 @@ echo xrandr -o left > /usr/share/sddm/scripts/Xsetup`
 - 安装喜欢的终端
 `# pacman -S kitty konsole`
 
-#### 字体
+#### 字体 chinese
 `pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family`
 `pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei`
+
+- fcitx5 install
+`sudo pacman -S fcitx5 fcitx5-chinese-addons fcitx5-im fcitx5-material-color fcitx5-pinyin-moegirl fcitx5-pinyin-zhwiki`
+
+```
+
+
+```
 #### 字体引擎
 ```
 vim /etc/profile.d/freetype2.sh
@@ -394,7 +402,7 @@ export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
  1. 可以通过添加内核参数解决\
     - 打开 '/etc/default/grub' ，在 `GRUB_CMDLINE_LINUX=` 添加 \
       `fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up`
-    - 重新生成 GRUB 配置文件: `# grub-mkconfig -o /boot/grub/grub.cfg`
+
 
 > 持久化: 创建打开/etc/vconsole.conf 添加FONT=ter-u32b，[vconsole 介绍](https://man.archlinux.org/man/vconsole.conf.5)
 在 `/usr/share/kbd/consolefonts/` 下放了terminus-font 字体包中的许多字体
