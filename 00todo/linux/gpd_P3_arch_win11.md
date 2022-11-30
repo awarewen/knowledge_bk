@@ -32,8 +32,12 @@ Time: 2022/11/22
 
 - [host: Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#Set_the_hostname)
 
+- [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
+
 ---
 > 关于P3固件更新  [GPD Pocket 3 - ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3#Firmware)
+
+
 
  P3 不支持 fwupd 更新固件，目前仅支持通过 Windows 程序提供固件更新 \
  由于硬件驱动问题 手写笔(Digitizer) 有部分功能支持不完善，指纹传感器(Fingerprint Sensor)不支持
@@ -97,6 +101,7 @@ Time: 2022/11/22
 
 #### 4. 更新系统时钟
 `# timedatectl set-ntp true`
+如果不进行此步可能造成后续下载基本系统失败
 
 #### 6. 分区
 考虑：
@@ -120,54 +125,77 @@ Time: 2022/11/22
 # pvcreate  /dev/nvme0n1p4
 ```
 - 检查物理卷 \
-`# pvdisplay`, `# pvscan`
+`# pvdisplay`，`# pvs`
 
 2. 创建卷组(VG)
 ```
 # vgcreate Arch /dev/nvme0n1p3
 ```
-- 检查：
- `# vgdisplay`，`# vgscan`
+- 检查：\
+ `# vgdisplay`，`# vgs`
 
 
 5. 创建逻辑卷(LV)
 ```
-# lvcreate -l 100%FREE roots -n root 
-# lvcreate -l 100%FREE homes -n home
-# lvcreate -l 100%FREE vars  -n var
+lvcreate -L 400G Arch -n root
+lvcreate -L 400G Arch -n homepool
+lvcreate -l 100%FREE Arch -n .snapshots
 ```
-检查：`# lvdisplay`
+- 检查：\
+`# lvdisplay`，`# lvs`
 
 6. 格式化分区
 ```
-# mkfs.fat -F 32 /dev/nvme0n1p1
-# mkswap /dev/nvme0n1p2
-# mkfs.xfs /dev/mapper/roots-root
-# mkfs.xfs /dev/mapper/homes-home
-# mkfs.xfs /dev/mapper/vars-var
+# mkfs.vfat /dev/nvme0n1p2
+# mkswap /dev/nvme0n1p3
+# swapon /dev/nvme0n1p3
+# mkfs.btrfs /dev/mapper/Arch-root
+# mkfs.btrfs /dev/mapperArch-homepool
 ```
 
-7. 挂载分区
+7. 创建btrfs子卷
 ```
-# mount --mkdir /dev/nvme0n1p1 /mnt/boot
-# swapon /dev/nvme0n1p2
-# mount /dev/mapper/roots-root /mnt
-# mount --mkdir /dev/mapper/homes-home /mnt/home
-# mount --mkdir /dev/mapper/vars-var /mnt/var
+# mount /dev/mapper/Arch-root /mnt
+# cd /mnt
+# btrfs subvolume create @
+# cd /
+# umount /mnt
 ```
-检查分区挂载：`# lsblk`
+```
+# mount /dev/mapper/Arch-.snapshots /mnt
+# cd /mnt
+# btrfs subvolume create @snapshots
+# cd /
+# umount /mnt
+```
+```
+# mount /dev/mapper/Arch-homepool /mnt
+# cd /mnt
+# btrfs subvolume create @home
+# cd /
+# umount /mnt
+```
 
-> ##### TIP
->> Cannot archive volume group metadata for centos to read-only filesyste\
-`# mount -o umount rw /` 将原先是只读的文件系统以可读写的模式重新挂载
+8. 挂载
+```
+# mount /dev/mapper/Arch-root /mnt -o subvol=@
+# mkdir /mnt/boot
+# mkdir /mnt/boot/efi
+# mount /dev/nvme0n1p2 /mnt/boot/efi
+# mkdir /mnt/home
+# mount /dev/mapper/Arch-homepool /mnt/home -o subvol=@home
+# mkdir /mnt/.snapshots
+# mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
+```
+> ##### TIP \
+`# mount -o remount,rw -a`将原先是只读的文件系统以可读写的模式重新挂载
 
 
 #### 7. 镜像安装
 切换国内镜像源\
 `# reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist`\
 安装基本包\
-首先保证基本的文件系统，网络，文本编辑\
-`# pacstrap -k /mnt base linux linux-firmware networkmanager dhcpcd vim linux-headers bash-completion git openssh base-devel lvm2 xfsprogs intel-ucode os-prober grub`\
+`# pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet dhcpcd vim linux-headers bash-completion zsh zsh-completions git openssh base-devel lvm2 xfsprogs intel-ucode amd-ucode os-prober grub`\
 'os-prober 检测多系统引导'
 
 #### 8. 生成分区表\
@@ -179,24 +207,39 @@ Time: 2022/11/22
 `# arch-chroot /mnt`
 
 #### 配置 LVM 支持和grub\
-1. 在 'HOOKS=".... 添加 lvm2"'\
-`# vim /etc/mkinitcpio.conf`
-
+```
+# vim /etc/mkinitcpio.conf
+__________________________
+'HOOKS=".... lvm2'
+## for btrfs check
+MODULES=(btrfs)
+BINARIES=(btrfs)
+```
 2. grub 预设
 `# vim /etc/default/grub`\
-添加 lvm 模块加载
+
+添加 btrfs 配置
+
 ```
-GRUB_PRELOAD_MODULES="lvm"
+GRUB_PRELOAD_MODULES="... btrfs"
+GRUB_DISABLE_OS_PROBER=false
+GRUB_CMDLINE_LINUX_DEFAULT="... root=/dev/mapper/Arch-root nowatchdog"
 ```
+[GRUB (简体中文) - ArchWiki](https://wiki.archlinux.org/title/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#BIOS_%E7%B3%BB%E7%BB%9F)
 
 3. install grub
-`# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch --recheck`
+
+```
+# grub-install --target=i386-pc /dev/nvme0n1
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch --recheck
+```
 
 4. 生成 grub 配置
 `# grub-mkconfig -o /boot/grub/grub.cfg`
 
 
 #### 10. 校正时区
+
 ```bash
  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
  hwclock --systohc
@@ -232,78 +275,162 @@ passwd root
 `# EDIOR=vim visudo`\
 找到 'Uncomment to allow members of group wheel to execute any command' 将下一行配置取消注释
 
-#### 13. 重启
+#### 13. 重启到新系统
 
-备忘软件
-usbmuxd -usb设备驱动
+### 安装桌面前的准备
+```
+# 提供基本的用户文件管理服务 [xdg-用户目录](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)
+sudo pacman -S xdg-user-dirs
 
+# 安装sddm
+sudo pacman -S sddm
+```
+#### systemed ：一些必要的服务配置
+- disable dhcpcd
+- enable NetworkManager
+- enable sshd
+- enable sddm
+
+#### SHELL
+[Command-line shell - ArchWiki](https://wiki.archlinux.org/title/Command-line_shell)
+检查当前用户默认SHELL:Zsh SHELL
+```
+echo $SHELL
+chsh -l # 检查可用的SHELL
+chsh -s /bin/zsh your_user_name`
+```
+
+#### 配置pacman aur
+
+- 添加国内源打开,并32位支持
+[2022.5 archlinux详细安装过程 - 知乎](https://zhuanlan.zhihu.com/p/513859236)
+```
+# nvim /etc/pacman.conf
+[archlinuxcn]
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+# 添加keyring
+# sudo pacman -S archlinuxcn-keyring
+
+[Clansty]
+SigLevel = Never
+Server = https://repo.lwqwq.com/archlinux/$arch
+Server = https://pacman.ltd/archlinux/$arch
+Server = https://repo.clansty.com/archlinux/$arch
+```
+- 安装 AUR HELPER
+```
+# 安装AUR helper
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+# 一些比较好用的可选依赖可以装一下
+sudo pacman -S bat asp
+```
+
+#### 驱动
+- 显示
+intel: `# sudo pacman -S xf86-video-intel vulkan-intel`
+
+- 蓝牙
+`# sudo pacman -S bluedevil`
+
+- 声音
+```
+# nvim /etc/modprobe.d/alsa.conf
+-> options snd-intel-dspcfg dsp_driver=1
+sudo pacman -S alsa-utils pulseaudio pulseaudio-bluetooth cups
+```
+
+#### 开始桌面环境配置
+[从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
+```
+# 安装X11 server
+sudo pacman -S xorg
+# 窗口管理器bspwm 和 快捷键守护进程sxhkd
+sudo pacman -S bspwm sxhkd
+
+# 将bspwm的实例配置文件拷贝到'.config' 目录下
+mkdir ~/.config # .config 目录将作为大部分程序或软件的配置存放目录
+cd ~/.config
+cp /usr/share/doc/bspwm/examples/bspwmrc bspwm/
+cp /usr/share/doc/bspwm/examples/sxhkdrc sxhkd/
+
+# 浏览器 rofi 终端
+sudo pacman -S firefox rofi kitty
+
+# 更改 sxhkd 配置
+终端启动命令
+rofi 启动
+
+# 解决 p3 在 sddm 和 图形界面下的显示方向问题
+
+sudo iio-sensor-proxy-git kded-rotation-git自动旋转屏幕方向
+echo xrandr -o left > /usr/share/sddm/scripts/Xsetup`
+```
+
+- 重启
+
+##### 
+
+#### 常用软件/好用的程序
+- fzf 
+- tmux
+- neofetch
+- autojump
+- 安装喜欢的终端
+`# pacman -S kitty konsole`
+
+#### 字体
+`pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family`
+`pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei`
+#### 字体引擎
+```
+vim /etc/profile.d/freetype2.sh
+--------------------------------------------
+# 取消注释最后一句
+export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
+```
  1. 可以通过添加内核参数解决\
     - 打开 '/etc/default/grub' ，在 `GRUB_CMDLINE_LINUX=` 添加 \
       `fbcon=rotate:1 video=DSI-1:panel_orientation=right_side_up`
     - 重新生成 GRUB 配置文件: `# grub-mkconfig -o /boot/grub/grub.cfg`
 
 > 持久化: 创建打开/etc/vconsole.conf 添加FONT=ter-u32b，[vconsole 介绍](https://man.archlinux.org/man/vconsole.conf.5)
->
-> partprobe 同步硬盘更改
-wipefs 擦除分区filesystem标记
+在 `/usr/share/kbd/consolefonts/` 下放了terminus-font 字体包中的许多字体
+使用setfont font_name可以立即使字体设置生效
+
+
+
+### 切换内核
+linux-lts linux-lts-headers
+驱动 intel: xf86-video-intel
+nvidia-lts
+声音驱动 gpd匹配的
+usbmuxd -usb设备驱动
 
 ## 记录LVM移除卷
 创建 pv - vg - lv
 移除 lv - vg - pv
 如果移除时提示 read-only ：mount -o remount,rw -a (mount -o remount rw /) 以可读写的方式重新挂在所有设备
+>
+> partprobe 同步硬盘更改
+wipefs 擦除分区filesystem标记
 
 
-# 重新记录
-live cd 启动后
-iwctl 连接网络
-timedatectl set-ntp 1 
-reflector
-sudo pacman -Syy
-清除磁盘标记 1: wipefs -a /dev/sda(磁盘名称不是分区)
-建立分区
-boot - 2M BIOS boot
-efi  - 1G EFI System
-swap - 18G Linux swap
-root - 500G Linux LVM
-home - 400G Linux LVM -- home+snapshots
+- [use KVM on pocket 3:Pocket 3 linux: Start kvm module with VLC : GPDPocket ](https://www.reddit.com/r/GPDPocket/comments/sd0pjs/pocket_3_linux_start_kvm_module_with_vlc/)
 
-创建lvm
-pv
-pvc /dev/root_driver_name /dev/home_driver_name
-vg
-vgc Arch /dev/root_driver_name
-vgc homes /dev/home_driver_name
-lv
-lvc -l 100%FREE Arch -n root
-lvc -L 50G homes -n .snapshots
-lvc -l +100%FREE homes -n home
-
-
-格式化
-boot 分区不格式化
-efi - mkfa.fat -F32 /dev/efi_driver_name
-swpa - mkswap /dev/swap_driver_name -L swap
-root - mkfs.xfs /dev/mapper/Arch-root
-home - mkfs.xfs /dev/mapper/homes-home
-.snapshots - mkfs.xfs /dev/mapper/homes-.snapshots
-
-挂载
-mount --mkdir /dev/nvme0n1p2 /mnt/boot/efi
-mount --mkdir /dev/mapper/Arch-root /mnt
-mount --mkdir /dev/mapper/homes-home /mnt/home
-mount --mkdir /dev/mapper/homes-.snapshots /mnt/.snapshots
-
-安装基本系统
+### 关于安装更新时遇到'PGP signature 'marginal trust' errors blocking upgrade'\
+[ PGP signature 'marginal trust' errors blocking upgrade / Newbie Corner / Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=280650)\
+```
+rm -rf /etc/pacman.d/gnupg
 pacman-key --init
-pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware neovim vim networkmanager lvm2 grub efibootmgr dhcpcd bash-completion openssh xfsprogs intel-ucode os-prober
+pacman-key --populate archlinux archlinuxcn
+pacman -Syy
+```
+如果还是有问题，请检查系统时间是否正确
+`# timedatectl set-ntp 1`
+`# hwclock --systohc`
 
-## 重新记录
-文件系统采用btrfs 使用自带snapshots功能
-磁盘划分
-2M boot
-1G EFI
-18G swap
-400G Root - btrfs
-400G home - btrfs
-130G snapshots - btrfs
-
+#### zsh 
+`# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions`
