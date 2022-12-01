@@ -526,3 +526,22 @@ pacman -Syy
 #### zsh 
 `# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions`
 
+#### git && github && ssh key
+[Generating a new SSH key and adding it to the ssh-agent - GitHub Docs](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+```sh
+# 检查 ssh 服务是否运行
+systemctl status sshd
+
+# 创建ssh 密钥，用于Git操作GitHub远程仓库
+ssh-keygen -t ed25519 -C "your_enmail@example.com"
+
+# 在后台启动 ssh 代理(zsh Shell)
+eval "$(ssh-agent -s)"
+
+# 添加已创建的私钥(默认名称)
+ssh-add ~/.ssh/id_ed25519
+
+# 最后将公钥添加到 GitHub 设置中
+## 测试
+ssh -T git@github.com
+```
