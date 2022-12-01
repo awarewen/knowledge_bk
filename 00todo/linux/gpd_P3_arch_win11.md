@@ -390,7 +390,6 @@ echo xrandr -o left > /usr/share/sddm/scripts/Xsetup`
 
 ```
 
-
 ```
 #### 字体引擎
 ```
