@@ -1,6 +1,5 @@
-# gpd Pocket 3
-Time: 2022/11/22
-
+# GPD Pocket 3
+CreateTime: 2022/11/22
 
 ```md
 - 机器型号：  Pocket 3,i7-1195G7 以下简称为 P3
@@ -33,6 +32,9 @@ Time: 2022/11/22
 - [host: Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#Set_the_hostname)
 
 - [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
+## **TIP**
+- [FS#68945：user_readenv # .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
+- [Network configuration  # about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
 
 ---
 > 关于P3固件更新  [GPD Pocket 3 - ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3#Firmware)
@@ -108,110 +110,110 @@ dhcpcd
 
 ### 5. 分区
 
-1T SSD 硬盘分区方案 (使用 cfdisk): 
- |driver_name | part_name   | filesystem | size       | 备注|
+- 1T SSD 硬盘分区方案 (使用 cfdisk): 
+
+ |Driver_name | Part_name   | Filesystem | Size       | 备注|
  |------------|-------------|------------|------------|--
  |nvme0n1p1   | system boot | BIOS boot  |  2M        |启动分区
  |nvme0n1p2   | EFI         | EFI System |  1G        |启动分区
  |nvme0n1p3   | linux swap  | linux swap |  18G       |交换分区
  |nvme0n1p4   | Arch        | Linux LVM  |  剩下的空间|root/home/snapshots
 
+
 1. 创建物理卷标记(PV)
 ```sh
 pvcreate  /dev/nvme0n1p4
-```
-- 检查物理卷
-```sh
- pvdisplay 
 
- pvs
+# 检查物理卷
+pvdisplay 
+
+pvs
 ```
 2. 创建卷组(VG)
 ```sh
 vgcreate Arch /dev/nvme0n1p3
-```
-- 检查：
- ```sh
- vgdisplay
 
- vgs
- ```
+# 检查：
+vgdisplay
+
+vgs
+```
 3. 创建逻辑卷(LV)
 ```sh
 lvcreate -L 400G Arch -n root
 lvcreate -L 400G Arch -n homepool
-lvcreate -l 100%FREE Arch -n .snapshots
-```
-- 检查：
-```sh
+lvcreate -l +100%FREE Arch -n .snapshots
+
+# 检查：
 lvdisplay
 
 lvs
 ```
 4. 格式化分区
 ```sh
- mkfs.vfat /dev/nvme0n1p2
- mkswap /dev/nvme0n1p3
- swapon /dev/nvme0n1p3
- mkfs.btrfs /dev/mapper/Arch-root
- mkfs.btrfs /dev/mapperArch-homepool
+mkfs.vfat /dev/nvme0n1p2
+mkswap /dev/nvme0n1p3
+swapon /dev/nvme0n1p3
+mkfs.btrfs /dev/mapper/Arch-root
+mkfs.btrfs /dev/mapperArch-homepool
 ```
 
 5. 创建btrfs子卷
 ```sh
- mount /dev/mapper/Arch-root /mnt
- cd /mnt
- btrfs subvolume create @
- cd /
- umount /mnt
+mount /dev/mapper/Arch-root /mnt
+cd /mnt
+btrfs subvolume create @
+cd /
+umount /mnt
 ```
 ```sh
- mount /dev/mapper/Arch-.snapshots /mnt
- cd /mnt
- btrfs subvolume create @snapshots
- cd /
- umount /mnt
+mount /dev/mapper/Arch-.snapshots /mnt
+cd /mnt
+btrfs subvolume create @snapshots
+cd /
+umount /mnt
 ```
 ```sh
- mount /dev/mapper/Arch-homepool /mnt
- cd /mnt
- btrfs subvolume create @home
- cd /
- umount /mnt
+mount /dev/mapper/Arch-homepool /mnt
+cd /mnt
+btrfs subvolume create @home
+cd /
+umount /mnt
 ```
 
 8. 挂载
 ```sh
- mount /dev/mapper/Arch-root /mnt -o subvol=@
- mkdir /mnt/boot
- mkdir /mnt/boot/efi
- mount /dev/nvme0n1p2 /mnt/boot/efi
- mkdir /mnt/home
- mount /dev/mapper/Arch-homepool /mnt/home -o subvol=@home
- mkdir /mnt/.snapshots
- mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
+mount /dev/mapper/Arch-root /mnt -o subvol=@
+
+mkdir /mnt/boot
+mount /dev/nvme0n1p2 /mnt/boot
+
+mkdir /mnt/home
+mount /dev/mapper/Arch-homepool /mnt/home -o subvol=@home
+
+mkdir /mnt/.snapshots
+mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
 ```
 > ##### TIP
-`$ mount -o remount,rw -a`将原先是只读的文件系统以可读写的模式重新挂载
+` mount -o remount,rw -a`将原先是只读的文件系统以可读写的模式重新挂载
 
 
 #### 7. 镜像安装
 ```sh
 # 更新镜像
-reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist```
-```
-```sh
+reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist
+
 # 安装基本包
 pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet dhcpcd vim linux-headers bash-completion zsh zsh-completions git openssh base-devel lvm2 xfsprogs intel-ucode amd-ucode os-prober grub
-# os-prober 检测多系统引导
+# @os-prober 
+# --检测多系统引导
 ```
 
 #### 8. 生成分区表
 ```sh
 genfstab -U /mnt >> /mnt/etc/fstab
-```
-检查分区表：
-```sh
+
+# 检查分区表：
 cat /mnt/etc/fstab
 ```
 - 请仔细查对分区表所对应的UUID是否正确，查看是否有漏缺
@@ -223,32 +225,41 @@ arch-chroot /mnt
 #### 10. 配置 LVM 支持和grub
 1. mkinitcpio 钩子
 ```sh
-# vim /etc/mkinitcpio.conf
+vim /etc/mkinitcpio.conf
 __________________________
 'HOOKS=".... lvm2'
+
 ## for btrfs check
 MODULES=(btrfs)
 BINARIES=(btrfs)
 ```
-2. grub 参数
+2. Grub 参数
 - [GRUB (简体中文) - ArchWiki](https://wiki.archlinux.org/title/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#BIOS_%E7%B3%BB%E7%BB%9F)
 ```sh
-# vim /etc/default/grub
+vim /etc/default/grub
 _____________________
 GRUB_PRELOAD_MODULES="... btrfs"
 GRUB_DISABLE_OS_PROBER=false
 GRUB_CMDLINE_LINUX_DEFAULT="... root=/dev/mapper/Arch-root nowatchdog"
+# @nowatchdog
+# --减少关机时需要等待的时间
 ```
 
-3. install grub
+3. Install Grub
 
 ```sh
+# BIOS_boot 
+## 注意留空的 '2M' 未格式化分区，用来存放 'BIOS_boot' 方式启动所需要文件
 grub-install --target=i386-pc /dev/nvme0n1
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch --recheck
-```
+# @'/dev/nvme0n1' 
+# --注意此处为设备名称而非分区名称 'nvme0n1p1'
 
-4. 生成 grub 配置
-```sh
+# UEFI_efi
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch --recheck
+# @'--bootloader-id' 
+# --指定一个显示在 GRUB 菜单的名称
+
+# 生成 Grub 配置
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
@@ -256,41 +267,50 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #### 10. 校正时区
 
 ```sh
- ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+# 设置本地时区
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
- hwclock --systohc
+# 同步硬件时钟
+hwclock --systohc
+ 
 ```
 
 #### 11. 本地化
-将 'en_US.UTF-8 UTF-8' 'zh_CN.UTF-8 UTF-8' 取消注释
 ```sh
- vim /etc/local.gen
- __________________
- # locale-gen 生成locale
- echo "LANG=en_US.UTF-8" >> /etc/locale.conf
- echo "your_hostname" >> /etc/hostname
-```
-设置 hostname 解析，虽然在 systemd 中提供了 NSS 模块无需配置 /etc/hosts 就可以使用本地主机名称解析服务，但是一些程序仍然会依赖于 /etc/hosts 文件 (请见:[Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network))
-```sh
+# 将 'en_US.UTF-8 UTF-8' 'zh_CN.UTF-8 UTF-8' 取消注释
+vim /etc/locale.gen
+locale-gen
+
+# 字符终端不要用 'zh_CN.UTF-8' 会中文乱码
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+
+# 主机名
+echo "your_hostname" >> /etc/hostname
+
+# 设置 hostname 解析
+# systemd 中提供了 NSS 模块无需配置 hosts 就可以使用本地主机名称解析服务
+# 但是一些程序仍然会依赖于 /etc/hosts 文件 
+# --(请见:[Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network))
 127.0.0.1       localhost
 ::1             localhost
-127.0.0.1       your_hostname.localdomain   your_hostname
+127.0.0.1       'your_hostname'.localdomain   'your_hostname'
 ```
 
-#### 12. Root用户和普通用户\
-设置 root 用户密码
+#### 12. Root用户和普通用户
 ```sh
+# 设置 root 用户密码
 passwd root
-```
 
-- 添加普通用户并添加到 wheel 用户组\
-> 创建\
-`$ useradd -m -g users -G wheel,storage,power the_user_name`\
-> 设置密码\
-`$ passwd the_user_name`\
-> 为 wheel 用户组更改用户权限\
-`# EDIOR=vim visudo`\
-> 找到 'Uncomment to allow members of group wheel to execute any command' 将下一行配置取消注释
+# 创建用户并添加到 wheel 用户组
+useradd -m -g users -G wheel,storage,power 'the_user_name'
+
+# 设置密码
+passwd 'the_user_name'
+
+# 为 wheel 用户组更改用户权限
+EDIOR=vim visudo
+# 找到 'Uncomment to allow members of group wheel to execute any command' 将下一行配置取消注释
+```
 
 #### 13. 重启到新系统
 
@@ -410,18 +430,18 @@ EndSection
 #### 19. 开始桌面环境配置
 [从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
 ```sh
-# 安装X11 server
+# 安装 X11_Server
 sudo pacman -S xorg
-# 窗口管理器bspwm 和 快捷键守护进程sxhkd
+# 窗口管理器 bspwm 和快捷键守护进程 sxhkd
 sudo pacman -S bspwm sxhkd
 
-# 将bspwm的实例配置文件拷贝到'.config' 目录下
+# 将 bspwm 的实例配置文件拷贝到 '.config' 目录下
 mkdir ~/.config # .config 目录将作为大部分程序或软件的配置存放目录
 cd ~/.config
 cp /usr/share/doc/bspwm/examples/bspwmrc bspwm/
 cp /usr/share/doc/bspwm/examples/sxhkdrc sxhkd/
 
-# firefox浏览器 rofi应用启动器 kitty终端
+# Firefox浏览器,Rofi应用启动器,Kitty终端
 sudo pacman -S firefox rofi kitty
 
 # 更改 sxhkdrc 配置
@@ -436,27 +456,8 @@ super + space
 sudo reboot
 ```
 
-#### 常用软件/好用的程序
-- = 桌面图形软件
-- ark       # 解压软件
-- dolphin   # 图形文件浏览器
 
-- = 终端下
-- fzf       # 信息过滤 配合fd / find / rg 等
-- fd        # 类似find 
-- tmux      # 终端复用
-- neofetch  # 系统信息打印
-- autojump  # 路径跳转
-- ranger    # 文本文件浏览器
-
-- = 功能支撑
-- ntfs-3g   # 挂载ntfs文件格式硬盘
-- fcitx5    # 输入法支持
-
-# 安装喜欢的终端
-`$ pacman -S kitty`
-
-#### 输入法和字体
+#### 20. 输入法和字体
 ```sh
 # 英文字体
 pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family
@@ -465,15 +466,23 @@ pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-la
 pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei
 ```
 
-<<<<<<< HEAD
-=======
-- fcitx5 输入法框架
-[Fcitx5 - ArchWiki](https://wiki.archlinux.org/title/Fcitx5#Configuration)
+- fcitx5 框架、主题、词库
+    - [Fcitx5 - ArchWiki](https://wiki.archlinux.org/title/Fcitx5#Configuration)
+    - [Environment variables - ArchWiki](https://wiki.archlinux.org/title/Environment_variables#Defining_variables)
 ```sh
 sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-moegirl fcitx5-pinyin-zhwiki
+# @fcitx5-im：基础输入框架
+# @fcitx5-chinese-addons 中文输入引擎
+# @fcitx5-material-color 主题
+# @fcitx5-pinyin-moegirl @fcitx5-pinyin-zhwiki 词库
 
+# 添加运行环境参数
 touch ~/.xprofile # X11
-_______________________
+# @Tip:
+# --不要使用'.pam_environment'
+# --[FS#68945：[at][gdm][pambase] user_readenv 已弃用](https://bugs.archlinux.org/task/68945)
+# --可以使用 '.xprofile','.zprofile','.bash_profile' 进行环境参数配置
+#_______________________
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=\@im=fcitx
@@ -481,12 +490,11 @@ export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus # for kitty terminal
 
-# 自启fcitx5
+# fcitx5 自启
 echo "fcitx5 &" >> ~/.config/bspwm/bspwmrc
->>>>>>> 65ab97727d5c6f7c97a7712fc3c79f102dfc3dc5
 ```
 
-#### 20. 打开字体引擎
+#### 21. 修改字体渲染设置
 ```sh
 vim /etc/profile.d/freetype2.sh
 _______________________________
@@ -545,3 +553,20 @@ ssh-add ~/.ssh/id_ed25519
 ## 测试
 ssh -T git@github.com
 ```
+
+#### 软件/程序推荐
+ ##### 桌面图形软件
+- ark       # 解压软件
+- dolphin   # 图形文件浏览器
+
+ ##### 终端下
+- fzf       # 信息过滤 配合fd / find / rg 等
+- fd        # 类似find 
+- tmux      # 终端复用
+- neofetch  # 系统信息打印
+- autojump  # 路径跳转
+- ranger    # 文本文件浏览器
+
+ ##### 功能支撑
+- ntfs-3g   # 挂载ntfs文件格式硬盘
+- fcitx5    # 输入法支持
