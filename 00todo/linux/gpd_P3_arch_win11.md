@@ -570,3 +570,22 @@ ssh -T git@github.com
  ##### 功能支撑
 - ntfs-3g   # 挂载ntfs文件格式硬盘
 - fcitx5    # 输入法支持
+
+
+# npm 安装
+# 配置国内源
+
+## 终端下代理
+- kitty
+```sh
+# 添加:
+export http_proxy=127.0.0.1:20171
+export https_proxy=127.0.0.1:20170
+export all_proxy=127.0.0.1:20171
+# @all_proxy 是为了让curl也能走代理
+# 否则curl将无法使用
+
+# Tip
+# 如果在删除 proxy 取消设置环境变量不起作用 请用 unset 命令
+unset http_proxy
+```
