@@ -419,6 +419,8 @@ EndSection
 # 90°  Option "TransformationMatrix" "-1 0 1 0 -1 1 0 0 1"
 # 180° Option "TransformationMatrix" "0 -1 1 1 0 0 0 0 1"
 # 270° Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
+
+5. 自动旋转
 ```
 
 5. 字体显示持久化 [vconsole 介绍](https://man.archlinux.org/man/vconsole.conf.5)
