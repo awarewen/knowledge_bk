@@ -32,6 +32,11 @@ CreateTime: 2022/11/22
 - [host: Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#Set_the_hostname)
 
 - [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
+
+- [bspwm 入门 - 哔哩哔哩](https://www.bilibili.com/read/cv7417123)
+
+- [从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
+
 ## **TIP**
 - [FS#68945：user_readenv # .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
 - [Network configuration  # about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
@@ -204,7 +209,7 @@ mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
 reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist
 
 # 安装基本包
-pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet dhcpcd vim linux-headers bash-completion zsh zsh-completions git openssh base-devel lvm2 xfsprogs intel-ucode amd-ucode os-prober grub
+pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet dhcpcd vim neovim linux-headers bash-completion zsh zsh-completions git openssh base-devel lvm2 xfsprogs intel-ucode amd-ucode os-prober grub
 # @os-prober 
 # --检测多系统引导
 ```
@@ -503,6 +508,112 @@ _______________________________
 # 取消注释最后一句
 export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
 ```
+
+#### 22. 合成器
+- [yshui/picom](https://github.com/yshui/picom)
+```sh
+sudo pacman -S picom eww
+# 
+# 使用示例配置
+mkdir ~/.config/picom
+cp /usr/share/doc/picom/picom.conf/example ~/.config/picom/picom.conf
+
+# 添加自启
+echo 'picom &' >> ~/.config/bspwm/bspwmrc
+```
+#### 23. 状态栏
+- 一个不错的EWW入门 [EWW Powermenu - dead airspace] (https://dharmx.is-a.dev/eww-powermenu/)
+- 官方文档[Configuration - eww documentation](https://elkowar.github.io/eww/configuration.html)
+
+```sh
+polybar + eww
+
+# polybar
+sudo pacman -S polybar
+mkdir ~/.config/polybar
+cp /usr/share/doc/polybar/examples/config.ini ~/.config/polybar/
+
+# polybar 启动脚本
+touch ~/.config/polybar/launch.sh
+chmod +x ~/.config/polybar/launch.sh
+nvim ~/.config/polybar/launch.sh  
+________________________________
+#!/bin/bash
+
+# Terminate already running bar instances
+killall -q polybar
+# If all your bars have ipc enabled, you can also use
+# polybar-msg cmd quit
+
+# Launch Polybar, using default config location ~/.config/polybar/config.ini
+# 使用polybar中自定义的example (bar/example)
+polybar example 2>&1 | tee -a /tmp/polybar.log & disown
+
+echo "Polybar launched..."
+_________________________________
+
+# 在bspwmrc 中添加脚本
+echo '$HONE/.config/polybar/launch.sh'
+
+```
+
+
+
+```sh
+# 电源
+acpi
+
+# 声音
+alsa-utils
+
+# 蓝牙
+blueman
+
+brave
+
+# 窗口管理器
+bspwm
+
+colorpicker
+
+# 通知
+dunst
+
+# bar
+eww
+polybar
+
+flameshot
+hsetroot
+imagemagick
+jq
+kitty
+mantablockscreen
+network-manager-appler
+pa-applet
+picom-animations-git
+playerctl
+polkit-gnome
+pulseaudio
+python3
+rofi
+scrot
+sox
+spicetify-cli
+spotify
+sxhkd
+thunar
+wmctrl
+wpgtk
+xclip
+xdotool
+xprintidle
+xwinfo
+
+sysstat
+```
+
+
 ### 切换内核
 linux-lts linux-lts-headers
 驱动 intel: xf86-video-intel
@@ -577,7 +688,7 @@ ssh -T git@github.com
 # npm 安装
 # 配置国内源
 
-## 终端下代理
+## 终端下代理（仍然存在问题）
 - kitty
 ```sh
 # 添加:
@@ -591,3 +702,17 @@ export all_proxy=127.0.0.1:20171
 # 如果在删除 proxy 取消设置环境变量不起作用 请用 unset 命令
 unset http_proxy
 ```
+
+#### SpaceVim
+```sh
+curl -sLf https://spacevim.org/install.sh | bash -s -- -h
+```
+
+#### 记录好看的 dotfile
+- [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
+
+- [rxyhn/tokyo: BSPWM - Aesthetic Dotfiles 🍚](https://github.com/rxyhn/tokyo)
+
+- [ikz87/dots-2.0: eww + bspwm rice c:](https://github.com/ikz87/dots-2.0)
+
+- [owl4ce/dotfiles: Aesthetic OpenboxWM Environment](https://github.com/owl4ce/dotfiles)
