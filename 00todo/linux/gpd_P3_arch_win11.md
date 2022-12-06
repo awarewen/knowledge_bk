@@ -383,6 +383,12 @@ intel: `$ sudo pacman -S xf86-video-intel vulkan-intel`
 $ nvim /etc/modprobe.d/alsa.conf
 -> options snd-intel-dspcfg dsp_driver=1
 sudo pacman -S alsa-utils pulseaudio pulseaudio-bluetooth cups
+
+# 2022 12/7
+# @pulseaudio 被替换
+# -- pipewire pipewire-pulse pipewire-zeroconf lib32-pipewire pipewire-alsa
+# -- & pipewire 管理器选择：wireplumber
+# @cups
 ```
 
 #### 19. 解决 p3 显示，触屏方向问题，字体显示并持久化
@@ -647,7 +653,8 @@ ssh -T git@github.com
 - autojump  # 路径跳转
 - ranger    # 文本文件浏览器
 - go-musicfox # 网易云
-> 需要beep 这个包支持引擎
+> 需要beep 这个包支持引擎 存在问题
+> 
 - cava      # 音乐动画
 
  ##### 功能支撑
