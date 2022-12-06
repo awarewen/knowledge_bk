@@ -509,53 +509,20 @@ _______________________________
 export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
 ```
 
+####  dotfile 
+- [awarewen/dots-2.0] (https://github.com/awarewen/dots-2.0)
+背光，键位映射,
 #### 22. 合成器
-- [yshui/picom](https://github.com/yshui/picom)
-```sh
-sudo pacman -S picom eww
-# 
-# 使用示例配置
-mkdir ~/.config/picom
-cp /usr/share/doc/picom/picom.conf/example ~/.config/picom/picom.conf
+- [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
+- [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
+这个分支的合成器和上流采用合并
 
-# 添加自启
-echo 'picom &' >> ~/.config/bspwm/bspwmrc
-```
-#### 23. 状态栏
-- 一个不错的EWW入门 [EWW Powermenu - dead airspace] (https://dharmx.is-a.dev/eww-powermenu/)
-- 官方文档[Configuration - eww documentation](https://elkowar.github.io/eww/configuration.html)
 
-```sh
-polybar + eww
 
-# polybar
-sudo pacman -S polybar
-mkdir ~/.config/polybar
-cp /usr/share/doc/polybar/examples/config.ini ~/.config/polybar/
-
-# polybar 启动脚本
-touch ~/.config/polybar/launch.sh
-chmod +x ~/.config/polybar/launch.sh
-nvim ~/.config/polybar/launch.sh  
-________________________________
-#!/bin/bash
-
-# Terminate already running bar instances
-killall -q polybar
-# If all your bars have ipc enabled, you can also use
-# polybar-msg cmd quit
-
-# Launch Polybar, using default config location ~/.config/polybar/config.ini
-# 使用polybar中自定义的example (bar/example)
-polybar example 2>&1 | tee -a /tmp/polybar.log & disown
-
-echo "Polybar launched..."
-_________________________________
-
-# 在bspwmrc 中添加脚本
-echo '$HONE/.config/polybar/launch.sh'
-
-```
+#### 23.背光  (待解决)
+brightlight 
+- [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
+和脚本(.bscripts/brightness.sh)配合控制背光
 
 
 
@@ -679,6 +646,9 @@ ssh -T git@github.com
 - neofetch  # 系统信息打印
 - autojump  # 路径跳转
 - ranger    # 文本文件浏览器
+- go-musicfox # 网易云
+> 需要beep 这个包支持引擎
+- cava      # 音乐动画
 
  ##### 功能支撑
 - ntfs-3g   # 挂载ntfs文件格式硬盘
