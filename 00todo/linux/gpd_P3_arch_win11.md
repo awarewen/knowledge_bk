@@ -575,7 +575,20 @@ sox
 spicetify-cli
 spotify
 sxhkd
-thunar
+
+# 支持键盘操作的GUI文件浏览器
+- thunar
+# -- 默认包不显示缩略图，安装 tumbler 显示缩略图
+# -- 一些其他文件的缩略图支持
+# @vedio ：ffmpegthumbnailer
+# @PDF   ：poppler-glib
+#----------------------------
+# 支持移动设备自动挂载需要额外的包
+# @gvfs
+# @gvfs-mtp
+# @gvfs-afc
+
+
 wmctrl
 wpgtk
 xclip
@@ -653,8 +666,8 @@ ssh -T git@github.com
 - autojump  # 路径跳转
 - ranger    # 文本文件浏览器
 - go-musicfox # 网易云
-> 需要beep 这个包支持引擎 存在问题
-> 
+> 需要beep 这个包支持引擎
+ 
 - cava      # 音乐动画
 
  ##### 功能支撑
