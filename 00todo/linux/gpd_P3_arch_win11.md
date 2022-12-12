@@ -208,15 +208,22 @@ mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
 # 更新镜像
 reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist
 
+# 安装archlinux-keyring 刷新密钥
+pacman -Syy archlinux-keyring
 # 安装基本包
-pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet dhcpcd vim neovim linux-headers bash-completion zsh zsh-completions git openssh base-devel lvm2 xfsprogs intel-ucode amd-ucode os-prober grub
+pacstrap -k /mnt base linux linux-firmware networkmanager network-manager-applet\
+                  dhcpcd vim neovim linux-headers bash-completion zsh\
+                  git openssh base-devel lvm2 btrfs-progs\
+                  intel-ucode  efibootmgr grub
+# ~btrfs-progs~
+# ~xfsprogs~
 # @os-prober 
 # --检测多系统引导
 ```
 
 #### 8. 生成分区表
 ```sh
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstb -U /mnt >> /mnt/etc/fstab
 
 # 检查分区表：
 cat /mnt/etc/fstab
@@ -233,6 +240,7 @@ arch-chroot /mnt
 vim /etc/mkinitcpio.conf
 __________________________
 'HOOKS=".... lvm2'
+# @ HOOKS="... lvm2 filesystems"请在filesystems 前面添加 lvm2模块加载
 
 ## for btrfs check
 MODULES=(btrfs)
@@ -317,15 +325,17 @@ EDIOR=vim visudo
 # 找到 'Uncomment to allow members of group wheel to execute any command' 将下一行配置取消注释
 ```
 
-#### 13. 重启到新系统
-
 #### 14. 安装桌面前的准备
 ```sh
 # 提供基本的用户文件管理服务 [xdg-用户目录](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)
 sudo pacman -S xdg-user-dirs
 
 # 安装sddm
-sudo pacman -S sddm
+```sh
+sudo pacman -S sddm xorg
+# @ 安装的时候可以选择noto-font字体已获得完整Unicode覆盖范围的Google字体系列 可以选择安装emoji cjk extra三个对应的可选依赖项
+```
+
 ```
 #### 15. systemed ：一些必要的服务配置
 - disable dhcpcd
@@ -435,6 +445,7 @@ EndSection
 ```
 
 5. 字体显示持久化 [vconsole 介绍](https://man.archlinux.org/man/vconsole.conf.5)
+- 请安装 terminus-font
 - 创建打开 `/etc/vconsole.conf` 添加 `FONT=ter-u32b` \
 在 `/usr/share/kbd/consolefonts/` 下放了 `terminus-font` 字体包中的许多字体
 使用 `setfont 'font_name'` 可以立即使字体设置生效
@@ -443,8 +454,6 @@ EndSection
 #### 19. 开始桌面环境配置
 [从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
 ```sh
-# 安装 X11_Server
-sudo pacman -S xorg
 # 窗口管理器 bspwm 和快捷键守护进程 sxhkd
 sudo pacman -S bspwm sxhkd
 
@@ -476,7 +485,9 @@ sudo reboot
 pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family
 
 # 中文字体
-pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei
+pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts \
+          adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts \
+          adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei
 ```
 
 - fcitx5 框架、主题、词库
@@ -517,6 +528,16 @@ export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
 
 ####  dotfile 
 - [awarewen/dots-2.0] (https://github.com/awarewen/dots-2.0)
+```
+yay -Sy acpi alsa-utils-git blueman brave-bin bspwm colorpicker dunst eww-git flameshot hsetroot imagemagick jq kitty
+mantablockscreen network-manager-applet pa-applet-git  playerctl
+polkit-gnome polybar pulseaudio python3 rofi scrot sox spicetify-cli spotify sxhkd thunar 
+wmctrl wpgtk-git xclip xdotool xprintidle  --needed
+
+# @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
+# @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
+```
+
 背光，键位映射,
 #### 22. 合成器
 - [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
@@ -631,7 +652,7 @@ pacman -Syy
 `# hwclock --systohc`
 
 #### zsh 
-`# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions`
+`# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions   `
 
 #### git && github && ssh key
 [Generating a new SSH key and adding it to the ssh-agent - GitHub Docs](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
