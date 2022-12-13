@@ -37,6 +37,10 @@
       User git                    #   使用名称
       IdentityFile ~/.ssh/id_rsa  #   私钥
 
+#   将每个私钥添加到钥匙环
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+
 #   如果还是不行请检查密钥的文件权限
 #   @ '.ssh' 权限为 '700'
 #   @ 'authorized_key' 权限为 '600'
