@@ -402,7 +402,7 @@ sudo pacman -S alsa-utils pulseaudio pulseaudio-bluetooth cups
 ```
 
 #### 19. 解决 p3 显示，触屏方向问题，字体显示并持久化
-[GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
+- [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
 1. 在TTY界面下的显示方向
 - 临时解决方案
 > `echo 1 > /sys/class/graphics/fbcon/rotate_all`
@@ -414,6 +414,9 @@ GRUB_CMDLINE_LINUX="... fbcon=rotate:1"
 GRUB_GFXMODE=1200x1920x32
 # 重新生成grub启动配置
 sudo grub-mkconfig -0 /boot/grub/grub.cfg
+
+# Tip
+# -- 这并没能将Grub菜单旋转，等待修复
 ```
 2. 在SDDM界面
 ```sh
@@ -674,52 +677,56 @@ ssh-add ~/.ssh/id_ed25519
 ssh -T git@github.com
 ```
 
-#### 软件/程序推荐
- ##### 桌面图形软件
-- ark       # 解压软件
-- dolphin   # 图形文件浏览器
+####  软件/程序推荐
+```sh
+ #    桌面图形软件
+-     ark       #       解压软件
+-     dolphin   #       图形文件浏览器
+-     telegram-desktop# 
+#     >     需要去项目地址下载编译 
 
- ##### 终端下
-- fzf       # 信息过滤 配合fd / find / rg 等
-- fd        # 类似find 
-- tmux      # 终端复用
-- neofetch  # 系统信息打印
-- autojump  # 路径跳转
-- ranger    # 文本文件浏览器
-- go-musicfox # 网易云
-> 需要beep 这个包支持引擎
+ #    终端下
+-     fzf       #       信息过滤 配合fd / find / rg 等
+-     fd        #       类似find 
+-     tmux      #       终端复用
+-     neofetch  #       系统信息打印
+-     autojump  #       路径跳转
+-     ranger    #       文本文件浏览器
+
+-     go-musicfox #     网易云
+#     >     需要beep 这个包支持引擎
  
-- cava      # 音乐动画
+-     cava      #       音乐动画
 
- ##### 功能支撑
-- ntfs-3g   # 挂载ntfs文件格式硬盘
-- fcitx5    # 输入法支持
-
-
-# npm 安装
-# 配置国内源
-
-## 终端下代理（仍然存在问题）
-- kitty
-```sh
-# 添加:
-export http_proxy=127.0.0.1:20171
-export https_proxy=127.0.0.1:20170
-export all_proxy=127.0.0.1:20171
-# @all_proxy 是为了让curl也能走代理
-# 否则curl将无法使用
-
-# Tip
-# 如果在删除 proxy 取消设置环境变量不起作用 请用 unset 命令
-unset http_proxy
+ #    功能支撑
+-     ntfs-3g   #       挂载ntfs文件格式硬盘
+-     fcitx5    #       输入法支持
+-     grub-custiomizer# 修改grub菜单启动界面
 ```
 
-#### SpaceVim
+#     npm 安装
+#     配置国内源
+
+##    终端下代理（仍然存在问题，暂时放弃此方案）
 ```sh
-curl -sLf https://spacevim.org/install.sh | bash -s -- -h
+#     kitty终端下
+#     添加:
+      export http_proxy=127.0.0.1:20171
+      export https_proxy=127.0.0.1:20170
+      export all_proxy=127.0.0.1:20171
+#     @all_proxy 是为了让curl也能走代理
+
+#     Tip
+#     如果在删除 proxy 取消设置环境变量不起作用 请用 unset 命令
+      unset http_proxy
 ```
 
-#### 记录好看的 dotfile
+####  SpaceVim
+```sh
+      curl -sLf https://spacevim.org/install.sh | bash -s -- -h
+```
+
+####  记录好看的 dotfile
 - [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
 
 - [rxyhn/tokyo: BSPWM - Aesthetic Dotfiles 🍚](https://github.com/rxyhn/tokyo)
@@ -727,3 +734,16 @@ curl -sLf https://spacevim.org/install.sh | bash -s -- -h
 - [ikz87/dots-2.0: eww + bspwm rice c:](https://github.com/ikz87/dots-2.0)
 
 - [owl4ce/dotfiles: Aesthetic OpenboxWM Environment](https://github.com/owl4ce/dotfiles)
+
+####  firefox主题更改计划
+####  终端美化
+####  vim/neovim
+
+####  电源管理
+后续准备更新到tlp而不使用acpi
+
+####  所有待解决问题  
+- 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
+- 无法自动旋转
+- firefox触控不正常
+- 手写笔还未尝试
