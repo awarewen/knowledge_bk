@@ -689,6 +689,7 @@ ssh -T git@github.com
 -     fzf       #       信息过滤 配合fd / find / rg 等
 -     fd        #       类似find 
 -     tmux      #       终端复用
+#     >     
 -     neofetch  #       系统信息打印
 -     autojump  #       路径跳转
 -     ranger    #       文本文件浏览器
