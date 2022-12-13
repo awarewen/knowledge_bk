@@ -9,32 +9,36 @@
 ##  连接服务器
 ```sh
 #   连接到服务器
-    ssh device_name@ip
+    ssh 'device_name@ip'
 
 #   生成一对密钥
-    ssh-keygen -f key_name
+    ssh-keygen -f 'key_name'
 
 #   将公钥发送到服务器
-    ssh-copy-id -i ~/.ssh/key_name.pub device_name@ip
+    ssh-copy-id -i ~/.ssh/'key_name.pub' 'device_name@ip'
 #   -- 服务端将公钥存储在~/.ssh/authorized_keys
 ```
-### 现在仍然存在问题
+### 为每个key添加配置模板
 ```sh
-#   在将ssh公钥发送给服务端后仍然需要输入密码
+#   修改sshd_config配置
     /etc/ssh/sshd_config 
     ____________________
-    PermitRootLogin yes
-    PasswordAuthentication yes
+    PermitRootLogin yes  
     StrictModes no
-    PubkeyAuthentication yes 
-#   按照上述服务端配置检查
+    PubkeyAuthentication yes
+    AuthorizedKeysFile .ssh/authorized_keys
+    PasswordAuthentication yes
+
+#   为每个KEY添加ssh_config模板
+    /etc/ssh/ssh_config
+    ____________________
+    Host  Github
+      HostName github.com         #   服务地址
+      User git                    #   使用名称
+      IdentityFile ~/.ssh/id_rsa  #   私钥
 
 #   如果还是不行请检查密钥的文件权限
 #   @ '.ssh' 权限为 '700'
 #   @ 'authorized_key' 权限为 '600'
-#   -- 这是为了防止除了密钥的拥有用户外的其他用户无法更改密钥文件
-
-#   最后检查客户端的私钥文件是否被添加到钥匙环中
-    eval "$(ssh-agent -s)"
-    ssh-add '私钥'
+#   -- 这是为了防止除了密钥的拥有用户外的其他用户更改密钥文件
 ```
