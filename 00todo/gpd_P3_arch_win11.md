@@ -13,7 +13,7 @@ CreateTime: 2022/11/22
 ## **参考:**
 - [Arch-Install-Note/arch安装,lvm+btrfs+zfs.md at main · a15355447898a/Arch-Install-Note · GitHub](https://github.com/a15355447898a/Arch-Install-Note/blob/main/arch%E5%AE%89%E8%A3%85%2Clvm%2Bbtrfs%2Bzfs.md)
 
-- [Arch linux 202208版本安装实录_Kong_Sir的博客-CSDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
+- [Arch linux 202209版本安装实录_Kong_Sir的博客-CSDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
 
 - [2022.5 archlinux详细安装过程 - 知乎](https://zhuanlan.zhihu.com/p/513859236)
 
@@ -742,6 +742,10 @@ ssh -T git@github.com
 
 ####  电源管理
 后续准备更新到tlp而不使用acpi
+```
+#
+
+```
 
 ####  所有待解决问题  
 - 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
