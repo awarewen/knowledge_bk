@@ -13,7 +13,7 @@ CreateTime: 2022/11/22
 ## **参考:**
 - [Arch-Install-Note/arch安装,lvm+btrfs+zfs.md at main · a15355447898a/Arch-Install-Note · GitHub](https://github.com/a15355447898a/Arch-Install-Note/blob/main/arch%E5%AE%89%E8%A3%85%2Clvm%2Bbtrfs%2Bzfs.md)
 
-- [Arch linux 202208版本安装实录_Kong_Sir的博客-CSDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
+- [Arch linux 202209版本安装实录_Kong_Sir的博客-CSDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
 
 - [2022.5 archlinux详细安装过程 - 知乎](https://zhuanlan.zhihu.com/p/513859236)
 
@@ -531,7 +531,7 @@ export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
 
 ####  dotfile 
 - [awarewen/dots-2.0] (https://github.com/awarewen/dots-2.0)
-```
+```sh
 yay -Sy acpi alsa-utils-git blueman brave-bin bspwm colorpicker dunst eww-git flameshot hsetroot imagemagick jq kitty
 mantablockscreen network-manager-applet pa-applet-git  playerctl
 polkit-gnome polybar pulseaudio python3 rofi scrot sox spicetify-cli spotify sxhkd thunar 
@@ -539,24 +539,15 @@ wmctrl wpgtk-git xclip xdotool xprintidle  --needed
 
 # @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
 # @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
-```
 
-背光，键位映射,
-#### 22. 合成器
-- [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
-- [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
-这个分支的合成器和上流采用合并
+# 这个dot配置的依赖
 
-
-
-#### 23.背光  (待解决)
-brightlight 
-- [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
-和脚本(.bscripts/brightness.sh)配合控制背光
+# 一个用python和Qt编写的弹出通知工具
+pop_report
+# 依赖：pyqt5 argparse inotify
+# 使用pip安装这些依赖
 
 
-
-```sh
 # 电源
 acpi
 
@@ -571,6 +562,7 @@ brave
 # 窗口管理器
 bspwm
 
+# 颜色拾取
 colorpicker
 
 # 通知
@@ -623,6 +615,25 @@ xwinfo
 sysstat
 ```
 
+#### 22. 合成器
+- [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
+- [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
+这个分支的合成器和上流采用合并
+
+
+
+#### 23.屏幕亮度背光  
+```sh
+yay -S light
+
+# 在sxhkd 配置中修改brightlight 为
+sudo light -A 5
+sudo light -U 5
+```
+brightlight (弃用)
+- [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
+和脚本(.bscripts/brightness.sh)配合控制背光
+
 
 ### 切换内核
 linux-lts linux-lts-headers
@@ -656,6 +667,8 @@ pacman -Syy
 
 #### zsh 
 `# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions   `
+- Z-shell
+- zsh-zi-mode
 
 #### git && github && ssh key
 [Generating a new SSH key and adding it to the ssh-agent - GitHub Docs](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -746,9 +759,27 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 
 ####  电源管理
 后续准备更新到tlp而不使用acpi
+└─# nano /etc/tlp.conf
+```
+CPU_SCALING_GOVERNOR_ON_AC=powersave 
+CPU_SCALING_GOVERNOR_ON_BAT=powersave
+CPU_ENERGY_PERF_POLICY_ON_BAT=power
+CPU_BOOST_ON_AC=1 
+CPU_BOOST_ON_BAT=0
+PLATFORM_PROFILE_ON_AC=performance 
+PLATFORM_PROFILE_ON_BAT=low-power
+DISK_IOSCHED="mq-deadline"
+PCIE_ASPM_ON_AC=default 
+PCIE_ASPM_ON_BAT=powersupersave
+```
+#
+
+```
 
 ####  所有待解决问题  
 - 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
 - 无法自动旋转
 - firefox触控不正常
 - 手写笔还未尝试
+
+#### 修复合盖后休眠
