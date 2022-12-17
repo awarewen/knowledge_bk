@@ -666,7 +666,6 @@ systemctl status sshd
 # 创建ssh 密钥，用于Git操作GitHub远程仓库
 ssh-keygen -t ed25519 -C "your_enmail@example.com"
 
-# 在后台启动 ssh 代理(zsh Shell)
 eval "$(ssh-agent -s)"
 
 # 添加已创建的私钥(默认名称)
@@ -675,6 +674,11 @@ ssh-add ~/.ssh/id_ed25519
 # 最后将公钥添加到 GitHub 设置中
 ## 测试
 ssh -T git@github.com
+
+# 实现多个密钥的加载，需要在.zshrc中添加
+eval "$(ssh-agent -s)" &> /dev/null
+ssh-add ~/.ssh/id_ed25519 &> /dev/null
+ssh-add ~/.ssh/id_2 &> /dev/null
 ```
 
 ####  软件/程序推荐
