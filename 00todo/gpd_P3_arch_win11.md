@@ -1,45 +1,45 @@
-# GPD Pocket 3
+#       GPD Pocket 3
 CreateTime: 2022/11/22
 
-```md
-- 机器型号：  Pocket 3,i7-1195G7 以下简称为 P3
-- 仅安装      ArchLinux 系统(非双系统)
-- 启动方式：  EFI+bios
-- 文件系统：  lvm+btrfs+zfs
-- 桌面：      bspwm
+```sh
+        - 机器型号：  Pocket 3,i7-1195G7 以下简称为 P3
+        - 仅安装      ArchLinux 系统(非双系统)
+        - 启动方式：  EFI+bios
+        - 文件系统：  lvm+btrfs+zfs
+        - 桌面：      bspwm
 ```
 [TOC]
 ---
 ## **参考:**
-- [Arch-Install-Note/arch安装,lvm+btrfs+zfs.md at main · a15355447898a/Arch-Install-Note · GitHub](https://github.com/a15355447898a/Arch-Install-Note/blob/main/arch%E5%AE%89%E8%A3%85%2Clvm%2Bbtrfs%2Bzfs.md)
+-  [Arch-Install-Note/arch安装,lvm+btrfs+zfs -----------GitHub](https://github.com/a15355447898a/Arch-Install-Note/blob/main/arch%E5%AE%89%E8%A3%85%2Clvm%2Bbtrfs%2Bzfs.md)
 
-- [Arch linux 202209版本安装实录_Kong_Sir的博客-CSDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
+- [Arch linux 202209版本安装实录--------------------------SDN博客](https://blog.csdn.net/zo2k123/article/details/126325231)
 
-- [2022.5 archlinux详细安装过程 - 知乎](https://zhuanlan.zhihu.com/p/513859236)
+- [2022.5 archlinux详细安装过程--------------------------- 知乎](https://zhuanlan.zhihu.com/p/513859236)
 
-- [Arch Linux 安装教程（基础安装篇） - 哔哩哔哩](https://www.bilibili.com/read/cv16392057)
+- [Arch Linux 安装教程（基础安装篇）------------------- 哔哩哔哩](https://www.bilibili.com/read/cv16392057)
 
-- [安装Arch Linux【2022.09.10】 - 知乎](https://zhuanlan.zhihu.com/p/112541071)
+- [安装Arch Linux【2022.09.10】--------------------------知乎](https://zhuanlan.zhihu.com/p/112541071)
 
-- [Installation guide - ArchWiki](https://wiki.archlinux.org/title/Installation_guide)
+- [Installation guide--------------------------------------------ArchWiki](https://wiki.archlinux.org/title/Installation_guide)
 
-- [在 LVM 上安装 Arch Linux - ArchWiki](https://wiki.archlinux.org/title/Install_Arch_Linux_on_LVM)
+- [在 LVM 上安装 Arch Linux---------------------------------ArchWiki](https://wiki.archlinux.org/title/Install_Arch_Linux_on_LVM)
 
-- [ArchWiki:GPD_pocket_3](https://wiki.archlinux.org/title/GPD_Pocket_3)
+- [ArchWiki:GPD_pocket_3-----------------------------------ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3)
 
-- [mount-oremountrw命令 - 百度文库](https://wenku.baidu.com/view/f82936054b2fb4daa58da0116c175f0e7cd119c8.html?_wkts_=1669002848566&bdQuery=mount+-o+umount+rw+%2F)
+- [mount-oremountrw命令----------------------------------百度文库](https://wenku.baidu.com/view/f82936054b2fb4daa58da0116c175f0e7cd119c8.html?_wkts_=1669002848566&bdQuery=mount+-o+umount+rw+%2F)
 
-- [host: Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#Set_the_hostname)
+- [host: Network configuration - --------------------------ArchWiki](https://wiki.archlinux.org/title/Network_configuration#Set_the_hostname)
 
-- [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
+- [ defencore/gpd-pocket-3-linux--------------------------GitHub](https://github.com/defencore/gpd-pocket-3-linux)
 
-- [bspwm 入门 - 哔哩哔哩](https://www.bilibili.com/read/cv7417123)
+- [bspwm 入门 ---------------------------------------------------哔哩哔哩](https://www.bilibili.com/read/cv7417123)
 
-- [从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
+- [从零开始的Bspwm安装与配置教程---------------------知乎](https://zhuanlan.zhihu.com/p/568211941)
 
-## **TIP**
-- [FS#68945：user_readenv # .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
-- [Network configuration  # about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
+##      **TIP**
+- [FS#68945：user_readenv --------------------------------# .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
+- [Network configuration  ------------------------------------# about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
 
 ---
 > 关于P3固件更新  [GPD Pocket 3 - ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3#Firmware)
@@ -47,7 +47,7 @@ CreateTime: 2022/11/22
  P3 不支持 fwupd 更新固件，目前仅支持通过 Windows 程序提供固件更新 \
  由于硬件驱动问题 手写笔(Digitizer) 有部分功能支持不完善，指纹传感器(Fingerprint Sensor)不支持
 
-##  安装前准备
+##      安装前准备
 - arch linux镜像---[推荐在arch官网下载](https://archlinux.org/download/)
 - [ventoy](https://github.com/ventoy/Ventoy.git) 启动盘制作工具
 - U盘
@@ -62,142 +62,135 @@ CreateTime: 2022/11/22
 
 1. 临时改变显示方向，并解决 TTY 字体过小---[linux console](https://wiki.archlinux.org/title/Linux_console_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)) （安装完基础系统后会有持久化的方法）
     - P3 屏幕默认是逆时针旋转90度显示，因为 P3 显示屏是专为纵向设备设计的
-    ```sh
+```sh
     echo 1 > /sys/class/graphics/fbcon/rotate_all
 
     setfont ter-u32b
-    ```
-
-### 3. 连接网络
-  > 以下所使用的命令都是安装镜像预配置和启用的
----
-- 有线连接使用 DHCP 获取 ip 和 DNS
-```sh
-dhcpcd
 ```
 
-- 无线网\
-  使用 ip-link 查看网卡状态 
-  ```sh
-  ip link
-  ```
-  - 如果无线网卡被禁用，使用 rfkill 解除限制 [ArchWiki_rfkill](https://wiki.archlinux.org/title/Network_configuration/Wireless#Rfkill_caveat)
+### 3. 连接网络
+>   以下所使用的命令都是安装镜像预配置和启用的
+---
 
-  使用 iwctl 扫描并连接 wifi\
- ```station wlan0 connect SSID ```
+```sh
+#   有线连接
+#   使用 DHCP 获取 ip 和 DNS
+    dhcpcd
+
+#   无线网
+#   使用 ip-link 查看网卡状态 
+    ip link
+```
+- 如果无线网卡被禁用，使用 rfkill 解除限制 [ArchWiki_rfkill](https://wiki.archlinux.org/title/Network_configuration/Wireless#Rfkill_caveat)
+
 
  ```sh
- # 查看网卡名称(Driver Name)
- device list
+#   使用 iwctl 扫描并连接 wifi
+#   查看网卡名称(Driver Name)
+    device list
 
- # 扫描 wifi
- station 'DeviceName' scan
+#   扫描 wifi
+    station 'DeviceName' scan
 
- # 显示扫描结果
- station 'DeviceName' get-networks
+#   显示扫描结果
+    station 'DeviceName' get-networks
 
- # 连接wifi 
- station 'DeviceName' connect 'SSID-Wifi-Name'
+#   连接wifi 
+    station 'DeviceName' connect 'SSID-Wifi-Name'
 
- # 连接隐藏 wifi
- ## 扫描获取目标AP设备的MAC 
- station 'DeviceName' get-hidden-access-points
- ## 使用MAC连接 
- station 'DeviceName' connect 'AP-MAC'
+#   连接隐藏 wifi
+##  扫描获取目标AP设备的MAC 
+    station 'DeviceName' get-hidden-access-points
+##  使用MAC连接 
+    station 'DeviceName' connect 'AP-MAC'
 ```
 
 - 拨号连接(PPP/PPPOE) (待考证)
-> 使用 `$ pppoe-setup` 填写你的配置，启动 `$ pppoe-start`，关闭 `$ pppoe-stop`
+> 使用 `pppoe-setup` 填写你的配置，启动 `pppoe-start`，关闭 `pppoe-stop`
 
 ### 4. 更新系统时钟
-`$ timedatectl set-ntp true`
-如果不进行此步可能造成后续下载基本系统失败
+```sh
+#    如果不进行此步可能造成后续下载基本系统失败
+     timedatectl set-ntp true
+```
 
 ### 5. 分区
 
 - 1T SSD 硬盘分区方案 (使用 cfdisk): 
 
- |Driver_name | Part_name   | Filesystem | Size       | 备注|
- |------------|-------------|------------|------------|--
- |nvme0n1p1   | system boot | BIOS boot  |  2M        |启动分区
- |nvme0n1p2   | EFI         | EFI System |  1G        |启动分区
- |nvme0n1p3   | linux swap  | linux swap |  18G       |交换分区
- |nvme0n1p4   | Arch        | Linux LVM  |  剩下的空间|root/home/snapshots
+     |Driver_name | Part_name   | Filesystem | Size       | 备注|
+     |------------|-------------|------------|------------|--
+     |nvme0n1p1   | system boot | BIOS boot  |  2M        |启动分区
+     |nvme0n1p2   | EFI         | EFI System |  1G        |启动分区
+     |nvme0n1p3   | linux swap  | linux swap |  18G       |交换分区
+     |nvme0n1p4   | Arch        | Linux LVM  |  剩下的空间|root/home/snapshots
 
 
-1. 创建物理卷标记(PV)
 ```sh
-pvcreate  /dev/nvme0n1p4
+#   创建物理卷标记(PV)
+    pvcreate  /dev/nvme0n1p4
 
-# 检查物理卷
-pvdisplay 
+#   检查物理卷
+    pvdisplay 
+    pvs
 
-pvs
-```
-2. 创建卷组(VG)
-```sh
-vgcreate Arch /dev/nvme0n1p3
+#   创建卷组(VG)
+    vgcreate Arch /dev/nvme0n1p3
 
-# 检查：
-vgdisplay
+#   检查：
+    vgdisplay
+    vgs
 
-vgs
-```
-3. 创建逻辑卷(LV)
-```sh
-lvcreate -L 400G Arch -n root
-lvcreate -L 400G Arch -n homepool
-lvcreate -l +100%FREE Arch -n .snapshots
+#   创建逻辑卷(LV)
 
-# 检查：
-lvdisplay
+    lvcreate -L 400G Arch -n root
+    lvcreate -L 400G Arch -n homepool
+    lvcreate -l +100%FREE Arch -n .snapshots
 
-lvs
-```
-4. 格式化分区
-```sh
-mkfs.vfat /dev/nvme0n1p2
-mkswap /dev/nvme0n1p3
-swapon /dev/nvme0n1p3
-mkfs.btrfs /dev/mapper/Arch-root
-mkfs.btrfs /dev/mapperArch-homepool
-```
+    # 检查：
+    lvdisplay
 
-5. 创建btrfs子卷
-```sh
-mount /dev/mapper/Arch-root /mnt
-cd /mnt
-btrfs subvolume create @
-cd /
-umount /mnt
-```
-```sh
-mount /dev/mapper/Arch-.snapshots /mnt
-cd /mnt
-btrfs subvolume create @snapshots
-cd /
-umount /mnt
-```
-```sh
-mount /dev/mapper/Arch-homepool /mnt
-cd /mnt
-btrfs subvolume create @home
-cd /
-umount /mnt
-```
+    lvs
 
-8. 挂载
-```sh
-mount /dev/mapper/Arch-root /mnt -o subvol=@
+    4. 格式化分区
 
-mkdir /mnt/boot
-mount /dev/nvme0n1p2 /mnt/boot
+    mkfs.vfat /dev/nvme0n1p2
+    mkswap /dev/nvme0n1p3
+    swapon /dev/nvme0n1p3
+    mkfs.btrfs /dev/mapper/Arch-root
+    mkfs.btrfs /dev/mapperArch-homepool
 
-mkdir /mnt/home
-mount /dev/mapper/Arch-homepool /mnt/home -o subvol=@home
+    5. 创建btrfs子卷
 
-mkdir /mnt/.snapshots
-mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
+    mount /dev/mapper/Arch-root /mnt
+    cd /mnt
+    btrfs subvolume create @
+    cd /
+    umount /mnt
+
+    mount /dev/mapper/Arch-.snapshots /mnt
+    cd /mnt
+    btrfs subvolume create @snapshots
+    cd /
+    umount /mnt
+
+    mount /dev/mapper/Arch-homepool /mnt
+    cd /mnt
+    btrfs subvolume create @home
+    cd /
+    umount /mnt
+
+    8. 挂载
+    mount /dev/mapper/Arch-root /mnt -o subvol=@
+
+    mkdir /mnt/boot
+    mount /dev/nvme0n1p2 /mnt/boot
+
+    mkdir /mnt/home
+    mount /dev/mapper/Arch-homepool /mnt/home -o subvol=@home
+
+    mkdir /mnt/.snapshots
+    mount /dev/mapper/Arch-.snapshots /mnt/.snapshots -o subvol=@snapshots
 ```
 > ##### TIP
 ` mount -o remount,rw -a`将原先是只读的文件系统以可读写的模式重新挂载
