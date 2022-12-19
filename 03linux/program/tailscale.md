@@ -28,5 +28,13 @@ tailscale 内置了 taildrop 可以在设备间传输文件，tailscale是一个
 
 3. 代理 （有点麻烦暂时不考虑）
 
-## tailscale 会和 git抢占端
+## tailscale 会和 git抢占端口?
 这就造成了git push clone pull 等操作失败
+修复此问题 修改了访问GITHUB的ssh端口为443解决问题
+```sh
+/etc/ssh/ssh_config
+___________________
+Host github
+  Hostname github.com
+  Port 443
+```
