@@ -1,6 +1,7 @@
 # tailscale
-[laisky-blog: 近期折腾 tailscale 的一些心得](https://blog.laisky.com/p/tailscale/)
-VPN
+- [laisky-blog: 近期折腾 tailscale 的一些心得](https://blog.laisky.com/p/tailscale/)
+- [Tailscale 基础教程：Headscale 的部署方法和使用教程 – 云原生实验室 ](https://icloudnative.io/posts/how-to-set-up-or-migrate-headscale/)
+
 ## WireGuard
 wireguard 中的每个节点都会存储其他所有节点的信息，并和其他所有的节点都建立
 tls连接。如果涉及到内网穿透的话，那就需要一台处于网关位置的节点，内外网都可达
@@ -26,3 +27,6 @@ tailscale 内置了 taildrop 可以在设备间传输文件，tailscale是一个
 2. 远程开发
 
 3. 代理 （有点麻烦暂时不考虑）
+
+## tailscale 会和 git抢占端
+这就造成了git push clone pull 等操作失败
