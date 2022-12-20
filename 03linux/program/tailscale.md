@@ -38,3 +38,22 @@ Host github
   Hostname github.com
   Port 443
 ```
+
+## 内网穿透
+### 开启Arch linux ip转发，将这台设备作为子网路由
+
+```sh
+# 使用systemd
+echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+```
+
+## 文件传输
+```sh
+# 文件发送端
+sudo tialscale file cp FILE_PATH DEVICE:
+
+# 文件接收端
+sudo tailscale file get SAVE_PATH
+```
