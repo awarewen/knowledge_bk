@@ -703,6 +703,12 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 -     neofetch  #       系统信息打印
 -     autojump  #       路径跳转
 -     ranger    #       文本文件浏览器
+#     编辑器
+-     Emacs     #       支持多功能拓展的终端编辑器
+      >DOOM Emacs
+      >
+-     vim/vi/neovim#    终端下专注于编辑的富文本编辑器
+      >SpaceVim
 
 -     go-musicfox #     网易云
 #     >     需要beep 这个包支持引擎
