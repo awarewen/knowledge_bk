@@ -57,3 +57,11 @@ sudo tialscale file cp FILE_PATH DEVICE:
 # 文件接收端
 sudo tailscale file get SAVE_PATH
 ```
+
+## 开启tailscale后没有网络
+可能是dns被tailscale的dns配置覆盖了
+
+```sh
+# 关闭tailscale的dns使用本地dns
+sudo tailscale up --accept-dns=false --accept-route
+```
