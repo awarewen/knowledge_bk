@@ -622,6 +622,9 @@ yay -S light
 # 在sxhkd 配置中修改brightlight 为
 sudo light -A 5
 sudo light -U 5
+
+
+# light 和 dots-2.0中的通知脚本配置
 ```
 brightlight (弃用)
 - [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
