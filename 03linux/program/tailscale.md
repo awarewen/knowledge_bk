@@ -2,6 +2,13 @@
 - [laisky-blog: 近期折腾 tailscale 的一些心得](https://blog.laisky.com/p/tailscale/)
 - [Tailscale 基础教程：Headscale 的部署方法和使用教程 – 云原生实验室 ](https://icloudnative.io/posts/how-to-set-up-or-migrate-headscale/)
 
+## 安装
+```sh
+yay -S tailscale
+s systemctl start tailscaled.service
+s systemctl up
+# 进入配置网页进行登陆
+```
 ## WireGuard
 wireguard 中的每个节点都会存储其他所有节点的信息，并和其他所有的节点都建立
 tls连接。如果涉及到内网穿透的话，那就需要一台处于网关位置的节点，内外网都可达

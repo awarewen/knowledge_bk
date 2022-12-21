@@ -712,6 +712,9 @@ ssh-add ~/.ssh/id_2 &> /dev/null
       >
 -     vim/vi/neovim#    终端下专注于编辑的富文本编辑器
       >SpaceVim
+#     VPN
+-     tailscale #       点对点的外网穿透
+-     v2raya    #       xray 内核的客户端程序
 
 -     go-musicfox #     网易云
 #     >     需要beep 这个包支持引擎
