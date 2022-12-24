@@ -377,6 +377,7 @@ sudo pacman -S bat asp
 #### 18. 驱动
 - 显示
 intel: `$ sudo pacman -S xf86-video-intel vulkan-intel`
+# xf86-video-intel: 默认使用的是mesa驱动，可能会照成firefox画面撕裂 
 
 - 蓝牙
 `$ sudo pacman -S bluedevil`
@@ -629,7 +630,14 @@ sudo light -U 5
 brightlight (弃用)
 - [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
 和脚本(.bscripts/brightness.sh)配合控制背光
+	~/.bscripts/brightness.sh down
 
+Error: target STRING not available
+#### 24.壁纸切换
+```sh
+~/.bscripts/wallset PATH_TO_FILE
+#_______________________________
+```
 
 ### 切换内核
 linux-lts linux-lts-headers
@@ -785,3 +793,4 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 - 手写笔还未尝试
 
 #### 修复合盖后休眠
+####
