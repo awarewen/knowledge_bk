@@ -531,7 +531,7 @@ ___________________________
 # 三、完成准备重启
     reboot
 
-# 四、开始配额桌面环境
+# 四、开始配置桌面环境
 ## 1. 输入法和字体
 ```markdown
 # 英文字体
@@ -574,18 +574,24 @@ _____________________
 ## 2. 修改字体渲染设置
 ```markdown
     vim /etc/profile.d/freetype2.sh
-    #_______________________________
-    ###
+___________________________________
     # 取消注释最后一句
-
     export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
-    #-----------------------------------------------------------
+----------------------------------------------------------------
 ```
 
 ## 3. 从Dotfile开始
 - [ikz87/dots-2.0: eww + bspwm rice c](https://github.com/ikz87/dots-2.0)
-### 添加 fcitx5 自启
-    echo "fcitx5 &" >> ~/.config/bspwm/bspwmrc
+```sh
+    git clone git@github.com:ikz87/dots-2.0.git
+    cd dots-2.0.git
+    chmod +x install.sh
+# 将自动备份你的dot配置
+    ./install.sh
+```
+### 添加 fcitx5 自启 (待定)
+    echo "fcitx5 -d" >> ~/.config/bspwm/autostart
+
 # 安装依赖
 ```markdown
 
@@ -691,56 +697,56 @@ sysstat
 ---
 
 > 如果选择配合脚本通知亮度即跟随以下配置
-```sh
+```markdown
 # 安装 light 包
-git clone git@github.com:haikarainen/light.git
+    git clone git@github.com:haikarainen/light.git
 
 # 更改权限为当前用户安装
-# Note: in this mode light runs unpriviliged, so the /etc/light directory (for cached settings) is not used, instead the per-user specific ~/.config/light is used.
-cd light
-./autogen.sh
-./configure --with-udev && make
-sudo make install
+    # Note: in this mode light runs unpriviliged, so the /etc/light directory (for cached settings) is not used, instead the per-user specific ~/.config/light is used.
+    cd light
+    ./autogen.sh
+    ./configure --with-udev && make
+    sudo make install
 
 # 将用户添加到video组
-usermod -aG video <user>
+    usermod -aG video <user>
 
 # 修改'dots-2.0' 配置中的屏幕亮度调节脚本
-~/.bscripts/brightness.sh
-#________________________
-#!/bin/bash
+    ~/.bscripts/brightness.sh
+_____________________________
+    #!/bin/bash
 
-# You can call this script like this:
-# $./brightness.sh up
-# $./brightness.sh down
+    # You can call this script like this:
+    # $./brightness.sh up
+    # $./brightness.sh down
 
-function get_brightness {
-    var=`light -G`
-    echo $var | sed 's/[^0-9][^.]*//g'
-}
+    function get_brightness {
+        var=`light -G`
+        echo $var | sed 's/[^0-9][^.]*//g'
+    }
 
-function send_notification {
-    DIR=`dirname "$0"`
-    brightness=`get_brightness`
-    icon_name="${HOME}/Pictures/Important/icons/other/b.png"
+    function send_notification {
+        DIR=`dirname "$0"`
+        brightness=`get_brightness`
+        icon_name="${HOME}/Pictures/Important/icons/other/b.png"
 
-    # Send the notification
-    dunstify "Brightness: $brightness%" -h int:value:$brightness -i "$icon_name" -t 1000 --replace=555 -u critical
-}
+        # Send the notification
+        dunstify "Brightness: $brightness%" -h int:value:$brightness -i "$icon_name" -t 1000 --replace=555 -u critical
+    }
 
-case $1 in
-    up)
-    	# Raise the brightness (+ 5%)
-	    light -A 5 > /dev/null
-	    send_notification
-	;;
-    down)
-      # Lower the brightness (+ 5%)              
-	    light -U 5 > /dev/null
-	    send_notification
-	;;
-esac
-#++++++++++++++++++++++++++++++++++
+    case $1 in
+        up)
+          # Raise the brightness (+ 5%)
+          light -A 5 > /dev/null
+          send_notification
+      ;;
+        down)
+          # Lower the brightness (+ 5%)              
+          light -U 5 > /dev/null
+          send_notification
+      ;;
+    esac
+---------------------------------------
 
 ```
 
