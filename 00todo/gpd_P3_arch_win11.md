@@ -686,8 +686,6 @@ sysstat
 - [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
 这个分支的合成器和上流采用合并
 
-
-
 #### 23.屏幕亮度背光  
 - brightlight (弃用)
 > [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
@@ -845,6 +843,8 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 -     neofetch  #       系统信息打印
 -     autojump  #       路径跳转
 -     ranger    #       文本文件浏览器
+#     >     示例配置: ranger --copy-config=commands
+
       cups      #       开源的打印机驱动
 #     编辑器
 -     Emacs     #       支持多功能拓展的终端编辑器
@@ -930,3 +930,30 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 #### 添加一个副屏
 - 仅做参考
 `xrandr --output HDMI1 --rotate right --mode 1920x1080 --left-of DSI1`
+
+#### 使用ranger快捷切换壁纸
+
+```markdown
+# 添加一个自定义命令
+    ～/.config/ranger/commands.py
+_________________________________
+    class set_wallpaper(Command)
+        def execute(self):
+            if self.arg(1):
+                target_filename = self.rest(1)
+            else:
+                target_filename = self.fm.thisfile.path
+            self.fm.notify("run command: set_wallpaper " + target_filename)
+            self.fm.run('~/.bscripts/wallset ' + target_filename)
+---------------------------------------------------------------------------
+    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
+    # @ self.fm.notify 在ranger底栏显示一条信息
+    # @ self.fm.run 运行一条命令，这里对wallset进行调用
+
+# 为自定义命令添加键位绑定
+    .config/ranger/rc.conf
+__________________________
+    map tw set_wallpaper
+--------------------------
+    # @ tw 可以选择一个不冲突的键位绑定
+```
