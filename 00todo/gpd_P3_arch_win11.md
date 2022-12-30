@@ -958,3 +958,16 @@ __________________________
 --------------------------
     # @ tw 可以选择一个不冲突的键位绑定
 ```
+
+## 安装deb包
+```sh
+# 安装debtap
+    yay -S debtap
+    sudo debtap -u
+
+# 将deb包转换为pkg包
+    debtap xxx.pkg
+
+# 使用pacman安装xxx.pkg
+    sudo pacman -U xxx.pkg
+
