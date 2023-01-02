@@ -6,7 +6,7 @@
 ```sh
 yay -S tailscale
 s systemctl start tailscaled.service
-s systemctl up
+s tailscale up
 # 进入配置网页进行登陆
 ```
 ## WireGuard
