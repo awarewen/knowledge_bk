@@ -2,9 +2,11 @@
 ```sh
 #   ssh 连接服务器超时断线时间延长
     /etc/ssh/sshd_config
-    ____________________
+________________________
     ClientAliveInterval 60 #超时时间
     ClientAliveCountMax 3 #尝试次数
+------------------------
+
 ```
 ##  连接服务器
 ```sh
@@ -22,20 +24,22 @@
 ```sh
 #   修改sshd_config配置
     /etc/ssh/sshd_config 
-    ____________________
+________________________
     PermitRootLogin yes  
     StrictModes no
     PubkeyAuthentication yes
     AuthorizedKeysFile .ssh/authorized_keys
     PasswordAuthentication yes
+------------------------
 
 #   为每个KEY添加ssh_config模板
     /etc/ssh/ssh_config
-    ____________________
+_______________________
     Host  Github
       HostName github.com         #   服务地址
       User git                    #   使用名称
       IdentityFile ~/.ssh/id_rsa  #   私钥
+-----------------------
 
 #   将每个私钥添加到钥匙环
     eval "$(ssh-agent -s)"

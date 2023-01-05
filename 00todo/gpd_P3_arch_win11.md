@@ -970,4 +970,6 @@ __________________________
 
 # 使用pacman安装xxx.pkg
     sudo pacman -U xxx.pkg
+```
+
 
