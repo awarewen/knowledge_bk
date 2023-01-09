@@ -1,11 +1,18 @@
 ## ZI shell
-zsh 插件管理
+WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_started/installation)
 
-# zsh-vi-mode (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
-## add in .zshrc
+## ZI install
+```markdown
+source <(curl -sL git.io/zi-loader); zzinit
+# 短链失效了
+source <(curl -sL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh); zzinit
+```
+
+## zsh-vi-mode (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
+### add in .zshrc
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
-## use 'jk'
+### use 'jk'
 ```
 ZVM_VI_ESCAPE_BINDKEY: The vi escape key in all modes (default is ^[ => ESC)
 ZVM_VI_INSERT_ESCAPE_BINDKEY: The vi escape key in insert mode (default is $ZVM_VI_ESCAPE_BINDKEY)
