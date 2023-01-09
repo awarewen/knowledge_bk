@@ -1,4 +1,4 @@
-####  GRUB
+##  GRUB
 ```sh
       /etc/default/grub
       _________________
@@ -14,7 +14,7 @@
 #     > 当你只是做网页浏览之类的事情时，CPU 90% 以上的时间都处于 C3/C6 状态。
 -------------------------------------------------------------------------------------------------------------------------------
 ``` 
-####  检查计算机启动时间
+##  检查计算机启动时间
 ```sh
 #     将引导过程表示为图片
       systemd-analyze plot > boot.svg
@@ -22,10 +22,27 @@
 #     -- 其中可以表现出对计算机启动时间影响比较大的进程
 ```
 
-####  sysfs 内核数据虚拟接口
+##  sysfs 内核数据虚拟接口
 - [桌面应用|从 Linux 终端查看笔记本电池状态和等级的 5 个方法](https://linux.cn/article-10353-1.html)
 ```sh
 #     系统内核虚拟的电源数据接口
       /sys/class/power_supply/BAT0/uevent
 #     -- 待了解里面各项值的含义 
+```
+
+##  Error
+```i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>```
+
+```markdown
+/etc/mkinitcpio.conf
+____________________
+MOUDULE(i915)
+
+/etc/default/grub
+____________________
+i915.enable_guc=2
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+sudo mkinitcpio -P
 ```

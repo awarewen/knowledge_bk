@@ -428,7 +428,7 @@ _____________________________
 -----------------------------------------
 
 # 2022 12/7
-# @ pipwire 替换 pulseaudio
+# @ pipewire 替换 pulseaudio
 # --pipewire pipewire-pulse pipewire-zeroconf lib32-pipewire pipewire-alsa
 # --@ pipewire 管理器选择：wireplumber
 ```
@@ -972,4 +972,21 @@ __________________________
     sudo pacman -U xxx.pkg
 ```
 
+## 锁屏后主屏无法启动，副屏正常
+- [I915 [drm] *ERROR* Atomic update failure on pipe A - General system / Newbie - EndeavourOS](https://forum.endeavouros.com/t/i915-drm-error-atomic-update-failure-on-pipe-a/9449)
 
+```i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>```
+
+```markdown
+/etc/mkinitcpio.conf
+____________________
+MOUDULE(i915)
+
+/etc/default/grub
+____________________
+i915.enable_guc=2
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+sudo mkinitcpio -P
+```
