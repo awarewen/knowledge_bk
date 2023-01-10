@@ -1,15 +1,14 @@
 # shell 入门
-什么是shell
 
 ```sh
-#!/bin/sh
-cd ~
-mkdir shell_tut
-cd shell_tut
+        #!/bin/sh
+        cd ~
+        mkdir shell_tut
+        cd shell_tut
 
-for ((i=0; i<10; i++)); do
-        touch test_$i.txt
-done
+        for ((i=0; i<10; i++)); do
+                touch test_$i.txt
+        done
 ```
 - `#!/bin/sh`: 指定脚本解释器，这里是用/bin/sh做解释器
 - `cd mkdir`: 是系统命令，可以在脚本中调用
