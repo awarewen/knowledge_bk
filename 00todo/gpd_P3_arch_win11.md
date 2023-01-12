@@ -457,7 +457,7 @@ _____________________
     /usr/share/sddm/scripts/Xsetup
 __________________________________
     #! /bin/sh
-    xrandr -o right
+    `   xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
 -----------------------------
 ```
 3. 桌面 (目前不可用)
@@ -604,7 +604,7 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
 
 # @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
 # @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
-# @ mantablockscreen 目前锁屏不可用状态
+# @ mantablockscreen 被替换 见下文 锁屏 章节
 ```
 
 ```markdown
@@ -980,6 +980,16 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 
 ####  电源管理
 后续准备更新到tlp而不使用acpi
+
+- 屏蔽systemd服务防止冲突
+```markdown
+systemd-rfkill.service
+systemd-rfkill.socket
+```
+- install
+```markdown
+yay -S tlp tlp-rdw
+```
 ```sh
       # nano /etc/tlp.conf
       CPU_SCALING_GOVERNOR_ON_AC=powersave
@@ -1000,13 +1010,11 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 - firefox触控不正常
 - 手写笔还未尝试
 
-#### 修复合盖后休眠
-
 #### 完成全局的主题颜色的统一（大工程）
 
 #### 添加一个副屏
 - 仅做参考
-`xrandr --output HDMI1 --rotate right --mode 1920x1080 --left-of DSI1`
+`xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
 
 
 ## 安装deb包
@@ -1029,35 +1037,37 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 - [如何充分使用英特尔硬件（指南） - FAQ and Tutorials - Garuda Linux Forum](https://forum.garudalinux.org/t/how-to-fully-use-intel-hardware-guide/8193)
 
 ```markdown
+# TIP for P3: xf86-video-intel 请不要卸载，否则无法正常旋转桌面的方向
 sudo pacman -S mesa lib32-mesa libva libva-intel-driver\
                libva-mesa-driver libva-vdpau-driver libva-utils\
                lib32-libva lib32-libva-intel-driver lib32-libva-mesa-driver\
                lib32-libva-vdpau-driver intel-ucode iucode-tool vulkan-intel\
                lib32-vulkan-intel intel-gmmlib intel-graphics-compiler intel-media-driver\
-               intel-media-sdk intel-opencl-clang libmfx
+               intel-media-sdk intel-opencl-clang libmfx --need
 
-/etc/mkinitcpio.conf
-____________________
-MOUDULE(intel_agp i915)
---------------------
+    /etc/mkinitcpio.conf
+________________________
+    MOUDULE(intel_agp i915)
+------------------------
 
 
-/etc/modprobe.d/i915.conf 
-_________________________
-options i915 enable_guc=3
-options i915 enable_fbc=1
--------------------------
+    /etc/modprobe.d/i915.conf 
+_____________________________
+    options i915 enable_guc=3
+    options i915 enable_fbc=1
+-----------------------------
 
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-sudo mkinitcpio -P
+    sudo mkinitcpio -P
 ```
 
 ## 启用s2挂起 (P3 专用)
 ```markdown
-/etc/default/grub
-_________________
-mem_sleep_default=s2idle
-
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+    /etc/default/grub
+_____________________
+    mem_sleep_default=s2idle
+---------------------
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+## 修复锁屏后蓝牙 wifi断开
