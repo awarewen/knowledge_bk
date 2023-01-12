@@ -14,3 +14,8 @@ kitty使用zlib协议显示图像
 ```
 
 
+## 在kitty和tmux一起使用是出现错误
+- [Support TIOCGWINSZ · Issue #1391 · tmux/tmux](https://github.com/tmux/tmux/issues/1391)
+
+kitty 的 icat，允许在终端中显示图像，需要 ioctl 的支持 TIOCGWINSZ. 另见 kovidgoyal/kitty#413
+

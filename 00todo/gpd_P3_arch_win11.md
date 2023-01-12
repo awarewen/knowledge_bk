@@ -571,7 +571,7 @@ _____________________
 -------------------------------------------------------------------------
 ```
 
-## 2. 修改字体渲染设置
+- 修改字体渲染设置
 ```markdown
     vim /etc/profile.d/freetype2.sh
 ___________________________________
@@ -580,7 +580,7 @@ ___________________________________
 ----------------------------------------------------------------
 ```
 
-## 3. 从Dotfile开始
+## 2. 从Dotfile开始
 - [ikz87/dots-2.0: eww + bspwm rice c](https://github.com/ikz87/dots-2.0)
 ```sh
     git clone git@github.com:ikz87/dots-2.0.git
@@ -592,7 +592,7 @@ ___________________________________
 ### 添加 fcitx5 自启 (待定)
     echo "fcitx5 -d" >> ~/.config/bspwm/autostart
 
-# 安装依赖
+### 安装依赖
 ```markdown
 
 yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
@@ -638,22 +638,45 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
 
     flameshot
     hsetroot
+
+# kitty终端中显示图像
     imagemagick
+#   @ C编写的跨平台的开源套件，用于显示、转换、编辑光栅图像和矢量图像，可读写超过200种图像文件格式。
     jq
+
+# 终端
     kitty
+
+# 锁屏
     mantablockscreen
+>   依赖：i3lock-color-git , imagemagick, xorg-xrandr, otf-san-francisco , imagemagick, xorg-xrandr, otf-san-francisco
+
+# 网络
     network-manager-appler
     pa-applet
+
+# 合成器
     picom-animations-git
+
+# 媒体控制
     playerctl
-    polkit-gnome
+
+# 声音后端
     pulseaudio
+    
+    polkit-gnome
     python3
+
+# rofi
     rofi
     scrot
     sox
+
+# 声破天
     spicetify-cli
     spotify
+
+# 快捷键
     sxhkd
 
 # 支持键盘操作的GUI文件浏览器
@@ -670,23 +693,28 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
     # @gvfs-afc
 
 
-wmctrl
-wpgtk
-xclip
-xdotool
-xprintidle
-xwinfo
+    wmctrl
+    wpgtk
+
+# 剪切板
+    xclip
+
+
+    xdotool
+    xprintidle
+
+# 系统信息打印
+    xwinfo
 
 sysstat
 ```
 
-## 4. 
-## 22. 合成器
+### 合成器
 - [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
 - [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
 这个分支的合成器和上流采用合并
 
-#### 23.屏幕亮度背光  
+### 屏幕亮度背光  
 - brightlight (弃用)
 > [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
 和脚本(.bscripts/brightness.sh)配合控制背光
@@ -762,13 +790,61 @@ light -U 5 # 亮度降低 5%
 
 ```
 
-#### 24.壁纸切换
+### 壁纸切换
 ```sh
 ~/.bscripts/wallset PATH_TO_FILE
 #_______________________________
 ```
+- 使用ranger快捷切换壁纸
 
-### 切换内核
+```markdown
+# 添加一个自定义命令
+    ～/.config/ranger/commands.py
+_________________________________
+    class set_wallpaper(Command)
+        def execute(self):
+            if self.arg(1):
+                target_filename = self.rest(1)
+            else:
+                target_filename = self.fm.thisfile.path
+            self.fm.notify("run command: set_wallpaper " + target_filename)
+            self.fm.run('~/.bscripts/wallset ' + target_filename)
+---------------------------------------------------------------------------
+    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
+    # @ self.fm.notify 在ranger底栏显示一条信息
+    # @ self.fm.run 运行一条命令，这里对wallset进行调用
+
+# 为自定义命令添加键位绑定
+    .config/ranger/rc.conf
+__________________________
+    map tw set_wallpaper
+--------------------------
+    # @ tw 可以选择一个不冲突的键位绑定
+```
+
+### 锁屏
+- mantablockscreen
+`yay -S mantablockscreen`
+
+- 使用
+缓存图像：`mantablockscreen -i PATH/TO/IMAGE`
+
+- 2023/1/12 弃用 `mantablockscreen` ，使用 `betterlockscreen` 代替
+```markdown
+# 安装
+    yay -S betterlockscreen
+# 依赖
+    i3lock-color-git
+    imagemagick
+    feh (可选)
+    xorg-xdpyinfo
+    xorg-xrandr
+    dunst (可选)
+```
+
+
+
+## 切换内核
 linux-lts linux-lts-headers
 驱动 intel: xf86-video-intel
 nvidia-lts
@@ -932,32 +1008,6 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 - 仅做参考
 `xrandr --output HDMI1 --rotate right --mode 1920x1080 --left-of DSI1`
 
-#### 使用ranger快捷切换壁纸
-
-```markdown
-# 添加一个自定义命令
-    ～/.config/ranger/commands.py
-_________________________________
-    class set_wallpaper(Command)
-        def execute(self):
-            if self.arg(1):
-                target_filename = self.rest(1)
-            else:
-                target_filename = self.fm.thisfile.path
-            self.fm.notify("run command: set_wallpaper " + target_filename)
-            self.fm.run('~/.bscripts/wallset ' + target_filename)
----------------------------------------------------------------------------
-    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
-    # @ self.fm.notify 在ranger底栏显示一条信息
-    # @ self.fm.run 运行一条命令，这里对wallset进行调用
-
-# 为自定义命令添加键位绑定
-    .config/ranger/rc.conf
-__________________________
-    map tw set_wallpaper
---------------------------
-    # @ tw 可以选择一个不冲突的键位绑定
-```
 
 ## 安装deb包
 ```sh
@@ -975,18 +1025,39 @@ __________________________
 ## 锁屏后主屏无法启动，副屏正常
 - [I915 [drm] *ERROR* Atomic update failure on pipe A - General system / Newbie - EndeavourOS](https://forum.endeavouros.com/t/i915-drm-error-atomic-update-failure-on-pipe-a/9449)
 
-```i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>```
+## 启用GuC HuC (11代intel cpu)
+- [如何充分使用英特尔硬件（指南） - FAQ and Tutorials - Garuda Linux Forum](https://forum.garudalinux.org/t/how-to-fully-use-intel-hardware-guide/8193)
 
 ```markdown
+sudo pacman -S mesa lib32-mesa libva libva-intel-driver\
+               libva-mesa-driver libva-vdpau-driver libva-utils\
+               lib32-libva lib32-libva-intel-driver lib32-libva-mesa-driver\
+               lib32-libva-vdpau-driver intel-ucode iucode-tool vulkan-intel\
+               lib32-vulkan-intel intel-gmmlib intel-graphics-compiler intel-media-driver\
+               intel-media-sdk intel-opencl-clang libmfx
+
 /etc/mkinitcpio.conf
 ____________________
-MOUDULE(i915)
+MOUDULE(intel_agp i915)
+--------------------
 
-/etc/default/grub
-____________________
-i915.enable_guc=2
+
+/etc/modprobe.d/i915.conf 
+_________________________
+options i915 enable_guc=3
+options i915 enable_fbc=1
+-------------------------
 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 sudo mkinitcpio -P
+```
+
+## 启用s2挂起 (P3 专用)
+```markdown
+/etc/default/grub
+_________________
+mem_sleep_default=s2idle
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
