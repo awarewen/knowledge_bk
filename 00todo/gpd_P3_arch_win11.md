@@ -650,6 +650,7 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
 # 锁屏
     mantablockscreen
 >   依赖：i3lock-color-git , imagemagick, xorg-xrandr, otf-san-francisco , imagemagick, xorg-xrandr, otf-san-francisco
+>   @ betterlockscreen 替代
 
 # 网络
     network-manager-appler
@@ -824,15 +825,24 @@ __________________________
 
 ### 锁屏
 - mantablockscreen
-`yay -S mantablockscreen`
+    `yay -S mantablockscreen`
 
 - 使用
-缓存图像：`mantablockscreen -i PATH/TO/IMAGE`
+缓存图像：
+    `mantablockscreen -i PATH/TO/IMAGE`
 
-- 2023/1/12 弃用 `mantablockscreen` ，使用 `betterlockscreen` 代替
+### 2023/1/12 弃用 `mantablockscreen` ，使用 `betterlockscreen` 代替
+- [betterlockscreen/betterlockscreen: 🍀 sweet looking lockscreen for linux system](https://github.com/betterlockscreen/betterlockscreen#usage)
 ```markdown
+# 在启动脚本中注释mantablockscreen
+    ~/.config/bspwm/autostart
+_____________________________
+# Cache lockscreen 
+# mantablockscreen -i ~/Pictures/Important/lockscreen.png&
+
 # 安装
     yay -S betterlockscreen
+
 # 依赖
     i3lock-color-git
     imagemagick
@@ -840,9 +850,26 @@ __________________________
     xorg-xdpyinfo
     xorg-xrandr
     dunst (可选)
+
+# 示例配置文件，如果不执行复制示例配置，将使用硬编码的配置(与示例配置相同)
+    mkdir -p ~/.config/betterlockscreen/
+    cp /usr/share/doc/betterlockscreen/examples/betterlockscreenrc ~/.config/betterlockscreen/
+
+# 缓存图像：
+    betterlockscreen -u /PATH/TO/IMAGE
+
+# 更改配置脚本 
+    ~/.bscripts/lock.sh
+_______________________
+    #!/bin/sh
+
+    pkill -SIGUSR1 dunst # pause 
+    # mantablockscreen 弃用
+    #mantablockscreen -sc # requires https://github.com/reorr/mantablockscreen      
+    betterlockscreen -l dim
+    pkill -SIGUSR2 dunst # resume 
 ```
-
-
+### 在ranger中增加快捷键设置锁屏壁纸
 
 ## 切换内核
 linux-lts linux-lts-headers
@@ -865,17 +892,19 @@ wipefs 擦除分区filesystem标记
 ### 关于安装更新时遇到'PGP signature 'marginal trust' errors blocking upgrade'\
 [ PGP signature 'marginal trust' errors blocking upgrade / Newbie Corner / Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=280650)\
 ```
-rm -rf /etc/pacman.d/gnupg
-pacman-key --init
-pacman-key --populate archlinux archlinuxcn
-pacman -Syy
+    rm -rf /etc/pacman.d/gnupg
+    pacman-key --init
+    pacman-key --populate archlinux archlinuxcn
+    pacman -Syy
 ```
 如果还是有问题，请检查系统时间是否正确
-`# timedatectl set-ntp 1`
-`# hwclock --systohc`
+```
+    timedatectl set-ntp 1
+    hwclock --systohc
+```
 
 #### zsh 
-`# sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions   `
+    `sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions   `
 - Z-shell
 - zsh-zi-mode
 
@@ -883,28 +912,28 @@ pacman -Syy
 [Generating a new SSH key and adding it to the ssh-agent - GitHub Docs](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 ```sh
 # 检查 ssh 服务是否运行
-systemctl status sshd
+    systemctl status sshd
 
 # 创建ssh 密钥，用于Git操作GitHub远程仓库
-ssh-keygen -t ed25519 -C "your_enmail@example.com"
+    ssh-keygen -t ed25519 -C "your_enmail@example.com"
 
-eval "$(ssh-agent -s)"
+    eval "$(ssh-agent -s)"
 
 # 添加已创建的私钥(默认名称)
-ssh-add ~/.ssh/id_ed25519
+    ssh-add ~/.ssh/id_ed25519
 
 # 最后将公钥添加到 GitHub 设置中
 ## 测试
-ssh -T git@github.com
+    ssh -T git@github.com
 
 # 实现多个密钥的加载，需要在.zshrc中添加
-eval "$(ssh-agent -s)" &> /dev/null
-ssh-add ~/.ssh/id_ed25519 &> /dev/null
-ssh-add ~/.ssh/id_2 &> /dev/null
+    eval "$(ssh-agent -s)" &> /dev/null
+    ssh-add ~/.ssh/id_ed25519 &> /dev/null
+    ssh-add ~/.ssh/id_2 &> /dev/null
 ```
 
 ####  软件/程序推荐
-```sh
+```markdown
  #    桌面图形软件
 -     ark       #       解压软件
 -     dolphin   #       图形文件浏览器
@@ -943,10 +972,7 @@ ssh-add ~/.ssh/id_2 &> /dev/null
 -     grub-custiomizer# 修改grub菜单启动界面
 ```
 
-#     npm 安装
-#     配置国内源
-
-##    终端下代理（仍然存在问题，暂时放弃此方案）
+##    终端下代理（仍然存在问题）
 ```sh
 #     kitty终端下
 #     添加:
@@ -965,32 +991,18 @@ ssh-add ~/.ssh/id_2 &> /dev/null
       curl -sLf https://spacevim.org/install.sh | bash -s -- -h
 ```
 
-####  记录好看的 dotfile
-- [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
-
-- [rxyhn/tokyo: BSPWM - Aesthetic Dotfiles 🍚](https://github.com/rxyhn/tokyo)
-
-- [ikz87/dots-2.0: eww + bspwm rice c:](https://github.com/ikz87/dots-2.0)
-
-- [owl4ce/dotfiles: Aesthetic OpenboxWM Environment](https://github.com/owl4ce/dotfiles)
-
-####  firefox主题更改计划
-####  终端美化
-####  vim/neovim
-
-####  电源管理
-后续准备更新到tlp而不使用acpi
-
-- 屏蔽systemd服务防止冲突
+####  tlp电源管理
+- [TLP - ArchWiki](https://wiki.archlinux.org/title/TLP)
 ```markdown
-systemd-rfkill.service
-systemd-rfkill.socket
-```
-- install
-```markdown
-yay -S tlp tlp-rdw
-```
-```sh
+# 屏蔽systemd服务防止冲突
+    sudo systemctl mark systemd-rfkill.service
+    sudo systemctl mark systemd-rfkill.socket
+
+# 启动网络服务
+    sudo systemctl enable NetworkManager-dispatcher.service
+
+# install
+    yay -S tlp tlp-rdw
       # nano /etc/tlp.conf
       CPU_SCALING_GOVERNOR_ON_AC=powersave
       CPU_SCALING_GOVERNOR_ON_BAT=powersave
@@ -1003,22 +1015,13 @@ yay -S tlp tlp-rdw
       PCIE_ASPM_ON_AC=default
       PCIE_ASPM_ON_BAT=powersupersave
 ```
-#
-#### 所有待解决问题
-- 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
-- 无法自动旋转
-- firefox触控不正常
-- 手写笔还未尝试
-
-#### 完成全局的主题颜色的统一（大工程）
 
 #### 添加一个副屏
 - 仅做参考
-`xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
-
+    `xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
 
 ## 安装deb包
-```sh
+```markdown
 # 安装debtap
     yay -S debtap
     sudo debtap -u
@@ -1030,14 +1033,12 @@ yay -S tlp tlp-rdw
     sudo pacman -U xxx.pkg
 ```
 
-## 锁屏后主屏无法启动，副屏正常
-- [I915 [drm] *ERROR* Atomic update failure on pipe A - General system / Newbie - EndeavourOS](https://forum.endeavouros.com/t/i915-drm-error-atomic-update-failure-on-pipe-a/9449)
-
 ## 启用GuC HuC (11代intel cpu)
 - [如何充分使用英特尔硬件（指南） - FAQ and Tutorials - Garuda Linux Forum](https://forum.garudalinux.org/t/how-to-fully-use-intel-hardware-guide/8193)
 
 ```markdown
 # TIP for P3: xf86-video-intel 请不要卸载，否则无法正常旋转桌面的方向
+
 sudo pacman -S mesa lib32-mesa libva libva-intel-driver\
                libva-mesa-driver libva-vdpau-driver libva-utils\
                lib32-libva lib32-libva-intel-driver lib32-libva-mesa-driver\
@@ -1050,7 +1051,6 @@ ________________________
     MOUDULE(intel_agp i915)
 ------------------------
 
-
     /etc/modprobe.d/i915.conf 
 _____________________________
     options i915 enable_guc=3
@@ -1062,7 +1062,7 @@ _____________________________
     sudo mkinitcpio -P
 ```
 
-## 启用s2挂起 (P3 专用)
+## s2挂起 (P3)
 ```markdown
     /etc/default/grub
 _____________________
@@ -1070,4 +1070,56 @@ _____________________
 ---------------------
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
+- 不同级别休眠的区别(s1,s2,s3,s4)
+  处于这些状态之一的系统不执行任何计算任务，但是与关机状态不同，处于休眠状态的系统会在RAM或磁盘上保留内存状态，无需重新启动系统即可恢复到之前的工作状态。
+s1 ：功耗比s0少，处理时钟关闭，停止总线时钟，硬件延迟通常不超过2秒
+s2 ：与s1类似，cpu上下文和系统缓存的内容丢失，处理器关闭，某些总线断电，硬件延迟大于等于s1
+s3 ：处理器关闭，主板上的一些芯片可能关闭，硬件延迟与s2相当，仅保留系统内存。
+s4 ：关闭所有设备，系统从保存的休眠文件重启，如果无法加载休眠文件，则需要重新启动。硬件延迟较长且不确定。
+
 ## 修复锁屏后蓝牙 wifi断开
+  经过检查是在配置文件中的 ~/.bscripts/idle.sh 中设置了系统休眠，系统进入休眠状态后会停止wifi,蓝牙等外部设备
+- 解决方案1): 移除此脚本
+- 解决方案2): 注释启动脚本idle.sh
+```markdown
+    ~/.config/bspwm/autostart
+_____________________________
+    # Autosuspend
+    # killall idle.sh
+    # pgrep idle.sh || ~/.bscripts/idle.sh > /dev/null 2> /dev/null&
+-----------------------------
+```
+
+## 使系统在合盖时进入锁屏
+- [logind.conf](https://www.freedesktop.org/software/systemd/man/logind.conf.html)
+
+```markdown
+    /etc/systemd/logind.conf
+____________________________
+# 系统空闲时 （ignore 不做任何操作）
+    IdleAction=ignore
+
+# 笔记本合盖 （lock 锁屏）
+    HandleLidSwitch=lock
+----------------------------
+```
+
+
+
+#### 所有待解决问题
+- 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
+- 无法自动旋转 (暂时不可用)
+
+#### 完成全局的主题颜色的统一（大工程）
+####  firefox主题更改
+####  终端美化
+####  vim/neovim
+
+####  记录好看的 dotfile
+- [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
+
+- [rxyhn/tokyo: BSPWM - Aesthetic Dotfiles 🍚](https://github.com/rxyhn/tokyo)
+
+- [ikz87/dots-2.0: eww + bspwm rice c:](https://github.com/ikz87/dots-2.0)
+
+- [owl4ce/dotfiles: Aesthetic OpenboxWM Environment](https://github.com/owl4ce/dotfiles)
