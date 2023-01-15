@@ -600,7 +600,7 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
         mantablockscreen network-manager-applet pa-applet-git
         playerctl polkit-gnome polybar pulseaudio python3 rofi
         scrot sox spicetify-cli spotify sxhkd thunar
-        wmctrl wpgtk-git xclip xdotool xprintidle  --needed
+        wmctrl wpgtk-git xclip xdotool xprintidle lm_sensors sysstat --needed
 
 # @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
 # @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
@@ -707,7 +707,10 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
 # 系统信息打印
     xwinfo
 
-sysstat
+sysstat 
+
+lm_sensors
+
 ```
 
 ### 合成器

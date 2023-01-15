@@ -28,4 +28,4 @@ hide-password
 noauth
 ```
 
-# 装一个setpppoe (yay)
+## 使用nmtui 配置pppoe拨号
