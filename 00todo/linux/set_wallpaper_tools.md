@@ -1,5 +1,5 @@
 # linux下设置壁纸
-  有许多的工具都可以设置linux下的壁纸。
+  有许多的工具都可以设置linux下的壁纸(包括多种文件格式，可以是视频也可以是GIF、png等)。
   但是这篇文章探讨的中心围绕着精巧简便，很重要的一点就是即时切换，性能优先。
 
 ## 测试环境
@@ -15,13 +15,35 @@
 ## 程序的使用以及脚本示例
 
 1. feh
+- feh在许多的桌面环境下可以用作背景-设置器，实现选择一个文件夹自动播放其中的图片设置为桌面背景。
   一个轻量化、可配置和多功能的图像查看器。推荐配合使用 ImageMagick 提供的 convert 二进制文件。
-- [GITHUB:derf/feh](https://github.com/derf/feh)
-- [FEH_man](https://man.finalrewind.org/1/feh/)
-```markdown
 
+  - [GITHUB:derf/feh:仓库项目地址](https://github.com/derf/feh)
+  - [FEH_man:手册页](https://man.finalrewind.org/1/feh/)
+
+```markdown
+# install 
+    yay -S feh
+
+# requirements:
+- feh or xload or xwallpaper
+- md5sum
+- imagemagick
+- for auto speed calculation,bc packkage
 ```
-- feh 实现选择一个文件夹自动播放其中的图片设置为桌面背景
+
+2. 使用 `feh` 设置桌面壁纸
+- [thomas10-10/foo-Wallpaper-Feh-Gif 显示 Gif 设置墙纸循环，支持透明度](https://github.com/thomas10-10/foo-Wallpaper-Feh-Gif)
+
+  1. 设置普通的图片\
+    `feh -fill -no-fehbg`
+
+      - `-fill`
+      - `-no-fehbg`: 默认feh会在 HOME 目录下创建一个 `.fehbg` 的脚本用于保存设置的背景文件
+
+  2. 设置GIF
+
+
 
 - [壁纸切换和设置 - 配置、脚本、教程和提示 - ArchLabs Linux](https://forum.archlabslinux.com/t/wallpaper-switching-and-setting/5490)
 ```sh
