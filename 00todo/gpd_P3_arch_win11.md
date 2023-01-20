@@ -642,6 +642,8 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
 # kitty终端中显示图像
     imagemagick
 #   @ C编写的跨平台的开源套件，用于显示、转换、编辑光栅图像和矢量图像，可读写超过200种图像文件格式。
+#   imagemagick 提供了两个二进制文件：convert 和 identify
+
     jq
 
 # 终端

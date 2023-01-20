@@ -15,7 +15,7 @@
 ## 程序的使用以及脚本示例
 
 1. feh
-  一个轻量化、可配置和多功能的图像查看器。推荐配合使用 ImageMagick 提供的 convert 二进制文件。 
+  一个轻量化、可配置和多功能的图像查看器。推荐配合使用 ImageMagick 提供的 convert 二进制文件。
 - [GITHUB:derf/feh](https://github.com/derf/feh)
 - [FEH_man](https://man.finalrewind.org/1/feh/)
 ```markdown
