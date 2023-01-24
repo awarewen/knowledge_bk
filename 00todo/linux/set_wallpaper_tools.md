@@ -25,7 +25,7 @@
 # install 
     yay -S feh
 
-# requirements:
+# Requirements:
 - feh or xload or xwallpaper
 - md5sum
 - imagemagick
@@ -36,7 +36,7 @@
 - [thomas10-10/foo-Wallpaper-Feh-Gif 显示 Gif 设置墙纸循环，支持透明度](https://github.com/thomas10-10/foo-Wallpaper-Feh-Gif)
 
   1. 设置普通的图片\
-    `feh -fill -no-fehbg`
+    `feh -fill -no-fehbg --auto-reload PATH/TO/FILE`
 
       - `-fill`
       - `-no-fehbg`: 默认feh会在 HOME 目录下创建一个 `.fehbg` 的脚本用于保存设置的背景文件
