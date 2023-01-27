@@ -602,9 +602,33 @@ yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
         scrot sox spicetify-cli spotify sxhkd thunar
         wmctrl wpgtk-git xclip xdotool xprintidle lm_sensors sysstat --needed
 
+yay -Sy acpi alsa-utils-git blueman brave-bin bspwm colorpicker
+        dunst eww-git flameshot hsetroot imagemagick jq kitty light
+        betterlockscreen network-manager-applet pa-applet-git picom-ftlabs-git
+        playerctl polkit-gnome polybar pipewire pipewire-pulse
+        pipewire-zeroconf lib32-pipewire pipewire-alsa python3 rofi
+        scrot sox spicetify-cli spotify sxhkd sysstat thunar wmctrl
+        wpgtk-git xclip xdotool xprintidle xwinfo-git --needed
+
+# 需要补充的依赖选项
+        # @ pipewire 
+          # pipewire 内部不实现任何连接逻辑，这些被其他外部组件如会话管理器所负担。
+
+          lib32-pipewire  :32位应用支持
+          wireplumber     :目前唯一推荐的会话管理器
+          pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，使用 'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
+          pipewire-audio  :PulseAudio 和 JACK 兼容的服务器实现和 API兼容库来替代它们
+          pipewire-alsa   :取代 ALSA 客户端（如果安装了pulseaudio-alsa ，请移除它）
+          pipewire-jack   :
+          在系统所聘
+
+        # @
+
 # @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
 # @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
 # @ mantablockscreen 被替换 见下文 锁屏 章节
+## picom 版本更改
+# @picom-ftlabs-git
 ```
 
 ```markdown
@@ -1081,6 +1105,7 @@ s1 ：功耗比s0少，处理时钟关闭，停止总线时钟，硬件延迟通
 s2 ：与s1类似，cpu上下文和系统缓存的内容丢失，处理器关闭，某些总线断电，硬件延迟大于等于s1
 s3 ：处理器关闭，主板上的一些芯片可能关闭，硬件延迟与s2相当，仅保留系统内存。
 s4 ：关闭所有设备，系统从保存的休眠文件重启，如果无法加载休眠文件，则需要重新启动。硬件延迟较长且不确定。
+s5
 
 ## 修复锁屏后蓝牙 wifi断开
   经过检查是在配置文件中的 ~/.bscripts/idle.sh 中设置了系统休眠，系统进入休眠状态后会停止wifi,蓝牙等外部设备
