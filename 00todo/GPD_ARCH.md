@@ -595,39 +595,59 @@ ___________________________________
 ### 安装依赖
 ```markdown
 
-yay -Sy acpi alsa-utils-git blueman bspwm colorpicker
-        dunst eww-git flameshot hsetroot imagemagick jq kitty
-        mantablockscreen network-manager-applet pa-applet-git
-        playerctl polkit-gnome polybar pulseaudio python3 rofi
-        scrot sox spicetify-cli spotify sxhkd thunar
-        wmctrl wpgtk-git xclip xdotool xprintidle lm_sensors sysstat --needed
-
-yay -Sy acpi alsa-utils-git blueman brave-bin bspwm colorpicker
+yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
         dunst eww-git flameshot hsetroot imagemagick jq kitty light
         betterlockscreen network-manager-applet pa-applet-git picom-ftlabs-git
-        playerctl polkit-gnome polybar pipewire pipewire-pulse
-        pipewire-zeroconf lib32-pipewire pipewire-alsa python3 rofi
-        scrot sox spicetify-cli spotify sxhkd sysstat thunar wmctrl
-        wpgtk-git xclip xdotool xprintidle xwinfo-git --needed
+        playerctl polkit-gnome polybar pipewire python3 rofi
+        scrot sox sxhkd sysstat thunar wmctrl wpgtk-git xclip 
+        xdotool xprintidle xwinfo-git lm_sensors --needed
 
 # 需要补充的依赖选项
+        # tlp电源管理
+          - [TLP - ArchWiki](https://wiki.archlinux.org/title/TLP)
+          # 屏蔽systemd服务防止冲突
+              sudo systemctl mark systemd-rfkill.service
+              sudo systemctl mark systemd-rfkill.socket
+          # 启动网络服务
+              sudo systemctl enable NetworkManager-dispatcher.service
+          # （p3设备）添加配置项
+              # nano /etc/tlp.conf
+              # ___________________________________
+              CPU_SCALING_GOVERNOR_ON_AC=powersave
+              CPU_SCALING_GOVERNOR_ON_BAT=powersave
+              CPU_ENERGY_PERF_POLICY_ON_BAT=power
+              CPU_BOOST_ON_AC=1
+              CPU_BOOST_ON_BAT=0
+              PLATFORM_PROFILE_ON_AC=performance
+              PLATFORM_PROFILE_ON_BAT=low-power
+              DISK_IOSCHED="mq-deadline"
+              PCIE_ASPM_ON_AC=default
+              PCIE_ASPM_ON_BAT=powersupersave
+              # ------------------------------------
+
         # @ pipewire 
           # pipewire 内部不实现任何连接逻辑，这些被其他外部组件如会话管理器所负担。
-
           lib32-pipewire  :32位应用支持
           wireplumber     :目前唯一推荐的会话管理器
-          pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，使用 'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
-          pipewire-audio  :PulseAudio 和 JACK 兼容的服务器实现和 API兼容库来替代它们
+          pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，（使用 pipewire-pulse.server 替换 pulseaudio.server）'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
+          pipewire-audio  :PulseAudio 和 JACK 兼容的服务器实现和 API兼容库来替代它们，处理蓝牙设备连接
           pipewire-alsa   :取代 ALSA 客户端（如果安装了pulseaudio-alsa ，请移除它）
-          pipewire-jack   :
-          在系统所聘
+          [x] pipewire-jack   :jack 客户端启动支持
+          pipewire-zeroconf   :pipewire 零配置支持（自动配置）
 
-        # @
+        # @ thunar
+          # 支持键盘操作的GUI文件浏览器
+          tumbler 显示缩略图 -- 默认包不显示缩略图
+          # 一些其他文件的缩略图支持
+            vedio :ffmpegthumbnailer
+            PDF   :poppler-glib
+          # --------------------------
+          # 支持移动设备自动挂载需要额外的包
+            gvfs
+            gvfs-mtp
+            gvfs-afc
 
-# @ picom-animations-git xwinfo-git 这两个需要去git项目页面下载，AUR的包找不到了
-# @ colorpicker ttf-abel-regular mantablockscreen spicetify-cli 如果实在无法下载，建议开启魔法上网
-# @ mantablockscreen 被替换 见下文 锁屏 章节
-## picom 版本更改
+## 2023/1/27 : picom 版本更改
 # @picom-ftlabs-git
 ```
 
@@ -684,6 +704,7 @@ yay -Sy acpi alsa-utils-git blueman brave-bin bspwm colorpicker
 
 # 合成器
     picom-animations-git
+    # 替换 picom-ftlabs-git
 
 # 媒体控制
     playerctl
@@ -738,11 +759,51 @@ sysstat
 lm_sensors
 
 ```
+####  软件/程序推荐
+```markdown
+ #    桌面图形软件
+-     ark       #       解压软件
+-     dolphin   #       图形文件浏览器
+-     telegram-desktop#
+#     >     需要去项目地址下载编译
 
+ #    终端下
+-     fzf       #       信息过滤 配合fd / find / rg 等
+-     fd        #       类似find
+-     tmux      #       终端复用
+
+-     neofetch  #       系统信息打印
+-     fastfetch #       C语言编写的类neofetch
+-     autojump  #       路径跳转
+-     zoxide    #       更加智能的CD替代
+-     ranger    #       文本文件浏览器
+#     >     示例配置: ranger --copy-config=commands(~/.config/ranger/)
+
+      cups      #       开源的打印机驱动
+#     编辑器
+-     Emacs     #       支持多功能拓展的终端编辑器
+      >DOOM Emacs
+      >
+-     vim/vi/neovim#    终端下专注于编辑的富文本编辑器
+      >SpaceVim
+#     VPN
+-     tailscale #       点对点的外网穿透
+-     v2raya    #       xray 内核的客户端程序
+
+-     go-musicfox #     网易云
+#     >     需要beep 这个包支持引擎
+ 
+-     cava      #       音乐动画
+
+ #    功能支撑
+-     ntfs-3g   #       挂载ntfs文件格式硬盘
+-     fcitx5    #       输入法支持
+-     grub-custiomizer# 修改grub菜单启动界面
+```
 ### 合成器
-- [AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)
+- ~~[AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)~~ [x] (已替换)
+- [FT-Labs/picom: More than 10 unique animation supported picom fork (open window, tag change, fading ...)](https://github.com/FT-Labs/picom)
 - [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
-这个分支的合成器和上流采用合并
 
 ### 屏幕亮度背光  
 - brightlight (弃用)
@@ -961,45 +1022,6 @@ wipefs 擦除分区filesystem标记
     ssh-add ~/.ssh/id_2 &> /dev/null
 ```
 
-####  软件/程序推荐
-```markdown
- #    桌面图形软件
--     ark       #       解压软件
--     dolphin   #       图形文件浏览器
--     telegram-desktop#
-#     >     需要去项目地址下载编译
-
- #    终端下
--     fzf       #       信息过滤 配合fd / find / rg 等
--     fd        #       类似find
--     tmux      #       终端复用
-
--     neofetch  #       系统信息打印
--     autojump  #       路径跳转
--     ranger    #       文本文件浏览器
-#     >     示例配置: ranger --copy-config=commands
-
-      cups      #       开源的打印机驱动
-#     编辑器
--     Emacs     #       支持多功能拓展的终端编辑器
-      >DOOM Emacs
-      >
--     vim/vi/neovim#    终端下专注于编辑的富文本编辑器
-      >SpaceVim
-#     VPN
--     tailscale #       点对点的外网穿透
--     v2raya    #       xray 内核的客户端程序
-
--     go-musicfox #     网易云
-#     >     需要beep 这个包支持引擎
- 
--     cava      #       音乐动画
-
- #    功能支撑
--     ntfs-3g   #       挂载ntfs文件格式硬盘
--     fcitx5    #       输入法支持
--     grub-custiomizer# 修改grub菜单启动界面
-```
 
 ##    终端下代理（仍然存在问题）
 ```sh
@@ -1020,30 +1042,6 @@ wipefs 擦除分区filesystem标记
       curl -sLf https://spacevim.org/install.sh | bash -s -- -h
 ```
 
-####  tlp电源管理
-- [TLP - ArchWiki](https://wiki.archlinux.org/title/TLP)
-```markdown
-# 屏蔽systemd服务防止冲突
-    sudo systemctl mark systemd-rfkill.service
-    sudo systemctl mark systemd-rfkill.socket
-
-# 启动网络服务
-    sudo systemctl enable NetworkManager-dispatcher.service
-
-# install
-    yay -S tlp tlp-rdw
-      # nano /etc/tlp.conf
-      CPU_SCALING_GOVERNOR_ON_AC=powersave
-      CPU_SCALING_GOVERNOR_ON_BAT=powersave
-      CPU_ENERGY_PERF_POLICY_ON_BAT=power
-      CPU_BOOST_ON_AC=1
-      CPU_BOOST_ON_BAT=0
-      PLATFORM_PROFILE_ON_AC=performance
-      PLATFORM_PROFILE_ON_BAT=low-power
-      DISK_IOSCHED="mq-deadline"
-      PCIE_ASPM_ON_AC=default
-      PCIE_ASPM_ON_BAT=powersupersave
-```
 
 #### 添加一个副屏
 - 仅做参考
