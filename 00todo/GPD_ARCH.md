@@ -608,6 +608,7 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
           # 屏蔽systemd服务防止冲突
               sudo systemctl mark systemd-rfkill.service
               sudo systemctl mark systemd-rfkill.socket
+
           # 启动网络服务
               sudo systemctl enable NetworkManager-dispatcher.service
           # （p3设备）添加配置项
