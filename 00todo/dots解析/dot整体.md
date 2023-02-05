@@ -27,4 +27,13 @@
 - `Pictures`
 - `install.sh`
 
-
+# 依赖 [x]
+```sh
+yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
+        colorpicker dunst eww-git flameshot hsetroot
+        imagemagick jq kitty light mantablockscreen
+        network-manager-applet pa-applet-git picom-ftlabs-git
+        playerctl polkit-gnome polybar pulseaudio python3
+        rofi scrot sox spicetify-cli spotify sxhkd sysstat
+        thunar wmctrl wpgtk-git xclip xdotool xprintidle xwinfo-git --needed
+```

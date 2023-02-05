@@ -602,7 +602,7 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
         scrot sox sxhkd sysstat thunar wmctrl wpgtk-git xclip 
         xdotool xprintidle xwinfo-git lm_sensors --needed
 
-# 需要补充的依赖选项
+# 需要补充的依赖选项和配置项
         # tlp电源管理
           - [TLP - ArchWiki](https://wiki.archlinux.org/title/TLP)
           # 屏蔽systemd服务防止冲突
@@ -611,13 +611,13 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
 
           # 启动网络服务
               sudo systemctl enable NetworkManager-dispatcher.service
-          # （p3设备）添加配置项
+          # （P3设备）添加配置项
               # nano /etc/tlp.conf
               # ___________________________________
               CPU_SCALING_GOVERNOR_ON_AC=powersave
               CPU_SCALING_GOVERNOR_ON_BAT=powersave
               CPU_ENERGY_PERF_POLICY_ON_BAT=power
-              CPU_BOOST_ON_AC=1
+             CPU_BOOST_ON_AC=1
               CPU_BOOST_ON_BAT=0
               PLATFORM_PROFILE_ON_AC=performance
               PLATFORM_PROFILE_ON_BAT=low-power
@@ -633,7 +633,7 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
           pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，（使用 pipewire-pulse.server 替换 pulseaudio.server）'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
           pipewire-audio  :PulseAudio 和 JACK 兼容的服务器实现和 API兼容库来替代它们，处理蓝牙设备连接
           pipewire-alsa   :取代 ALSA 客户端（如果安装了pulseaudio-alsa ，请移除它）
-          [x] pipewire-jack   :jack 客户端启动支持
+          pipewire-jack   :jack 客户端启动支持
           pipewire-zeroconf   :pipewire 零配置支持（自动配置）
 
         # @ thunar
