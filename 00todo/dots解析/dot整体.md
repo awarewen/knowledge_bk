@@ -37,3 +37,91 @@ yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
         rofi scrot sox spicetify-cli spotify sxhkd sysstat
         thunar wmctrl wpgtk-git xclip xdotool xprintidle xwinfo-git --needed
 ```
+
+### 将当前用户添加到 ‘VIDEO’ 组，以获取到控制背光的权限(light)  
+
+```markdown
+# 将用户添加到video组
+    usermod -aG video <user>
+```
+
+### 壁纸切换
+  使用 'wallset' 脚本设置壁纸
+```sh
+
+~/.bscripts/wallset PATH_TO_FILE
+#_______________________________
+```
+- 使用ranger快捷切换壁纸
+
+```markdown
+# 添加一个自定义命令
+    ～/.config/ranger/commands.py
+_________________________________
+    class set_wallpaper(Command)
+        def execute(self):
+            if self.arg(1):
+                target_filename = self.rest(1)
+            else:
+                target_filename = self.fm.thisfile.path
+            self.fm.notify("run command: set_wallpaper " + target_filename)
+            self.fm.run('~/.bscripts/wallset ' + target_filename)
+---------------------------------------------------------------------------
+    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
+    # @ self.fm.notify 在ranger底栏显示一条信息
+    # @ self.fm.run 运行一条命令，这里对wallset进行调用
+
+# 为自定义命令添加键位绑定
+    .config/ranger/rc.conf
+__________________________
+    map tw set_wallpaper
+--------------------------
+    # @ tw 可以选择一个不冲突的键位绑定
+```
+
+### 锁屏
+- mantablockscreen
+    `yay -S mantablockscreen`
+
+- 使用
+缓存图像：
+    `mantablockscreen -i PATH/TO/IMAGE`
+
+### 2023/1/12 弃用 `mantablockscreen` ，使用 `betterlockscreen` 代替
+- [betterlockscreen/betterlockscreen: 🍀 sweet looking lockscreen for linux system](https://github.com/betterlockscreen/betterlockscreen#usage)
+```markdown
+# 在启动脚本中注释mantablockscreen
+    ~/.config/bspwm/autostart
+_____________________________
+# Cache lockscreen 
+# mantablockscreen -i ~/Pictures/Important/lockscreen.png&
+
+# 安装
+    yay -S betterlockscreen
+
+# 依赖
+    i3lock-color-git
+    imagemagick
+    feh (可选)
+    xorg-xdpyinfo
+    xorg-xrandr
+    dunst (可选)
+
+# 示例配置文件，如果不执行复制示例配置，将使用硬编码的配置(与示例配置相同)
+    mkdir -p ~/.config/betterlockscreen/
+    cp /usr/share/doc/betterlockscreen/examples/betterlockscreenrc ~/.config/betterlockscreen/
+
+# 缓存图像：
+    betterlockscreen -u /PATH/TO/IMAGE
+
+# 更改配置脚本 
+    ~/.bscripts/lock.sh
+_______________________
+    #!/bin/sh
+
+    pkill -SIGUSR1 dunst # pause 
+    # mantablockscreen 弃用
+    #mantablockscreen -sc # requires https://github.com/reorr/mantablockscreen      
+    betterlockscreen -l dim
+    pkill -SIGUSR2 dunst # resume 
+```

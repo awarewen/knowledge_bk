@@ -960,7 +960,6 @@ _______________________
     betterlockscreen -l dim
     pkill -SIGUSR2 dunst # resume 
 ```
-### 在ranger中增加快捷键设置锁屏壁纸
 
 ## 切换内核
 linux-lts linux-lts-headers
