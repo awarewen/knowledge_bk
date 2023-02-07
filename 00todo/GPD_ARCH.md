@@ -211,7 +211,11 @@ ______________________________________
 ```
 > ##### TIP
 ` mount -o remount,rw -a`将原先是只读的文件系统以可读写的模式重新挂载
-
+- 分区 label 重写
+`wipefs --all /dev/DISK_NAME` 命令清除label
+[WIKI中描述了一个非常类似的问题](https://wiki.archlinux.org/title/USB_flash_installation_medium)
+VFAT文件系统： dosfslabel
+ntfs文件系统： ntfslabel
 
 ## 7. 镜像安装
 ```markdown
@@ -466,6 +470,7 @@ __________________________________
 3. 自动旋转(目前不可用)
 ```markdown
   1. xrandr and xinput rotation can be automated with 2in1screen.
+  yay -S xorg-xinput
 
 2. # 自动旋转屏幕方向
     sudo iio-sensor-proxy-git 
@@ -1145,6 +1150,10 @@ ____________________________
 ----------------------------
 ```
 
+默认情况下，在ArchLinux中挂载非系统分区需要密码验证，非常麻烦，可以修改配置文件：
+/usr/share/polkit-1/actions/org.freedesktop.udisks2.policy
+将此配置文件中的<action id="org.freedesktop.udisks2.filesystem-mount-system">
+标签中的子标签<allow_active></allow_active>的值改为yes即可无需通过密码验证直接挂载分区。
 
 
 #### 所有待解决问题
