@@ -14,18 +14,30 @@
 ## 配置的目录结构
 ![Folder_Tree](./Images/Folder_Tree.png)
 ### `.bscripts`
-  1. `.bscripts` 目录中存放了这份配置扩展的各个功能的脚本调用实现
-      
-      简单来说，这个目录存放的脚本是用来实现某些功能的。
-
-  - `brightness.sh`\
-    `brightness.sh` 是一个用于控制屏幕亮度的脚本。
-- `.cache`
-- `.config`
-- `.local`
-- `Documents`
-- `Pictures`
-- `install.sh`
+1. `.bscripts` 目录中存放了这份配置扩展的各个功能的脚本调用实现，简单来说，这个目录存放的脚本是用来实现某些功能的。
+- `brightness.sh`: 是一个用于控制屏幕亮度的脚本。
+- `bselect.sh`:
+- `bsmove.sh`
+- `colors.sh`
+- `idle.sh`
+- `lock.sh`
+- `notif_sounds.sh`
+- `rofi.sh`
+- `ss.sh`
+- `toggle_bar.sh`
+- `toggle_winprops.sh`
+- `volume.sh`
+- `wallset`
+- `winevents.sh`
+- `wpg-install.sh`
+- `wpm_reports.sh`
+2. `.cache`: 存放了配置文件产生的临时文件
+3. `.config`: 存放了各个部件的所有配置项
+  -
+4. `.local`: 字体所在目录
+5. `Documents`: 存放了音效文件
+6. `Pictures`: 所有需要用到的图片文件
+7. `install.sh`: 安装脚本
 
 # 依赖 [x]
 ```sh

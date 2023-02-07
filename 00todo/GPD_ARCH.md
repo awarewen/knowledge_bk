@@ -104,8 +104,9 @@ CreateTime: 2022/11
     station 'DeviceName' connect 'AP-MAC'
 ```
 
-- 拨号连接(PPP/PPPOE) (待考证)
-> 使用 `pppoe-setup` 填写你的配置，启动 `pppoe-start`，关闭 `pppoe-stop`
+- 拨号连接(PPP/PPPOE)
+拨号连接使用 'NetworkManager' 提供的 tui 应用: nmtui
+![nmtui](/home/awarewen/Pictures/Screenshots/2023-02-07_09:16:15.png)
 
 ## 4. 更新系统时钟
 ```markdown
@@ -386,7 +387,9 @@ ______________
     /etc/pacman.conf
 ____________________
     [archlinuxcn]
-    Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+    #Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+    #深大源
+    Server = https://mirrors.sustech.edu.cn/archlinuxcn/$arch
 
     [Clansty]
     SigLevel = Never
@@ -401,7 +404,7 @@ ____________________
 2. 安装 AUR HELPER
 ```markdown
 # 安装AUR helper
-    sudo pacman -S --needed base-devel
+    sudo pacman -S base-devel --needed
     git clone https://aur.archlinux.org/paru.git
     cd paru
     makepkg -si
@@ -412,9 +415,9 @@ ____________________
 
 ## 4. 驱动
 ```markdown
-# 显示驱动(intel)
+# 显示驱动(intel 核显)
     sudo pacman -S xf86-video-intel vulkan-intel
-    # --mesa驱动，可能会造成firefox画面撕裂
+    # -- mesa驱动，造成firefox画面撕裂
 
 # 蓝牙
     sudo pacman -S bluedevil
@@ -457,13 +460,22 @@ _____________________
     /usr/share/sddm/scripts/Xsetup
 __________________________________
     #! /bin/sh
-    `   xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
+    `xrandr -o right`
 -----------------------------
 ```
-3. 桌面 (目前不可用)
+3. 自动旋转(目前不可用)
 ```markdown
-# 自动旋转屏幕方向
-    sudo iio-sensor-proxy-git kded-rotation-git
+  1. xrandr and xinput rotation can be automated with 2in1screen.
+
+2. # 自动旋转屏幕方向
+    sudo iio-sensor-proxy-git 
+         kded-rotation-git (KDE)
+         screenrotator-git (GNOME)
+
+    ##
+    3 .wget https://raw.githubusercontent.com/defencore/gpd-pocket-3-linux/main/screen-auto-rotate.c
+    gcc -O2 -o screen-auto-rotate screen-auto-rotate.c
+    ./screen-auto-rotate
 ```
 
 4. 触屏方向
