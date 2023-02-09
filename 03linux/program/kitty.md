@@ -10,3 +10,6 @@ imagemagick viewing images with icat
 python-pygments syntax hifhlighting in kitty +kitten diff
 libcanberra playing bell sound on terminal bell
 
+## themes 
+https://github.com/catppuccin/kitty
+- [catppuccin/kitty: 😽 Soothing pastel theme for Kitty](https://github.com/catppuccin/kitty)

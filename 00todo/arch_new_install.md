@@ -1,4 +1,5 @@
 # 双系统: Windows + ArchLinux
+
 ```markdown
 机器：GPD Pocket 3
 系统：Windows + ArchLinux
@@ -21,6 +22,7 @@
      |nvme0n1p4   | linux EFI   | EFI        | 512  | linux 启动分区
      |nvme0n1p5   | linux swap  | Linux Swap | 18G  | linux 交换分区
      |nvme0n1p6   | linux Root  | Btrfs      | 剩余 | linux 根分区
+---
 
 ```markdown
 进入到windows分区界面后，shift+f10 进入命令行模式
