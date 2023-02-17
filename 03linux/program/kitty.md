@@ -13,3 +13,14 @@ libcanberra playing bell sound on terminal bell
 ## themes 
 https://github.com/catppuccin/kitty
 - [catppuccin/kitty: 😽 Soothing pastel theme for Kitty](https://github.com/catppuccin/kitty)
+
+
+## shortcuts
+
+```markdown
+# kitty_mod
+kitty_mod ctrl+alt
+copy_on_select yes
+
+```
+
