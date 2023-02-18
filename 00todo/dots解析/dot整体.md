@@ -137,3 +137,11 @@ _______________________
     betterlockscreen -l dim
     pkill -SIGUSR2 dunst # resume 
 ```
+
+## 私人配置
+### 壁纸
+壁纸设置在配置里是使用一个脚本设置的，我希望采用了一种更便捷的方式设置壁纸
+- ranger
+- 
+  在ranger的基础上使用快捷键调用设置壁纸的脚本
+

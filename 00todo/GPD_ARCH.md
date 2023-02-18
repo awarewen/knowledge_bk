@@ -924,7 +924,7 @@ _________________________________
     # @ self.fm.run 运行一条命令，这里对wallset进行调用
 
 # 为自定义命令添加键位绑定
-    .config/ranger/rc.conf
+    ~/.config/ranger/rc.conf
 __________________________
     map tw set_wallpaper
 --------------------------
