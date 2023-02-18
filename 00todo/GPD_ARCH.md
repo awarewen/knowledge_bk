@@ -793,9 +793,11 @@ lm_sensors
 -     neofetch  #       系统信息打印
 -     fastfetch #       C语言编写的类neofetch
 -     autojump  #       路径跳转
--     zoxide    #       更加智能的CD替代
+-     xoxide    #       更加智能的CD替代
+-     rangerxoxide    #       更加智能的CD替代
+
 -     ranger    #       文本文件浏览器
-#     >     示例配置: ranger --copy-config=commands(~/.config/ranger/)
+#     >     示例配置: ranger --copy-config=all(~/.config/ranger/)
 
       cups      #       开源的打印机驱动
 #     编辑器
@@ -916,6 +918,9 @@ _________________________________
                 target_filename = self.rest(1)
             else:
                 target_filename = self.fm.thisfile.path
+            if not os.path.exists(target_filename):
+                self.fm.notify("The given file does not exist!", bad=True)
+                return
             self.fm.notify("run command: set_wallpaper " + target_filename)
             self.fm.run('~/.bscripts/wallset ' + target_filename)
 ---------------------------------------------------------------------------
@@ -977,7 +982,6 @@ _______________________
     betterlockscreen -l dim
     pkill -SIGUSR2 dunst # resume 
 ```
-### 在ranger中增加快捷键设置锁屏壁纸
 
 ## 切换内核
 linux-lts linux-lts-headers

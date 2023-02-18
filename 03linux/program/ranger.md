@@ -6,19 +6,22 @@
 
 ## 配置
 - 配置目录的结构，以及各个配置功能及作用
-    rc.conf - 主要包含键绑定和启动命令
-    commands.py - 默认的功能能函数和自定义的功能函数
-    rifle.conf - 启动不同类型的文件使用的应用程序
+    - `rc.conf` - 主要包含键绑定和启动命令
+    - `commands.py` - 默认的功能能函数和自定义的功能函数
+    - `rifle.conf` - 启动不同类型的文件使用的应用程序
 
-rc.conf 文件默认已包含了 `commands.py`, `rifle.conf` . For commands.py, if you do not include the whole file, put this line at the top:
+rc.conf 文件默认已包含了 `commands.py`, `rifle.conf` . 
+
+- 对于 `commands.py` 文件配置, 如果你将使用整个文件，请将下行命令添加到文件的顶部
  
-
-from ranger.api.commands import *
+ ```
+   from ranger.api.commands import *
+ ```
 
 - 示例配置
   `Ranger` 可以自动复制默认配置文件到 `~/.config/ranger` 如果你用开关运行它 `--copy-config=( rc | scope | ... | all )`. 看 ranger --help有关该开关的说明
 
-  `ranger --copy-config=command(~config/ranger)`
+  `ranger --copy-config=all(~config/ranger)`
 
 
 - 图片预览
