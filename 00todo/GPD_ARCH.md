@@ -7,7 +7,7 @@ CreateTime: 2022/11
         - 机器型号：  Pocket 3,i7-1195G7 以下简称为 P3
         - 仅安装：    ArchLinux 系统(非双系统)
         - 启动方式：  EFI+bios
-        - 文件系统：  lvm+btrfs
+        - 文件系统：  lvm+btrfs (lvm应该舍弃，lvm+btrfs毫无作用)
         - WM：       bspwm
 ```
 [TOC]
@@ -115,6 +115,7 @@ CreateTime: 2022/11
 ```
 
 ## 5. 分区
+- 2023年2月19日：lvm+btrfs 应该改为btrfs
 
 - 1T SSD 硬盘分区方案 (使用 cfdisk):
 
@@ -821,7 +822,7 @@ lm_sensors
 -     grub-custiomizer# 修改grub菜单启动界面
 ```
 ### 合成器
-- ~~[AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)~~ [x] (已替换)
+- ~~[AlexNomadrg/picom-animations: A lightweight compositor for X11](https://github.com/AlexNomadrg/picom-animations)~~ [x] (已弃用)
 - [FT-Labs/picom: More than 10 unique animation supported picom fork (open window, tag change, fading ...)](https://github.com/FT-Labs/picom)
 - [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
 
@@ -1112,6 +1113,9 @@ _____________________________
 ```
 
 ## s2挂起 (P3)
+- 目前 S3 休眠失效已经在 6.1.5 内核修复，无需任何配置即可正常使用
+- [arch wiki :Suspend](https://wiki.archlinux.org/title/GPD_Pocket_3)
+
 ```markdown
     /etc/default/grub
 _____________________

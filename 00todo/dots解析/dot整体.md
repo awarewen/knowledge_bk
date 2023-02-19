@@ -39,7 +39,7 @@
 6. `Pictures`: 所有需要用到的图片文件
 7. `install.sh`: 安装脚本
 
-# 依赖 [x]
+# 依赖
 ```sh
 yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
         colorpicker dunst eww-git flameshot hsetroot
@@ -50,21 +50,25 @@ yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
         thunar wmctrl wpgtk-git xclip xdotool xprintidle xwinfo-git --needed
 ```
 
-### 将当前用户添加到 ‘VIDEO’ 组，以获取到控制背光的权限(light)  
+
+### 背光方案采用 `light` 
+- 将当前用户添加到 ‘VIDEO’ 组，以获取到控制背光的权限(light)  
 
 ```markdown
 # 将用户添加到video组
     usermod -aG video <user>
 ```
 
-### 壁纸切换
-  使用 'wallset' 脚本设置壁纸
-```sh
+## 私人配置
 
+### 壁纸切换
+  使用配置中的 '~/bscripts/wallset' 脚本设置壁纸
+
+```sh
 ~/.bscripts/wallset PATH_TO_FILE
 #_______________________________
 ```
-- 使用ranger快捷切换壁纸
+- 添加ranger快捷键切换壁纸
 
 ```markdown
 # 添加一个自定义命令
@@ -92,8 +96,8 @@ __________________________
 ```
 
 ### 锁屏
-- mantablockscreen
-    `yay -S mantablockscreen`
+- 使用了betterlockscreen 替换 mantablockscreen
+betterlockscreen -l dim
 
 - 使用
 缓存图像：
@@ -137,11 +141,3 @@ _______________________
     betterlockscreen -l dim
     pkill -SIGUSR2 dunst # resume 
 ```
-
-## 私人配置
-### 壁纸
-壁纸设置在配置里是使用一个脚本设置的，我希望采用了一种更便捷的方式设置壁纸
-- ranger
-- 
-  在ranger的基础上使用快捷键调用设置壁纸的脚本
-
