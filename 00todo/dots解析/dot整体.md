@@ -141,3 +141,15 @@ _______________________
     betterlockscreen -l dim
     pkill -SIGUSR2 dunst # resume 
 ```
+
+
+## 休眠
+
+- P3 s3休眠已经在 6.1.5 内核修复
+- 忽略合盖
+```
+  /etc/systemd/logind.conf
+__________________________
+  IdleAction=lock
+  HandleLidSwitch=lock
+```

@@ -1122,6 +1122,14 @@ _____________________
     mem_sleep_default=s2idle
 ---------------------
     sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# 忽略合盖操作
+
+  /etc/systemd/logind.conf
+__________________________
+  IdleAction=lock
+  HandleLidSwitch=lock
+
 ```
 - 不同级别休眠的区别(s1,s2,s3,s4)
   处于这些状态之一的系统不执行任何计算任务，但是与关机状态不同，处于休眠状态的系统会在RAM或磁盘上保留内存状态，无需重新启动系统即可恢复到之前的工作状态。
