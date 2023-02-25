@@ -613,7 +613,7 @@ ___________________________________
 ### 安装依赖
 ```markdown
 
-yay -Sy tlp tlp-raw alsa-utils-git blueman brave-bin bspwm colorpicker
+yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
         dunst eww-git flameshot hsetroot imagemagick jq kitty light
         betterlockscreen network-manager-applet pa-applet-git picom-ftlabs-git
         playerctl polkit-gnome polybar pipewire python3 rofi
@@ -795,7 +795,7 @@ lm_sensors
 -     fastfetch #       C语言编写的类neofetch
 -     autojump  #       路径跳转
 -     xoxide    #       更加智能的CD替代
--     rangerxoxide    #       更加智能的CD替代
+-     rangerzoxide    #       更加智能的CD替代
 
 -     ranger    #       文本文件浏览器
 #     >     示例配置: ranger --copy-config=all(~/.config/ranger/)
