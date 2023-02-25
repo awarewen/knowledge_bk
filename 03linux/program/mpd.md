@@ -9,6 +9,7 @@
  2. `/etc/mpd.conf` :为整个系统的配置
 
 ## 为每个用户进行配置
+
 ### 拷贝示例配置文件
 - `cp /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf`
 
@@ -32,3 +33,4 @@ ________________________
     music_directory - MPD 在这个文件夹中扫描音乐
     sticker_file - 标签数据库
 ```
+- 使用systemctl --user 启动服务
