@@ -836,6 +836,8 @@ lm_sensors
 
 > 如果选择配合脚本通知亮度即跟随以下配置
 ```markdown
+yay -S light
+
 # 安装 light 包
     git clone git@github.com:haikarainen/light.git
 
