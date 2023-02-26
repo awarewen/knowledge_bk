@@ -1173,11 +1173,6 @@ ____________________________
 将此配置文件中的<action id="org.freedesktop.udisks2.filesystem-mount-system">
 标签中的子标签<allow_active></allow_active>的值改为yes即可无需通过密码验证直接挂载分区。
 
-
-#### 所有待解决问题
-- 在bspwm桌面使用eww暂时无法正常获取cpu使用情况
-- 无法自动旋转 (暂时不可用)
-
 #### 完成全局的主题颜色的统一（大工程）
 ####  firefox主题更改
 ####  终端美化
