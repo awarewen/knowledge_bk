@@ -34,15 +34,18 @@
 ```i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>```
 
 ```markdown
-/etc/mkinitcpio.conf
-____________________
-MOUDULE(i915)
+  /etc/mkinitcpio.conf
+  ____________________
+  MOUDULE(i915)
 
-/etc/default/grub
-____________________
-i915.enable_guc=2
+  /etc/default/grub
+  ____________________
+  i915.enable_guc=2
 
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-sudo mkinitcpio -P
+  sudo mkinitcpio -P
 ```
+
+## How To Fix “unable to lock database” Error In Arch Linux
+  `sudo rm /var/lib/pacman/db.lck`
