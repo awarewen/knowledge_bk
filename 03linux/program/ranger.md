@@ -10,11 +10,10 @@
     - `commands.py` - 默认的功能能函数和自定义的功能函数
     - `rifle.conf` - 启动不同类型的文件使用的应用程序
 
-rc.conf 文件默认已包含了 `commands.py`, `rifle.conf` . 
-
 - 对于 `commands.py` 文件配置, 如果你将使用整个文件，请将下行命令添加到文件的顶部
  
  ```
+ # 调用 ranger 的 api
    from ranger.api.commands import *
  ```
 
@@ -40,19 +39,45 @@ rc.conf 文件默认已包含了 `commands.py`, `rifle.conf` .
   2. 调用自定义的功能函数
   所有的功能函数定义在 `~/.config/ranger/command.py`
   ```markdown
-    ～/.config/ranger/commands.py
-_________________________________
-    class set_wallpaper(Command)
-        def execute(self):
-            if self.arg(1):
-                target_filename = self.rest(1)
-            else:
-                target_filename = self.fm.thisfile.path
-            self.fm.notify("run command: set_wallpaper " + target_filename)
-            self.fm.run('~/.bscripts/wallset ' + target_filename)
----------------------------------------------------------------------------
-    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
-    # @ self.fm.notify 在ranger底栏显示一条信息
-    # @ self.fm.run 运行一条命令，这里对wallset进行调用
-  ```
+  # ～/.config/ranger/commands.py
+  # _____________________________
+    class set_wallpaper(Command):
+        """:set_wallpaper <filename>
 
+        set the system bg
+        """
+
+        def execute(self):
+            # 优先检测 脚本文件是否存在
+            conf_file_test = `~./.bscripts/wallset`
+            if nott os.path.exists(conf_file_test):
+                self.fm.notify("Wallset scripts not found!")
+                return
+
+            # 如果选中多个文件，只使用第一个文件设置壁纸
+            target_filename = self.fm.thistab.get_selection()[0].path if len(self.fm.thistab.get_selection()) > 0 else None
+            if not target_filename:
+                # 获取当前文件的路径
+                target_filename = self.fm.thisfile.path
+
+            if not os.path.exists(target_filename):
+                self.fm.notify("The given file does not exist!", bad=True)
+                return
+            # 应该优先检查路径是否存在，然后检查文件是否为图片
+
+            try:
+                # 检测所选文件是否为图片
+                for file in self.fm.thistab.get_selection():
+                    with open(file.path, 'rb') as f:
+                        img = Image.open(f)
+                        img.verify()
+            except (IOError, OSError) as e:
+                self.fm.notify(f"Selected file {file.basename} is not an image.", bad=True)
+                return
+
+            # 输出一条信息到底栏
+            self.fm.notify("run commad: set_wallpaper " + target_filename)
+            # 调用外部脚本程序
+            self.fm.run('~/.bscripts/wallset ' + target_filename)
+  # ---------------------------------------------------------------------------
+  ```
