@@ -72,26 +72,59 @@ yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
 
 ```markdown
 # 添加一个自定义命令
-    ～/.config/ranger/commands.py
-_________________________________
-    class set_wallpaper(Command)
-        def execute(self):
-            if self.arg(1):
-                target_filename = self.rest(1)
-            else:
-                target_filename = self.fm.thisfile.path
-            self.fm.notify("run command: set_wallpaper " + target_filename)
-            self.fm.run('~/.bscripts/wallset ' + target_filename)
----------------------------------------------------------------------------
+    # ～/.config/ranger/commands.py
+    # _____________________________
+
+      from __future__ import (absolute_import, division, print_function)
+      from ranger.api.commands import Command
+      from PIL import Image
+      import os
+      import errno
+
+      class set_wallpaper(Command):
+          """:set_wallpaper <filename>
+
+          set the system bg
+          """
+
+          def execute(self):
+              # 如果选中多个文件，只使用第一个文件设置壁纸
+              target_filename = self.fm.thistab.get_selection()[0].path if len(self.fm.thistab.get_selection()) > 0 else None
+              if not target_filename:
+                  # 获取当前文件的路径
+                  target_filename = self.fm.thisfile.path
+
+              # 检查文件是否为图片
+              try:
+                  with Image.open(target_filename) as img:
+                      # 解码图像文件并检查文件格式是否正确
+                      img.verify()
+              except (IOError, OSError) as e:
+                  if e.errno == errno.ENOENT:
+                      self.fm.notify("The given file does not exist!", bad=True)
+                  else:
+                      self.fm.notify(f"Selected file {os.path.basename(target_filename)} is not an image.", bad=True)
+                  return
+
+              # 输出一条信息到底栏
+              self.fm.notify("run commad: set_wallpaper " + target_filename)
+              # 调用外部脚本程序
+              #self.fm.run('~/.bscripts/wallset ' + target_filename)
+              self.fm.run('ln -sf ' + target_filename + ' ~/.config/rice_assets/Images/wallpaper.png')
+              self.fm.run('bspc wm -r')
+              self.fm.run('for wid in $(xdotool search --class eww); do xdotool windowunmap $wid; done')
+              self.fm.run('for id in $(bspc query -N -n .leaf.\!window); do bspc node $id -k; done;')
+    # -----------------------------------------------------------------------
     # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
     # @ self.fm.notify 在ranger底栏显示一条信息
     # @ self.fm.run 运行一条命令，这里对wallset进行调用
 
-# 为自定义命令添加键位绑定
-    .config/ranger/rc.conf
-__________________________
-    map tw set_wallpaper
---------------------------
+    # 为自定义命令添加键位绑定
+    # ~/.config/ranger/rc.conf
+    # ______________________
+      map xw set_wallpaper --fzf-select
+      map xW set_wallpaper --choosefile --fzf-select
+    # ----------------------
     # @ tw 可以选择一个不冲突的键位绑定
 ```
 

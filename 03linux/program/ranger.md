@@ -41,6 +41,13 @@
   ```markdown
   # ～/.config/ranger/commands.py
   # _____________________________
+
+    from __future__ import (absolute_import, division, print_function)
+    from ranger.api.commands import Command
+    from PIL import Image
+    import os
+    import errno
+
     class set_wallpaper(Command):
         """:set_wallpaper <filename>
 
@@ -48,36 +55,29 @@
         """
 
         def execute(self):
-            # 优先检测 脚本文件是否存在
-            conf_file_test = `~./.bscripts/wallset`
-            if nott os.path.exists(conf_file_test):
-                self.fm.notify("Wallset scripts not found!")
-                return
-
             # 如果选中多个文件，只使用第一个文件设置壁纸
             target_filename = self.fm.thistab.get_selection()[0].path if len(self.fm.thistab.get_selection()) > 0 else None
             if not target_filename:
                 # 获取当前文件的路径
                 target_filename = self.fm.thisfile.path
 
-            if not os.path.exists(target_filename):
-                self.fm.notify("The given file does not exist!", bad=True)
-                return
-            # 应该优先检查路径是否存在，然后检查文件是否为图片
-
+            # 检查文件是否为图片
             try:
-                # 检测所选文件是否为图片
-                for file in self.fm.thistab.get_selection():
-                    with open(file.path, 'rb') as f:
-                        img = Image.open(f)
-                        img.verify()
+                with Image.open(target_filename) as img:
+                    # 解码图像文件并检查文件格式是否正确
+                    img.verify()
             except (IOError, OSError) as e:
-                self.fm.notify(f"Selected file {file.basename} is not an image.", bad=True)
+                if e.errno == errno.ENOENT:
+                    self.fm.notify("The given file does not exist!", bad=True)
+                else:
+                    self.fm.notify(f"Selected file {os.path.basename(target_filename)} is not an image.", bad=True)
                 return
 
             # 输出一条信息到底栏
             self.fm.notify("run commad: set_wallpaper " + target_filename)
             # 调用外部脚本程序
-            self.fm.run('~/.bscripts/wallset ' + target_filename)
+            #self.fm.run('~/.bscripts/wallset ' + target_filename)
+            self.fm.run('ln -sf ' + target_filename + ' ~/.config/rice_assets/Images/wallpaper.png')
+            self.fm.run('bspc wm -r')
   # ---------------------------------------------------------------------------
   ```
