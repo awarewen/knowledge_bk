@@ -668,6 +668,8 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
 
 ## 2023/1/27 : picom 版本更改
 # @picom-ftlabs-git
+
+## 2023/3/17 : picom ftlabs 持续一个月没有更新，返回主线版本
 ```
 
 ```markdown
