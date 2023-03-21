@@ -20,3 +20,8 @@ ZVM_VI_VISUAL_ESCAPE_BINDKEY: The vi escape key in visual mode (default is $ZVM_
 ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (default is $ZVM_VI_ESCAPE_BINDKEY)
 ```
 - ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
+
+## 全新的安装
+
+
