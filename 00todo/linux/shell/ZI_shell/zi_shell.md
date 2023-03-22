@@ -22,6 +22,14 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
 - ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 
-## 全新的安装
+## Annexes
+- [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
+所有附件
 
-
+### Meta
+- [🌀 Meta Plugins | Z-Shell](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins)
+附件中的元包安装
+```sh taital:~/.zshrc
+zi light z-shell/z-a-meta-plugins
+```
+附件自动应用了精选的最佳 ice-modifiers 列表。
