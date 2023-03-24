@@ -2,6 +2,14 @@
 WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_started/installation)
 
 ## ZI install
+- minimal : `sh -c "$(curl -fsSL get.zshell.dev)" --`
+- loader  : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a loader`
+- Repository : `sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip`
+- Annex : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a annex` 
+- ZUnit : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a zunit`
+
+
+
 
 ## zsh-vi-mode (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
 ### add in .zshrc
