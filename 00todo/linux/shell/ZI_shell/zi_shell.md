@@ -30,6 +30,6 @@ zi light z-shell/z-a-meta-plugins
 附件自动应用了精选的最佳 ice-modifiers 列表。
 
 > annexes
-> > a
+> > 
 
 
