@@ -1,5 +1,5 @@
 # archlinux install
-
+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
 提前准备：
 
 - 1个合适大小的U盘，32G
