@@ -16,8 +16,9 @@ EWW 拥有自己的配置语言 `yuck` ，`yuck` 基于 `S` 表达式，类似�
 - active:bool :小部件是否可以交互
 - tooltip:string ：鼠标悬停在小部件上时显示文本
 - visible:bool :小部件的可见性
--
+- style : string : 小部件的内联样式
 
+## combo-box-text
 
 ## 不同分辨率下的eww
 分辨率调整缩放比例
