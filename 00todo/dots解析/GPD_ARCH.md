@@ -1188,3 +1188,8 @@ ____________________________
 - [ikz87/dots-2.0: eww + bspwm rice c:](https://github.com/ikz87/dots-2.0)
 
 - [owl4ce/dotfiles: Aesthetic OpenboxWM Environment](https://github.com/owl4ce/dotfiles)
+
+
+## eww 样式异常
+
+
