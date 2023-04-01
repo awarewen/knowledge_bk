@@ -4,6 +4,14 @@ Eww（ElKowar 的 Wacky Widgets，发音时带有足够的厌恶情绪）是一�
 EWW 拥有自己的配置语言 `yuck` ，`yuck` 基于 `S` 表达式，类似于 `lisp`
 `vim/nvim` 使用 `yuck.vim` 获取编辑器支持
 
+> 这里创建Eww bar的思路是这样的
+1. 多种情况讨论
+  - 只有一个连接的屏幕
+    当只有一个连接的屏幕时，要求显示主bar: tray,time && date,system statu,workspace,music player,desktop layout switch
+  - 有两个连接的屏幕
+    当有2个已连接的屏幕时，对主bar进行拆分，
+  - 有两个以上的屏幕
+
 ## Eww 小部件
 ### 小部件支持的所有特性
 - class:string :css 类名
@@ -17,6 +25,50 @@ EWW 拥有自己的配置语言 `yuck` ，`yuck` 基于 `S` 表达式，类似�
 - tooltip:string ：鼠标悬停在小部件上时显示文本
 - visible:bool :小部件的可见性
 - style : string : 小部件的内联样式
+
+### defwindow-properties 窗口属性
+- monitor:窗口显示在哪个监视器
+> 创建两个Eww窗口,并且分别在显示器1和显示器0，分别对应不同的显示器1和0
+> monitor 属性：数字（X11 和 Wayland），直接填写名称仅限X11
+```yuck
+(defwindow example
+           :monitor 1
+           :geometry (geometry :x "0%"
+                               :y "20px"
+                               :width "90%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+  "example content")
+
+(defwindow example_0
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "20px"
+                               :width "90%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+  "example content")
+
+```
+
+- geometry-properties
+
+```
+           :geometry (geometry :x "0%"
+                               :y "20px"
+                               :width "90%"
+                               :height "30px"
+                               :anchor "top center")
+
+```
 
 ## combo-box-text
 
