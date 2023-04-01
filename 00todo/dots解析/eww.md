@@ -8,9 +8,17 @@ EWW 拥有自己的配置语言 `yuck` ，`yuck` 基于 `S` 表达式，类似�
 1. 多种情况讨论
   - 只有一个连接的屏幕
     当只有一个连接的屏幕时，要求显示主bar: tray,time && date,system statu,workspace,music player,desktop layout switch
+    - one statu box
+    - three bars:left center right
   - 有两个连接的屏幕
     当有2个已连接的屏幕时，对主bar进行拆分，
+    主box: system statu in the center, time && date on the right bar, workspace on the left bar 
+    副box: 
   - 有两个以上的屏幕
+    主box: system statu in the center, time && date on the right bar, workspace on the left bar 
+    副box: 
+    副_2box: 
+    . . .
 
 ## Eww 小部件
 ### 小部件支持的所有特性
