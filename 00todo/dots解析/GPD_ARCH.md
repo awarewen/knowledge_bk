@@ -566,11 +566,12 @@ pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk
     - [Environment variables - ArchWiki](https://wiki.archlinux.org/title/Environment_variables#Defining_variables)
 ```markdown
 # 安装输入法框架和配套
-    sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-moegirl fcitx5-pinyin-zhwiki
+    sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-moegirl fcitx5-pinyin-zhwiki fcitx5-lua
     # @fcitx5-im：基础输入框架
     # @fcitx5-chinese-addons 中文输入引擎
     # @fcitx5-material-color 主题
     # @fcitx5-pinyin-moegirl @fcitx5-pinyin-zhwiki 词库
+    # @fcitx5-lua lua插件支持
 
 # 添加运行环境参数
     touch ~/.xprofile

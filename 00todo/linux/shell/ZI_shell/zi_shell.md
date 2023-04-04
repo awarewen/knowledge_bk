@@ -2,7 +2,7 @@
 WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_started/installation)
 
 ## ZI install
-- minimal : `sh -c "$(curl -fsSL get.zshell.dev)" --`
+- 最小化安装 minimal : `sh -c "$(curl -fsSL get.zshell.dev)" --`
 - loader  : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a loader`
 - Repository : `sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip`
 - Annex : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a annex` 
