@@ -2,13 +2,12 @@
 WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_started/installation)
 
 ## ZI install
+安装前提是终端需要挂上代理否则更新失败
 - 最小化安装 minimal : `sh -c "$(curl -fsSL get.zshell.dev)" --`
 - loader  : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a loader`
 - Repository : `sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip`
 - Annex : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a annex` 
 - ZUnit : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a zunit`
-
-
 
 
 ## zsh-vi-mode (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
@@ -23,7 +22,6 @@ ZVM_VI_VISUAL_ESCAPE_BINDKEY: The vi escape key in visual mode (default is $ZVM_
 ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (default is $ZVM_VI_ESCAPE_BINDKEY)
 ```
 - ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-
 
 ## Annexes
 - [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
