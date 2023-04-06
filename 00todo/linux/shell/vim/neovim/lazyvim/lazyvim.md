@@ -1,3 +1,12 @@
 # LazyVim
 
-todo..
+*   [🚀 Getting Started | LazyVim](https://www.lazyvim.org/)
+
+<!---->
+
+*   lazy.nvim
+*   mason.nvim
+
+## Config
+
+Todo..
