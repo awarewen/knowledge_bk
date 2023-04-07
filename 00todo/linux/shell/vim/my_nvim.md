@@ -1,4 +1,5 @@
 # 从0开始的NeoVim生活
+- [mhinz/vim-galore: All things Vim!](https://github.com/mhinz/vim-galore#buffers-windows-tabs)
 
 <!---->
 ## 重要参考
