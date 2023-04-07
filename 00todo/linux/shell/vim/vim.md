@@ -1,4 +1,5 @@
 # vim 学习
+- [LunarVim/Neovim-from-scratch: 📚 A Neovim config designed from scratch to be understandable](https://github.com/LunarVim/Neovim-from-scratch)
 vim 是一个文本编辑器，可以追溯到qed。
 - vim 模态编辑
 vim 坚持模态编辑哲学，vim 提供多种模式，每个按键的意义根据不同的模式变化
