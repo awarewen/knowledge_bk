@@ -48,6 +48,7 @@ EWW 拥有自己的配置语言 `yuck` ，`yuck` 基于 `S` 表达式，类似�
                                :anchor "top center")
            :stacking "fg"
            :reserve (struts :distance "40px" :side "top")
+           ;; distance 不支持百分比自动大小
            :windowtype "dock"
            :wm-ignore false
   "example content")
@@ -96,3 +97,91 @@ eww.scss ：配置主题
 - 提供模板
 - 外部外部脚本直接切换模板
 - 内部
+
+## 参考资源
+- [使用 BSPWM 和 Polybar 的双显示器设置 | 蛋白石](https://protesilaos.com/codelog/multihead-bspwm-polybar/)
+- [双显示器设置与 polybar 不兼容。 · 第 8 期 · gh0stzk/dotfiles · GitHub](https://github.com/gh0stzk/dotfiles/issues/8)
+- [Protesilaos Stavrou / dotfiles · GitLab](https://gitlab.com/protesilaos/dotfiles)
+- []()
+## 自适应(eww+polybar)
+- 在box中的`geometry`选项中使用 `%` 按百分比大小缩放
+```yuck taitel:eww.yuck
+;; 几何形状
+:geometry
+  (geometry
+  :anchor "top left"
+  :x "1%"
+  :y "1.5%"
+  :width "22%"
+  :height "4%"
+  )
+```
+
+```scss taitel:eww.scss
+// 可以给每个小部件的大小进行配置
+通过替换 px 单位为 em
+```
+
+## 单个屏幕为primary屏幕创建bar
+使用响应式布局重构小部件,一份配置文件适配以下不同屏幕分辨率
+1366x768
+1920x1080
+1920x1200
+2560x1440
+
+```
+// EWW.SCSS 
+// GLOBALS
+
+@import "colors.scss";
+
+*{
+    all: unset;
+    font-family: "Iosevka Curly";
+    font-size: 0.2em;
+    font-weight: bold;
+    border-radius: 0.2em;
+    padding: 0.2em;
+}
+
+// Small screens
+@media (max-width: 768px) {
+    .win_normal {
+        border: 30em solid $color9;
+        border-radius: 20px;
+    }
+    
+    .win_hovered {
+        border: 3px solid $color9;
+        border-radius: 20px;
+    }
+    
+    .layout {
+        font-size: 20px;
+        margin: -6 0 -6 5;
+    }
+    
+    // Add more rules for small screens here
+}
+
+// Large screens
+@media (min-width: 769px) {
+    .win_normal {
+        border: 50em solid $color9;
+        border-radius: 40px;
+    }
+    
+    .win_hovered {
+        border: 5px solid $color9;
+        border-radius: 40px;
+    }
+    
+    .layout {
+        font-size: 25px;
+        margin: -6 0 -6 10;
+    }
+    
+    // Add more rules for large screens here
+```
+
+## 多屏幕(eww+polybar)
