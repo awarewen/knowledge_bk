@@ -1,5 +1,5 @@
 # polybar 配置
-
+目前polybar并不支持动态的载入不同的模块
 ## future
 - [模块输出长度超过时覆盖中断](https://github.com/polybar/polybar/issues/395)
 
