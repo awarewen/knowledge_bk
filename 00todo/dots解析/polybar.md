@@ -1,5 +1,7 @@
 # polybar 配置
-目前polybar并不支持动态的载入不同的模块
+-- 目前polybar并不支持动态的载入不同的模块
+-- 不支持自适应布局
+
 ## future
 - [模块输出长度超过时覆盖中断](https://github.com/polybar/polybar/issues/395)
 
@@ -110,3 +112,12 @@ tail = true
 
 - 多屏幕支持[]
 - bar创建 []
+
+
+## 是否可以使用polybar作为基础，围绕polybar使用eww构建周边功能
+- polybar
+polybar提供Bar的box，tray。
+负责每个Eww模块的加载
+
+- eww
+负责细分和bar外部的event处理
