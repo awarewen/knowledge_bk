@@ -8,6 +8,12 @@
 
 - LazyVim
   [DOC | LazyVim](https://www.lazyvim.org/)
+  - 添加 `jk` 快捷键
+  ```
+  -- `~/.config/LazyVim/lua/config/keymaps.lua`
+  vim.keymap.set("i", "jk", "<ESC>", { noremap = true, silent = true, desc = "<ESC>" })
+  ```
+  - 添加 `mini.misc` 使用其中的 `zoom` 功能
 
 - SpaceVim
   [DOC | SpaceVim](https://spacevim.org/)
