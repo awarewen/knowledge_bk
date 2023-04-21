@@ -15,7 +15,6 @@ $ git clone https://github.com/gpakosz/.tmux.git
 $ ln -s -f .tmux/.tmux.conf
 $ cp .tmux/.tmux.conf.local .
 ```
- i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>
 - [rothgar/awesome-tmux: A list of awesome resources for tmux](https://github.com/Determinant/tmux-colortag)
 
 ## plugins
@@ -49,4 +48,16 @@ ____________
 #set -g @themepack 'powerline/block/cyan'
 #set -g @themepack 'powerline/default/green'
         set -g @themepack 'powerline/double/magenta'
+```
+
+
+
+### ~/.tmux.conf.local
+```
+set -g @plugin 'CrispyConductor/tmux-copy-toolkit'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-open'
+
+set -g @plugin 'jimeh/tmux-themepack' # theme
+
 ```
