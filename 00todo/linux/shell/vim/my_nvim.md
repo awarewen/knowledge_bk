@@ -19,6 +19,12 @@
   ```
   - 添加 `mini.misc` 使用其中的 `zoom` 功能
   如何安装
+  ```
+  -- `~/.config/LazyVim/lua/plugins/plugins.lua`
+  {
+    "e"
+  }
+  ```
 
 - SpaceVim
   [DOC | SpaceVim](https://spacevim.org/)
