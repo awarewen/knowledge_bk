@@ -139,7 +139,6 @@ ______________________________________
 
 ## 创建卷组(VG)
     vgcreate Arch /dev/nvme0n1p3
-
 ## 检查：
     vgdisplay
     vgs
@@ -458,7 +457,6 @@ _____________________
 # 重新生成grub启动配置
     sudo grub-mkconfig -0 /boot/grub/grub.cfg
 ```
-
 2. SDDM界面
 ```markdown
 # 添加Xsetup脚本旋转SDDM登陆界面
@@ -629,14 +627,14 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
               sudo systemctl mark systemd-rfkill.socket
 
           # 启动网络服务
-              sudo systemctl enable NetworkManager-dispatcher.service
+              sudo systemctl enable NetworManager-dispatcher.service
           # （P3设备）添加配置项
               # nano /etc/tlp.conf
               # ___________________________________
               CPU_SCALING_GOVERNOR_ON_AC=powersave
               CPU_SCALING_GOVERNOR_ON_BAT=powersave
               CPU_ENERGY_PERF_POLICY_ON_BAT=power
-             CPU_BOOST_ON_AC=1
+              CPU_BOOST_ON_AC=1
               CPU_BOOST_ON_BAT=0
               PLATFORM_PROFILE_ON_AC=performance
               PLATFORM_PROFILE_ON_BAT=low-power
@@ -645,14 +643,14 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
               PCIE_ASPM_ON_BAT=powersupersave
               # ------------------------------------
 
-        # @ pipewire 
+        # @ pipewire
           # pipewire 内部不实现任何连接逻辑，这些被其他外部组件如会话管理器所负担。
           lib32-pipewire  :32位应用支持
           wireplumber     :目前唯一推荐的会话管理器
-          pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，（使用 pipewire-pulse.server 替换 pulseaudio.server）'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
+              pipewire-pulse  :取代 pulseaudio 和 pulseaudio-bluetooth，（使用 pipewire-pulse.server 替换 pulseaudio.server）'pactl info 查看 "Server Name:PulseAudio (on PipeWire)'" 即成功
           pipewire-audio  :PulseAudio 和 JACK 兼容的服务器实现和 API兼容库来替代它们，处理蓝牙设备连接
           pipewire-alsa   :取代 ALSA 客户端（如果安装了pulseaudio-alsa ，请移除它）
-          pipewire-jack   :jack 客户端启动支持
+          pipewire-jac   :jack 客户端启动支持
           pipewire-zeroconf   :pipewire 零配置支持（自动配置）
 
         # @ thunar
@@ -733,7 +731,7 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
 
 # 声音后端
     pulseaudio
-    
+
     polkit-gnome
     python3
 
@@ -776,7 +774,7 @@ yay -Sy tlp tlp-raw alsa-utils-git blueman bspwm colorpicker
 # 系统信息打印
     xwinfo
 
-sysstat 
+sysstat
 
 lm_sensors
 
@@ -816,7 +814,7 @@ lm_sensors
 
 -     go-musicfox #     网易云
 #     >     需要beep 这个包支持引擎
- 
+
 -     cava      #       音乐动画
 
  #    功能支撑
@@ -829,7 +827,7 @@ lm_sensors
 - [FT-Labs/picom: More than 10 unique animation supported picom fork (open window, tag change, fading ...)](https://github.com/FT-Labs/picom)
 - [awarewen/dots-2.0: eww + bspwm rice c:](https://github.com/awarewen/dots-2.0)
 
-### 屏幕亮度背光  
+### 屏幕亮度背光
 - brightlight (弃用)
 > [multiplexd/brightlight](https://github.com/multiplexd/brightlight)
 和脚本(.bscripts/brightness.sh)配合控制背光
@@ -884,7 +882,7 @@ _____________________________
           send_notification
       ;;
         down)
-          # Lower the brightness (+ 5%)              
+          # Lower the brightness (+ 5%)
           light -U 5 > /dev/null
           send_notification
       ;;
