@@ -39,10 +39,11 @@ CreateTime: 2022/11
 
 - [从零开始的Bspwm安装与配置教程---------------------知乎](https://zhuanlan.zhihu.com/p/568211941)
 
+- [Linux-patches/GPD-Pocket-3.md at main · JohnJayMcKaye/Linux-patches · GitHub](https://github.com/JohnJayMcKaye/Linux-patches/blob/main/GPD-Pocket-3.md)
+
 # **TIP 列表**
 - [FS#68945：user_readenv --------------------------------# .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
 - [Network configuration  ------------------------------------# about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
-- [Linux-patches/GPD-Pocket-3.md at main · JohnJayMcKaye/Linux-patches · GitHub](https://github.com/JohnJayMcKaye/Linux-patches/blob/main/GPD-Pocket-3.md)
 ---
 > 关于P3固件更新  [GPD Pocket 3 - ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3#Firmware)
 
@@ -1188,7 +1189,9 @@ ____________________________
 
 ## eww 样式异常
 
-## firefox 视屏加速
+# firefox 
+## 视屏加速
+- [Linux-patches/GPD-Pocket-3.md at main · JohnJayMcKaye/Linux-patches · GitHub](https://github.com/JohnJayMcKaye/Linux-patches/blob/main/GPD-Pocket-3.md)
 - `about:config`
 ```
 gfx.webrender.enabled									true
