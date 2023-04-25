@@ -42,6 +42,7 @@ CreateTime: 2022/11
 # **TIP 列表**
 - [FS#68945：user_readenv --------------------------------# .pam_environment 已弃用](https://bugs.archlinux.org/task/68945)
 - [Network configuration  ------------------------------------# about hosts --- ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
+- [Linux-patches/GPD-Pocket-3.md at main · JohnJayMcKaye/Linux-patches · GitHub](https://github.com/JohnJayMcKaye/Linux-patches/blob/main/GPD-Pocket-3.md)
 ---
 > 关于P3固件更新  [GPD Pocket 3 - ArchWiki](https://wiki.archlinux.org/title/GPD_Pocket_3#Firmware)
 
@@ -1174,10 +1175,6 @@ ____________________________
 将此配置文件中的<action id="org.freedesktop.udisks2.filesystem-mount-system">
 标签中的子标签<allow_active></allow_active>的值改为yes即可无需通过密码验证直接挂载分区。
 
-#### 完成全局的主题颜色的统一（大工程）
-####  firefox主题更改
-####  终端美化
-####  vim/neovim
 
 ####  记录好看的 dotfile
 - [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
@@ -1191,4 +1188,27 @@ ____________________________
 
 ## eww 样式异常
 
+## firefox 视屏加速
+- `about:config`
+```
+gfx.webrender.enabled									true
+widget.wayland-dmabuf-vaapi.enabled						true
+media.ffmpeg.vaapi.enabled set to 						true
+media.ffvpx.enabled set to 								false
+media.rdd-vpx.enabled set to 							false
+media.navigator.mediadatadecoder_vpx_enabled set to 	true
+
+- install
+
+yay -S intel-gpu-tools vainfo
+sudo intel_gpu_top
+vainfo
+```
+
+## 触屏滚动
+
+- `/etc/security/pam_env.conf`
+`MOZ_USE_XINPPUT2 DEFAULT=2`
+- `about:config` ( default = 2 )
+`dom.w3c_touch_events.enabled=1`
 
