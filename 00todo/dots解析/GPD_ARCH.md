@@ -1214,4 +1214,20 @@ vainfo
 `MOZ_USE_XINPPUT2 DEFAULT=2`
 - `about:config` ( default = 2 )
 `dom.w3c_touch_events.enabled=1`
+## 根据机体偏移角度旋转屏幕
+大于多少旋转
+小于多少不旋转
+是否存在过度
 
+## 多屏情况下触摸屏
+- [双显示器和多显示器设置 · linuxwacom/xf86-input-wacom Wiki · GitHub](https://github.com/linuxwacom/xf86-input-wacom/wiki/Dual-and-Multi-Monitor-Set-Up)
+`yay -S xf86-input-wacom` :提供了xsetwacom工具
+
+```
+# 副屏拓展,将触控限定在DSI1输出并旋转方向
+alias screenout='xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --right-of DSI1 && xrandr --output DSI1 --primary && bspc wm -r ~/.config/rice_assets/Images/wallpaper.png' && \
+		xsetwacom set "GXTP7380:00 27C6:0113 touch" MapToOutput DSI1 && \
+		xinput set-prop "GXTP7380:00 27C6:0113 touch" --type=float "Coordinate Transformation Matrix" 0 0.5 0 -1 0 1 0 0 1
+
+alias screenout_all='xrandr --output HDMI1 --rotate inverted --mode 3840x2160 --right-of DSI1 && xrandr --output DSI1 --primary && bspc wm -r ~/.config/rice_assets/Images/wallpaper.png'
+```
