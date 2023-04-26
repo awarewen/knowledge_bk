@@ -1208,7 +1208,7 @@ sudo intel_gpu_top
 vainfo
 ```
 
-## 触屏滚动
+## firefox触屏滚动
 
 - `/etc/security/pam_env.conf`
 `MOZ_USE_XINPPUT2 DEFAULT=2`
@@ -1231,3 +1231,10 @@ alias screenout='xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1
 
 alias screenout_all='xrandr --output HDMI1 --rotate inverted --mode 3840x2160 --right-of DSI1 && xrandr --output DSI1 --primary && bspc wm -r ~/.config/rice_assets/Images/wallpaper.png'
 ```
+
+
+## 修复旋转屏幕时Eww/Polybar 显示问题
+- 思路：
+目前没有自动适应的方案，只能重写一份配置
+采用手动或者在bar上面添加按钮点击时， (参考2inlscreen) 读取传感器参数然后切换触控矩阵和bar的大小
+- 找个屏幕键盘
