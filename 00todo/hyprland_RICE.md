@@ -231,3 +231,28 @@ https://wiki.archlinux.org/title/Xmodmap
 ## 音量 背光， 进度条
 `wob`
 [GitHub - francma/wob: Wayland 的轻量级叠加卷/背光/进度/任何栏。](https://github.com/francma/wob)
+
+## broot
+- [Install br - Broot --- 安装 br - 布根](https://dystroy.org/broot/install-br/)
+
+yay -S broot-git
+
+
+##  不用 DM 启动 hyprland
+````
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  # exec wayfire
+  # exec sway --unsupported-gpu
+  exec Hyprland
+  # startx
+fi
+````
+
+## 
+````
+path+=(~/.local/bin;~/.ghcup/bin)
+
+# use bat as man pager
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+````
