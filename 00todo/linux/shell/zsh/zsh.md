@@ -64,7 +64,7 @@ def
 例如:
 - $PATH
 - $EDITOR
-- $PAGER 
+- $PAGER
 通常设置为 .zshenv 中。此外，您可以在 .zshenv 中设置 $ZDOTDIR ，为其余的 zsh 配置指定备用位置。
 
 
