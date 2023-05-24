@@ -1,5 +1,5 @@
- # 重新配置hyprland 桌面配置环境
- ## 依赖软件列表
+# 重新配置hyprland 桌面配置环境
+## 依赖软件列表
 ```
 paru -S hyprland-git waybar-hyprland-git cava waybar-mpris-git python rustup kitty fish wofi xdg-desktop-portal-hyprland-git tty-clock-git swaylockd grim slurp pokemon-colorscripts-git starship jq dunst wl-clipboard swaylock-effects-git swww-git zsh tmux ranger sddm-git qt5-base qt5-wayland qt6-base qt6-wayland light g4music btop
 ```
@@ -248,11 +248,10 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 fi
 ````
 
-## 
+## zsh
 ````
 path+=(~/.local/bin;~/.ghcup/bin)
 
 # use bat as man pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
 ````
