@@ -1,18 +1,18 @@
 # 重新配置hyprland 桌面配置环境
+- WM: Hyprland
+- OS: Archlinux
+
 ## 依赖软件列表
+- waybar-hyprland-git waybar-mpris-git starship 
 ```
-paru -S hyprland-git waybar-hyprland-git cava waybar-mpris-git python rustup kitty fish wofi xdg-desktop-portal-hyprland-git tty-clock-git swaylockd grim slurp pokemon-colorscripts-git starship jq dunst wl-clipboard swaylock-effects-git swww-git zsh tmux ranger sddm-git qt5-base qt5-wayland qt6-base qt6-wayland light g4music btop
+paru -S hyprland-git  cava  python rustup kitty fish wofi xdg-desktop-portal-hyprland-git tty-clock-git swaylockd swaylock-effects-git swayidle grim slurp jq dunst wl-clipboard cliphist wl-clip-persist swww-git zsh tmux ranger sddm-git qt5-base qt5-wayland qt6-base qt6-wayland light g4music btop
 ```
 - 重写 hyprland 配置
 hyprctl clients : list of windows message
 
-- 重写 waybar 配置
 - 完善 hyprland 脚本
 
-
-
 ## 触屏相关
-
 
 ## 触摸板手势
 libinput-gestures
@@ -64,7 +64,6 @@ device:gxtp7380:00-27c6:0113 { ## touch screen
 - [libinput - ArchWiki](https://wiki.archlinux.org/title/libinput)
 libinput 不解释手势 触摸屏 所以这个实用程序只能用于触摸板，不能用于触摸屏。-- (https://github.com/bulletmark/libinput-gestures)
 
-
 ### 虚拟键盘 (工作)
 
 ````
@@ -90,11 +89,11 @@ yay -S iio-hyprland-git
 exec-once iio-hyprland DSI-1
 ````
 -- 不支持触摸旋转
-### 通过脚本实现自动旋转触控以及手写笔和屏幕显示
+
+### 脚本实现自动旋转触控以及手写笔和屏幕显示
 ````
 
 ````
-
 
 ## Clipboard setting
 - wl-clipboard: 提供 wayland 剪贴板支持
@@ -110,7 +109,6 @@ exec-once iio-hyprland DSI-1
 - wl-clip-persist: 长时间保存剪贴板数据
     - exec-once
         `exec-once = wl-clip-persist --clipboard both              # Use Regular and Primary clipboard,long :w`
-
 
 ## Screenshot
 - grim: Grab images from a Wayland compositor.
@@ -184,7 +182,8 @@ swayidle -w \
     -- telegram
 
 -- ScreenSort
-    -- peek :       Doesn't work
+    -- peek :       work on xwayland
+            -- GDK_BACKEND=x11 peek
     -- flameshot :  Working bad, No supper multi-monitor display
 
 -- tailscale-git
@@ -209,7 +208,8 @@ https://wiki.archlinux.org/title/Xmodmap
 ## 空闲音频抑制器
 - https://github.com/ErikReider/SwayAudioIdleInhibit
 
-## 壁纸切换
+## swww 壁纸切换
+- swww-git
 - 自动切换壁纸
 
 ## hyprland快捷键修改

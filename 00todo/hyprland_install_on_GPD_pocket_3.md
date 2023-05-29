@@ -369,11 +369,29 @@ ________________________
 
 ## 输入法
 ````
-fcitx5-im
-fcitx5-chinese-addons 5.0.17-1
+aur/fcitx5-git
+aur/fcitx5-chinese-addons-git
+aur/fcitx5-qt-git
+aur/fcitx5-gtk-git
+
+- 词库
 fcitx5-pinyin-sougou 20210320-1
 fcitx5-pinyin-zhwiki 1:0.2.4.20230507-1
+fcitx5-pinyin-custom-pinyin-dictionary
+fcitx5-pinyin-chinese-idiom
+````
+- 关于 `kitty` 与 `fcitx5`
+如果使用 `archcn/fcitx5-git` 的包造成 `fcitx5` 在 `kitty` 无法正常弹出输入法候选框，请安装 `aur/fcitx5-git`。
+如果候选框仍然不正常，请检查 `fcitx5:~/.config/fcitx5/conf/classicui.conf` 中 `ForceWaylandDPI=0`。
 
+- ENV (/etc/environment)
+````
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+INPUT_METHOD=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
 ````
 
 ## hyprsome
@@ -491,3 +509,13 @@ windowrule=size 418 234,title:^(clock_is_kitty)$
        │         Lid Switch
        │
 ````
+
+
+## (kooha, peek)
+- [phw/peek: Simple animated GIF screen recorder with an easy to use interface](https://github.com/phw/peek)
+- [SeaDve/Kooha: Elegantly record your screen](https://github.com/SeaDve/Kooha)
+
+
+
+
+

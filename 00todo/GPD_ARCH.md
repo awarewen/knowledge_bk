@@ -474,7 +474,7 @@ __________________________________
   yay -S xorg-xinput
 
 2. # 自动旋转屏幕方向
-    sudo iio-sensor-proxy-git 
+    sudo iio-sensor-proxy-git
          kded-rotation-git (KDE)
          screenrotator-git (GNOME)
 
@@ -957,7 +957,7 @@ __________________________
 # 在启动脚本中注释mantablockscreen
     ~/.config/bspwm/autostart
 _____________________________
-# Cache lockscreen 
+# Cache lockscreen
 # mantablockscreen -i ~/Pictures/Important/lockscreen.png&
 
 # 安装
@@ -978,16 +978,16 @@ _____________________________
 # 缓存图像：
     betterlockscreen -u /PATH/TO/IMAGE
 
-# 更改配置脚本 
+# 更改配置脚本
     ~/.bscripts/lock.sh
 _______________________
     #!/bin/sh
 
-    pkill -SIGUSR1 dunst # pause 
+    pkill -SIGUSR1 dunst # pause
     # mantablockscreen 弃用
-    #mantablockscreen -sc # requires https://github.com/reorr/mantablockscreen      
+    #mantablockscreen -sc # requires https://github.com/reorr/mantablockscreen
     betterlockscreen -l dim
-    pkill -SIGUSR2 dunst # resume 
+    pkill -SIGUSR2 dunst # resume
 ```
 
 ## 切换内核
@@ -1022,7 +1022,7 @@ wipefs 擦除分区filesystem标记
     hwclock --systohc
 ```
 
-#### zsh 
+#### zsh
     `sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions   `
 - Z-shell
 - zsh-zi-mode
@@ -1107,7 +1107,7 @@ ________________________
     MOUDULE(intel_agp i915)
 ------------------------
 
-    /etc/modprobe.d/i915.conf 
+    /etc/modprobe.d/i915.conf
 _____________________________
     options i915 enable_guc=3
     options i915 enable_fbc=1
@@ -1190,7 +1190,7 @@ ____________________________
 
 ## eww 样式异常
 
-# firefox 
+# firefox
 ## 视屏加速
 - [Linux-patches/GPD-Pocket-3.md at main · JohnJayMcKaye/Linux-patches · GitHub](https://github.com/JohnJayMcKaye/Linux-patches/blob/main/GPD-Pocket-3.md)
 - `about:config`
