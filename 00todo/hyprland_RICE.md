@@ -64,17 +64,15 @@ device:gxtp7380:00-27c6:0113 { ## touch screen
 - [libinput - ArchWiki](https://wiki.archlinux.org/title/libinput)
 libinput 不解释手势 触摸屏 所以这个实用程序只能用于触摸板，不能用于触摸屏。-- (https://github.com/bulletmark/libinput-gestures)
 
-### 虚拟键盘 (工作)
+### wvkbd 虚拟键盘 (工作)
 
 ````
 yay -S wvkbd
 
 wvkbd-mobintl
-
 ````
+
 hyprland-per-window-layout 支持多键盘布局
-
-
 ````
 exec-once = hyprland-per-window-layout
 ````
@@ -82,17 +80,15 @@ exec-once = hyprland-per-window-layout
 ## GPD pocket 3 自动旋转支持
 [iio-hyprland, Listen iio-sensor-proxy and auto change Hyprland output orientation](https://github.com/JeanSchoeller/iio-hyprland/)
 -- 开机自动旋转正常支持
+-- 不支持触摸旋转
 ````
 yay -S iio-hyprland-git
 
 # 添加到hyprland config
 exec-once iio-hyprland DSI-1
 ````
--- 不支持触摸旋转
-
 ### 脚本实现自动旋转触控以及手写笔和屏幕显示
 ````
-
 ````
 
 ## Clipboard setting
@@ -113,11 +109,19 @@ exec-once iio-hyprland DSI-1
 ## Screenshot
 - grim: Grab images from a Wayland compositor.
 - slurp: Select a region in a Wayland compositor and print it to the standard output
-这两个一起配合实现选区截图
-    - keybind: copy to clipboard
-            ````
-            bind=SUPER,i,exec,grim -g "$(slurp)" - | wl-copy
-            ````
+这两个一起配合实现选区截图并保存到剪切板上
+    - keybind:
+        ````
+        bind=SUPER,i,exec,grim -g "$(slurp)" - | wl-copy
+        ````
+- 配合 `bar` 实现鼠标点击截图功能
+````
+`~/.config/hypr/scripts/screensort`
+_____________________________
+#!/usr/bin/bash
+
+grim -g "$(slurp)" - | wl-copy
+````
 
 ## Lock Screen
 - swaylock-effects-git: 锁屏
@@ -162,8 +166,9 @@ swayidle -w \
 ````
 
 ## files manager (GUI)
+- thunar
 ````
- # @ THUNAR
+ # @ thunar
    # 支持键盘操作的GUI文件浏览器
    TUMBLER 显示缩略图 -- 默认包不显示缩略图
    # 一些其他文件的缩略图支持
@@ -175,6 +180,41 @@ swayidle -w \
      GVFS-MTP
      GVFS-AFC
 ````
+- ranger + 壁纸切换
+````
+~/.bscripts/wallset PATH_TO_FILE
+#_______________________________
+````
+- 使用ranger快捷切换壁纸
+
+````
+# 添加一个自定义命令
+    ～/.config/ranger/commands.py
+_________________________________
+    class set_wallpaper(Command)
+        def execute(self):
+            if self.arg(1):
+                target_filename = self.rest(1)
+            else:
+                target_filename = self.fm.thisfile.path
+            if not os.path.exists(target_filename):
+                self.fm.notify("The given file does not exist!", bad=True)
+                return
+            self.fm.notify("run command: set_wallpaper " + target_filename)
+            self.fm.run('swww img ' + target_filename )
+---------------------------------------------------------------------------
+    # @ self.fm.thisfile.path 获取当前选定的绝对文件路径
+    # @ self.fm.notify 在ranger底栏显示一条信息
+    # @ self.fm.run 运行一条命令，这里对wallset进行调用
+
+# 为自定义命令添加键位绑定
+    ~/.config/ranger/rc.conf
+__________________________
+    map tw set_wallpaper
+--------------------------
+    # @ tw 可以选择一个不冲突的键位绑定
+````
+
 
 ## Other Application
 -- Chat
@@ -194,27 +234,16 @@ swayidle -w \
 1. Open about:config
 2. Search `layout.css.devPixelsPerPx` change to `1.5` same to hyprland scale (1.5)
 
-### Terminal DPI
-
 ### xwayland 高DPI模糊问题
-
-
+- aur/hyprland-hidpi-xprop-git
 
 ## 其他程序
-https://github.com/sezanzeb/input-remapper : 鼠标键盘按键重新映射工具
-
-https://wiki.archlinux.org/title/Xmodmap
+- https://github.com/sezanzeb/input-remapper : 鼠标键盘按键重新映射工具
+- https://wiki.archlinux.org/title/Xmodmap
 
 ## 空闲音频抑制器
 - https://github.com/ErikReider/SwayAudioIdleInhibit
 
-## swww 壁纸切换
-- swww-git
-- 自动切换壁纸
-
-## hyprland快捷键修改
-- hyprland 与kitty冲突重复的快捷键
-- hyprland更加合理的映射
 
 ## cava
 通过hypr的keybind固定不同窗口的大小和对应窗口的配置
@@ -255,3 +284,6 @@ path+=(~/.local/bin;~/.ghcup/bin)
 # use bat as man pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 ````
+
+## 壁纸切换
+- 自动切换壁纸

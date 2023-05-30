@@ -904,8 +904,6 @@ _____________________________
 # 分别添加
 light -A 5 # 亮度增加 5%
 light -U 5 # 亮度降低 5%
-
-
 ```
 
 ### 壁纸切换
@@ -1238,4 +1236,5 @@ alias screenout_all='xrandr --output HDMI1 --rotate inverted --mode 3840x2160 --
 - 思路：
 目前没有自动适应的方案，只能重写一份配置
 采用手动或者在bar上面添加按钮点击时， (参考2inlscreen) 读取传感器参数然后切换触控矩阵和bar的大小
-- 找个屏幕键盘
+- 找个屏幕键盘 [x]: `yay -S wvkbd, wvkbd-mobintl`
+
