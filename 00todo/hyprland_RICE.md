@@ -165,7 +165,12 @@ swayidle -w \
 
 ````
 
-## files manager (GUI)
+## 壁纸切换
+- 自动切换壁纸
+在swww的示例配置中的自动换壁纸脚本
+- [swww/swww_randomize.sh at main](https://github.com/Horus645/swww/blob/main/example_scripts/swww_randomize.sh)
+
+## wallpaper and file maneger
 - thunar
 ````
  # @ thunar
@@ -216,17 +221,6 @@ __________________________
 ````
 
 
-## Other Application
--- Chat
-    -- icalingua++ : QQ
-    -- telegram
-
--- ScreenSort
-    -- peek :       work on xwayland
-            -- GDK_BACKEND=x11 peek
-    -- flameshot :  Working bad, No supper multi-monitor display
-
--- tailscale-git
 
 ## Hight DPI
 ### FireFox DPI 高分辨率下firefox字体和界面自动放大的问题
@@ -244,26 +238,15 @@ __________________________
 ## 空闲音频抑制器
 - https://github.com/ErikReider/SwayAudioIdleInhibit
 
-
-## cava
-通过hypr的keybind固定不同窗口的大小和对应窗口的配置
-
-## 为firefox特定页面添加windows rule 更改透明规则
-- video: (bilibili, youtuber)
-
-## bar
+## bar (暂时不需要)
 - time
 - workspace
 
-## github ssh
+## github ssh (Done)
 
-## 音量 背光， 进度条
-`wob`
-[GitHub - francma/wob: Wayland 的轻量级叠加卷/背光/进度/任何栏。](https://github.com/francma/wob)
 
-## broot
+## broot (Done)
 - [Install br - Broot --- 安装 br - 布根](https://dystroy.org/broot/install-br/)
-
 yay -S broot-git
 
 
@@ -277,7 +260,8 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 fi
 ````
 
-## zsh
+## zsh 相关
+- zshenv zshrc zshlogin
 ````
 path+=(~/.local/bin;~/.ghcup/bin)
 
@@ -285,5 +269,31 @@ path+=(~/.local/bin;~/.ghcup/bin)
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 ````
 
-## 壁纸切换
-- 自动切换壁纸
+## 音量 背光快捷键控制
+````
+# Light (未添加通知)
+bind=,code:232,exec,light -U 10
+bind=,code:233,exec,light -A 10
+
+# Audio (未添加通知)
+bind=,code:122,exec,amixer set Master 1%-
+bind=,code:123,exec,amixer set Master 1%+
+````
+
+## 音量 背光， 进度条
+`wob`
+[GitHub - francma/wob: Wayland 的轻量级叠加卷/背光/进度/任何栏。](https://github.com/francma/wob)
+
+## 实用程序
+-- Chat
+    -- icalingua++ : QQ
+    -- telegram
+
+-- ScreenSort
+    -- peek :       work on xwayland: GDK_BACKEND=x11 peek
+    -- flameshot :  Working bad on wayland, No supper multi-monitor display
+    -- kooha
+
+-- tailscale-git
+
+-- wev :键盘按键码识别

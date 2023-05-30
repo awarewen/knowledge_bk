@@ -2,7 +2,7 @@
 CreateTime: 2022/11
 > 2022.11 记录：由于将 NetworkManager 与 dhcpcd 服务同时开启后禁用了一次网卡后使用rfkill，nmcli，ip等工具皆无法解除网卡限制，故重装。如果对此问题感兴趣可以一起讨论。
 
-```markdown
+```
 # 仅保证本配置适合以下列出的主要配置
         - 机器型号：  Pocket 3,i7-1195G7 以下简称为 P3
         - 仅安装：    ArchLinux 系统(非双系统)
@@ -74,7 +74,7 @@ CreateTime: 2022/11
 ## 3. 连接网络
 > 以下所使用的命令都是安装镜像预配置并已经启用的
 ---
-```markdown
+```
 # 有线连接
 ## 使用 DHCP 获取 ip 和 DNS
     dhcpcd
@@ -85,7 +85,7 @@ CreateTime: 2022/11
 ```
 - 如果无线网卡无法启动，尝试使用 rfkill 解除限制 [ArchWiki_rfkill](https://wiki.archlinux.org/title/Network_configuration/Wireless#Rfkill_caveat)
 
- ```markdown
+```
 # 使用 iwctl 扫描并连接 wifi
 ## 查看网卡名称(Driver Name)
     device list
@@ -111,7 +111,7 @@ CreateTime: 2022/11
 ![nmtui](/home/awarewen/Pictures/Screenshots/2023-02-07_09:16:15.png)
 
 ## 4. 更新系统时钟
-```markdown
+```
 # 如果不进行此步可能造成后续下载基本系统失败
     timedatectl set-ntp true
 ```
@@ -129,7 +129,7 @@ CreateTime: 2022/11
      |nvme0n1p4   | Arch        | Linux LVM  |  剩下的空间|root/home/snapshots
 
 
-```markdown
+```
 # 创建LVM卷
 ______________________________________
 ## 创建物理卷标记(PV)
@@ -156,7 +156,7 @@ ______________________________________
 --------------------------------------
 ```
 
-```markdown
+```
 # 格式化分区
 ______________________________________
     mkfs.vfat /dev/nvme0n1p2
@@ -166,7 +166,7 @@ ______________________________________
     mkfs.btrfs /dev/mapperArch-homepool
 --------------------------------------
 ```
-```markdown
+```
 # 创建btrfs子卷
 ______________________________________
 ## root 子卷
@@ -192,7 +192,7 @@ ______________________________________
 --------------------------------------
 ```
 
-```markdown
+```
 # 挂载
 ______________________________________
 ## 根目录
@@ -220,7 +220,7 @@ VFAT文件系统： dosfslabel
 ntfs文件系统： ntfslabel
 
 ## 7. 镜像安装
-```markdown
+```
 # 更新国内镜像源
     reflector -c China -a 10 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -240,7 +240,7 @@ ntfs文件系统： ntfslabel
 ```
 
 ## 8. 生成分区表
-```markdown
+```
     genfstb -U /mnt >> /mnt/etc/fstab
 
 # 检查分区表：
@@ -252,10 +252,10 @@ ntfs文件系统： ntfslabel
 ```sh
     arch-chroot /mnt
 ```
-## 10. 配置 LVM 支持和grub
+## 10. 配置 LVM 支持和grub (弃用LVM)
 ### 1. mkinitcpio 钩子
-```markdown
-# mkinitcpio 钩子
+```
+#### mkinitcpio 钩子
     vim /etc/mkinitcpio.conf
 ____________________________
     ###
@@ -263,17 +263,17 @@ ____________________________
     'HOOKS=".... lvm2'
     # @ HOOKS="... lvm2 filesystems"请在filesystems 前面添加 lvm2模块加载
 
-# for btrfs check
+#### for btrfs check
     MODULES=(btrfs)
     BINARIES=(btrfs)
 ----------------------------
 
-# 重新生成 initcpio
+#### 重新生成 initcpio
     mkinitcpio -P
 ```
 ### 2. 修改默认 Grub 参数
 - [GRUB (简体中文) - ArchWiki](https://wiki.archlinux.org/title/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#BIOS_%E7%B3%BB%E7%BB%9F)
-```markdown
+```
     /etc/default/grub
 _____________________
     GRUB_PRELOAD_MODULES="... btrfs"
@@ -283,64 +283,64 @@ _____________________
     # --减少关机时需要等待的时间
 --------------------------------------------------------------------------
 
-# 如果已经安装生成过 grub，修改后请重新生成 grub
-    grub-mkconfig -o /boot/grub/grub.cfg
+#### 如果已经安装生成过 grub，修改后请重新生成 grub
+grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### 3. 安装 Grub
 
-```markdown
-# BIOS_boot
-## 注意留空的 '2M' 未格式化分区，用来存放 'BIOS_boot' 方式启动所需要文件
+```
+## BIOS_boot
+### 注意留空的 '2M' 未格式化分区，用来存放 'BIOS_boot' 方式启动所需要文件
     grub-install --target=i386-pc /dev/nvme0n1
     # @ '/dev/nvme0n1'
     # --注意此处为设备名称而非分区名称 'nvme0n1p1'
 
-# UEFI_efi
+### UEFI_efi
     grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch --recheck
     # @ '--bootloader-id'
     # --指定一个显示在 GRUB 菜单的名称
 
-# 生成 Grub 配置
+### 生成 Grub 配置
     grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## 11. 校正时区
-```markdown
-# 设置本地时区
+```
+### 设置本地时区
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-# 同步硬件时钟
+### 同步硬件时钟
     hwclock --systohc
 ```
 
 ## 12. 本地化
-```markdown
-# 将 'en_US.UTF-8 UTF-8' 'zh_CN.UTF-8 UTF-8' 取消注释
+````
+### 将 'en_US.UTF-8 UTF-8' 'zh_CN.UTF-8 UTF-8' 取消注释
     vim /etc/locale.gen
     locale-gen
 
-# 字符终端不要用 'zh_CN.UTF-8' 会中文乱码
+### 字符终端不要用 'zh_CN.UTF-8' 会中文乱码
     echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
-# 主机名
+### 主机名
     echo "your_hostname" >> /etc/hostname
 
-# 设置 hosts 解析
-# systemd 中提供了 NSS 模块无需配置 hosts 就可以使用本地主机名称解析服务
-# 但是一些程序仍然会依赖于 /etc/hosts 文件
-    /etc/hosts
+### 设置 hosts 解析
+### systemd 中提供了 NSS 模块无需配置 hosts 就可以使用本地主机名称解析服务
+### 但是一些程序仍然会依赖于 /etc/hosts 文件
+/etc/hosts
 ______________
     127.0.0.1       localhost
     ::1             localhost
     127.0.0.1       'your_hostname'.localdomain   'your_hostname'
     # @ 'your_hostname' 请和'/etc/hostname'中填写相同主机名称
 -----------------------------------------------------------------
-```
+````
 - host 请见:[Network configuration - ArchWiki](https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network)
 
 ## 13. Root用户和普通用户
-```markdown
+```
 # 设置 root 用户密码
     passwd root
 
@@ -357,7 +357,7 @@ ______________
 [xdg-用户目录](https://www.freedesktop.org/wiki/Software/xdg-user-dirs/)
 
 # 二、安装桌面前的准备
-```markdown
+```
 # 提供基本的用户文件管理服务
     sudo pacman -S xdg-user-dirs
 
@@ -366,7 +366,7 @@ ______________
 ```
 
 ## 1. systemed ：一些必要的服务配置
-```markdown
+```
     sudo systemctl disable dhcpcd
     sudo systemctl enable NetworkManager
     sudo systemctl enable sshd
@@ -375,7 +375,7 @@ ______________
 
 ## 2. 如果需要更换SHELL
 - [Command-line shell - ArchWiki](https://wiki.archlinux.org/title/Command-line_shell)
-```markdown
+```
 # 检查当前用户默认SHELL:Zsh SHELL
     echo $SHELL
 
@@ -389,7 +389,7 @@ ______________
 ## 3. 配置AUR
 1. 添加国内源打开,并32位支持
 [2022.5 archlinux详细安装过程 - 知乎](https://zhuanlan.zhihu.com/p/513859236)
-```markdown
+```
     /etc/pacman.conf
 ____________________
     [archlinuxcn]
@@ -408,7 +408,7 @@ ____________________
     sudo pacman -S archlinuxcn-keyring
 ```
 2. 安装 AUR HELPER
-```markdown
+```
 # 安装AUR helper
     sudo pacman -S base-devel --needed
     git clone https://aur.archlinux.org/paru.git
@@ -420,7 +420,7 @@ ____________________
 ```
 
 ## 4. 驱动
-```markdown
+```
 # 显示驱动(intel 核显)
     sudo pacman -S xf86-video-intel vulkan-intel
     # -- mesa驱动，造成firefox画面撕裂
@@ -447,7 +447,7 @@ _____________________________
 - [GitHub - defencore/gpd-pocket-3-linux: GPD Pocket 3 Linux](https://github.com/defencore/gpd-pocket-3-linux)
 1. TTY界面
 
-```markdown
+```
 # 添加内核参数fbcon
     /etc/default/grub
 _____________________
@@ -460,7 +460,7 @@ _____________________
     sudo grub-mkconfig -0 /boot/grub/grub.cfg
 ```
 2. SDDM界面
-```markdown
+```
 # 添加Xsetup脚本旋转SDDM登陆界面
     /usr/share/sddm/scripts/Xsetup
 __________________________________
@@ -469,7 +469,7 @@ __________________________________
 -----------------------------
 ```
 3. 自动旋转(目前不可用)
-```markdown
+```
   1. xrandr and xinput rotation can be automated with 2in1screen.
   yay -S xorg-xinput
 
@@ -485,7 +485,7 @@ __________________________________
 ```
 
 4. 触屏方向
-```markdown
+```
     /etc/X11/xorg.conf.d/99-touchsreen.conf
 ___________________________________________
     Section         "InputClass"
@@ -504,7 +504,7 @@ ___________________________________________
 
 5. TTY字体
 - [vconsole 介绍](https://man.archlinux.org/man/vconsole.conf.5)
-```markdown
+```
 # 新环境请先安装 terminus-font
     yay -S terminus-font
 
@@ -520,7 +520,7 @@ ____________________________
 
 6. 安装装bspwm sxhkd
 - [从零开始的Bspwm安装与配置教程 - 知乎](https://zhuanlan.zhihu.com/p/568211941)
-```markdown
+```
 # 窗口管理器 bspwm 和快捷键守护进程 sxhkd
     sudo pacman -S bspwm sxhkd
 
@@ -551,7 +551,7 @@ ___________________________
 
 # 四、开始配置桌面环境
 ## 1. 输入法和字体
-```markdown
+```
 # 英文字体
 pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family
 
@@ -564,7 +564,7 @@ paru -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk a
 1. Fcitx5 框架、主题、词库
     - [Fcitx5 - ArchWiki](https://wiki.archlinux.org/title/Fcitx5#Configuration)
     - [Environment variables - ArchWiki](https://wiki.archlinux.org/title/Environment_variables#Defining_variables)
-```markdown
+```
 # 安装输入法框架和配套
     sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-moegirl fcitx5-pinyin-zhwiki fcitx5-lua
     # @fcitx5-im：基础输入框架
@@ -591,7 +591,7 @@ _____________________
 ```
 
 - 修改字体渲染设置
-```markdown
+```
     vim /etc/profile.d/freetype2.sh
 ___________________________________
     # 取消注释最后一句
@@ -612,7 +612,7 @@ ___________________________________
     echo "fcitx5 -d" >> ~/.config/bspwm/autostart
 
 ### 安装依赖
-```markdown
+```
 
 yay -Sy tlp tlp-rdw alsa-utils-git blueman bspwm colorpicker
         dunst eww-git flameshot hsetroot imagemagick jq kitty light
@@ -674,7 +674,7 @@ tlpui tlp board
 ## 2023/3/17 : picom ftlabs 持续一个月没有更新，返回主线版本
 ```
 
-```markdown
+```
 # 依赖程序简介
 
 # 一个用python和Qt编写的弹出通知工具
@@ -783,7 +783,7 @@ lm_sensors
 
 ```
 ####  软件/程序推荐
-```markdown
+```
  #    桌面图形软件
 -     ark       #       解压软件
 -     dolphin   #       图形文件浏览器
@@ -839,7 +839,7 @@ lm_sensors
 ---
 
 > 如果选择配合脚本通知亮度即跟随以下配置
-```markdown
+```
 yay -S light
 
 # 安装 light 包
@@ -913,7 +913,7 @@ light -U 5 # 亮度降低 5%
 ```
 - 使用ranger快捷切换壁纸
 
-```markdown
+```
 # 添加一个自定义命令
     ～/.config/ranger/commands.py
 _________________________________
@@ -951,7 +951,7 @@ __________________________
 
 ### 2023/1/12 弃用 `mantablockscreen` ，使用 `betterlockscreen` 代替
 - [betterlockscreen/betterlockscreen: 🍀 sweet looking lockscreen for linux system](https://github.com/betterlockscreen/betterlockscreen#usage)
-```markdown
+```
 # 在启动脚本中注释mantablockscreen
     ~/.config/bspwm/autostart
 _____________________________
@@ -1075,7 +1075,7 @@ wipefs 擦除分区filesystem标记
     `xrandr --output HDMI1 --primary --rotate inverted --mode 1920x1080 --left-of DSI1`
 
 ## 安装deb包
-```markdown
+```
 # 安装debtap
     yay -S debtap
     sudo debtap -u
@@ -1090,7 +1090,7 @@ wipefs 擦除分区filesystem标记
 ## 启用GuC HuC (11代intel cpu)
 - [如何充分使用英特尔硬件（指南） - FAQ and Tutorials - Garuda Linux Forum](https://forum.garudalinux.org/t/how-to-fully-use-intel-hardware-guide/8193)
 
-```markdown
+```
 # TIP for P3: xf86-video-intel 请不要卸载，否则无法正常旋转桌面的方向
 
 sudo pacman -S mesa lib32-mesa libva libva-intel-driver\
@@ -1120,7 +1120,7 @@ _____________________________
 - 目前 S3 休眠失效已经在 6.1.5 内核修复，无需任何配置即可正常使用
 - [arch wiki :Suspend](https://wiki.archlinux.org/title/GPD_Pocket_3)
 
-```markdown
+```
     /etc/default/grub
 _____________________
     mem_sleep_default=s2idle
@@ -1147,7 +1147,7 @@ s5
   经过检查是在配置文件中的 ~/.bscripts/idle.sh 中设置了系统休眠，系统进入休眠状态后会停止wifi,蓝牙等外部设备
 - 解决方案1): 移除此脚本
 - 解决方案2): 注释启动脚本idle.sh
-```markdown
+```
     ~/.config/bspwm/autostart
 _____________________________
     # Autosuspend
@@ -1159,7 +1159,7 @@ _____________________________
 ## 使系统在合盖时进入锁屏
 - [logind.conf](https://www.freedesktop.org/software/systemd/man/logind.conf.html)
 
-```markdown
+```
     /etc/systemd/logind.conf
 ____________________________
 # 系统空闲时 （ignore 不做任何操作）
@@ -1174,7 +1174,6 @@ ____________________________
 /usr/share/polkit-1/actions/org.freedesktop.udisks2.policy
 将此配置文件中的<action id="org.freedesktop.udisks2.filesystem-mount-system">
 标签中的子标签<allow_active></allow_active>的值改为yes即可无需通过密码验证直接挂载分区。
-
 
 ####  记录好看的 dotfile
 - [ayamir/bspwm-dotfiles: My Arch+Bspwm dotfiles](https://github.com/ayamir/bspwm-dotfiles)
@@ -1218,8 +1217,9 @@ vainfo
 小于多少不旋转
 是否存在过度
 
-## 多屏情况下触摸屏
+## 多屏情况下触摸屏 (Xorg)
 - [双显示器和多显示器设置 · linuxwacom/xf86-input-wacom Wiki · GitHub](https://github.com/linuxwacom/xf86-input-wacom/wiki/Dual-and-Multi-Monitor-Set-Up)
+
 `yay -S xf86-input-wacom` :提供了xsetwacom工具
 
 ```

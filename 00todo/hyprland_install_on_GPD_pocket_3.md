@@ -172,8 +172,6 @@ passwd 'the_user_name'
 
 ````
 
-
-
 ## ARU
 修改pacman.conf即可
 添加archlinuxcn源
@@ -193,7 +191,7 @@ pacman -S paru-git
 ````
 
 ## 常用软件：
-paru -S kitty tmux ntfs-3g ranger clash-meta terminus-font
+paru -S ntfs-3g clash-meta 
 
 ```markdown
 ### 英文字体
@@ -208,21 +206,26 @@ symble fonts
 paru -S ttc-iosevka-git
 ```
 
-## user app
+## TTY Font set
 设置tty字体大小
+````
+yay -S terminus-font
 echo FONT=ter-u32b > /etc/vconsole.conf
+````
 
 ## 开启服务
+````
 systemctl enable NetworkManager
 systemctl ebable sshd
+
 exit
 umount -a
-reboot
 
+reboot
+````
 
 ## 桌面前的准备
 --
-
 安装 XDG dir基本用户文件管理
 
  sudo pacman -S xdg-user-dirs
@@ -238,11 +241,7 @@ paru -S sddm-git
 ## wlr-randr
 paru -S wlr-randr
 
-
-安装hyprland
-依赖
-
-
+## Dotfiles install
 https://github.com/flick0/dotfiles/tree/dreamy
 
 paru -S hyprland-git waybar-hyprland-git cava waybar-mpris-git python rustup kitty fish wofi xdg-desktop-portal-hyprland-git tty-clock-git swaylockd grim slurp pokemon-colorscripts-git starship jq dunst wl-clipboard swaylock-effects-git swww-git zsh tmux ranger sddm-git qt5-base qt5-wayland qt6-base qt6-wayland light blueman network-manager-applet g4music btop polkit-kde-agent
@@ -273,10 +272,7 @@ paru -S swaync  playerctl   mpd mpd-mpris mpv mpv-mpris qt5-base qt5-wayland qt6
 
 go-musicfox firefox
 
-hostname 命令未找到：install inetutils
-
-
-
+-- NOTE hostname 命令未找到：install inetutils
 
 ## `TLP` 电源管理
 - install `tlp` 电源管理和 `tlp-rdw` 无线设备向导
@@ -288,7 +284,7 @@ sudo systemctl enable NetworkManager-dispatcher.service
 ````
 - 屏蔽 systemd 服务systemd-rfkill.service 以及套接字 systemd-rfkill.socket 来防止冲突，保证 TLP 无线设备的开关选项可以正确运行
 
-- 默认的`TLP` 电源管理已经很不错了。以下为 `GPD Pocket 3` 配置
+- 以下为 `GPD Pocket 3 TLP` 配置
 ````
 /etc/tlp.conf
 -------------
@@ -344,8 +340,6 @@ sudo systemctl enable bluetooth.service
 curl wget beep (for musicfox) alsa-utils fzf fd ripgrep wl-copy zoxide
 
 tmux
-
-kitty
 
 neovide : cargo install --git https://github.com/Yesterday17/neovide.git
 ````
@@ -500,22 +494,7 @@ windowrule=size 418 234,title:^(clock_is_kitty)$
 热键组合和修饰符输入会被混成器捕获，并且不会发送到远程桌面和虚拟机窗口中。
 鼠标指针将不会被限制在应用程序的窗口中，这可能会导致视差效应，即虚拟机或远程桌面的窗口内鼠标指针的位置与主机的鼠标指针发生偏差。
 
-## switch
-- GPD pocket 3 开关屏检测
-````
-       │
-       │ Switches:
-       │     Switch Device at 55610ec32ee0:
-       │         Lid Switch
-       │
-````
-
-
 ## (kooha, peek)
-- [phw/peek: Simple animated GIF screen recorder with an easy to use interface](https://github.com/phw/peek)
+- [phw/peek: Only work on xwayland](https://github.com/phw/peek)
 - [SeaDve/Kooha: Elegantly record your screen](https://github.com/SeaDve/Kooha)
-
-
-
-
 
