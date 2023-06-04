@@ -297,3 +297,4 @@ bind=,code:123,exec,amixer set Master 1%+
 -- tailscale-git
 
 -- wev :键盘按键码识别
+
