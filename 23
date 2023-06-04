@@ -50,7 +50,7 @@
 
 - SpaceVim
   [DOC | SpaceVim](https://spacevim.org/)
-
+  
 - LunarVim
   [DOC | LunarVim](https://www.lunarvim.org/)
 
@@ -104,14 +104,11 @@ vim.bo        用于表示缓冲区选项（buffer options），例如 textwidth
 vim.go        用于表示全局选项（global options），例如 guifont、guioptions、termguicolors 等等。
 
 ## 同步滚动
-[Scroll - Neovim docs --- 滚动 -](http://neovim.io/doc/user/scroll.html)
 在显示多个窗口时，可以在每个窗口设置 `scrollbind` 选项，使多个窗口同时滚动。
 ````
 :set scrollbind
 ````
 
-## neovide + ranger(xoxide) + nvim_server
-使用ranger(xoxide) 来跳转编辑的文件目录，使用快捷键绑定执行nvim_server，再调用neovide开启GUI
+## 平滑的半屏滚动
 
-## 光标跳跃效果
-[Issues · edluffy/specs.nvim --- 问题 ·edluffy/specs.nvim](https://github.com/edluffy/specs.nvim)
+## 水平滚动
