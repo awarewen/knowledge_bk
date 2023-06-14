@@ -23,9 +23,24 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
 ```
 - ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
+## plagin list:
+- Use meta-plugins to install common annexes as a group:
+-- z-shell/z-a-meta-plugins
+-  - @annexes @zunit @zsh-users  @fuzzy
+-- z-shell/F-Sy-h
+-- z-shell/H-S-MW
+-- z-shell/z-a-eval
+-- romkatv/powerlevel10k
+-- jeffreytse/zsh-vi-mode
+-- jeffreytse/zsh-vi-mode
+-- cantino/mcfly
+
 ## Annexes
 - [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
-所有附件
+
+### bin--gem-node
+[🌀 Bin Gem Node | Z-Shell](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
+
 
 ### Meta工具
 - [🌀 Meta Plugins | Z-Shell](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins)

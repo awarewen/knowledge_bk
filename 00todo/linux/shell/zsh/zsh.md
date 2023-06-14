@@ -78,3 +78,12 @@ def
 
 .zlogout 有时用于清除和重置终端。它在退出时调用，而不是在打开时调用。
 ```
+
+
+zshenv -> zprofile -> zshrc (current)
+zshenv   : always
+zprofile : if login shell
+zshrc    : if interactive shell
+zlogin   : if login shell, after zshrc
+zlogout  : if login shell, after logout
+
