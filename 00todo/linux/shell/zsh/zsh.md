@@ -79,7 +79,7 @@ def
 .zlogout 有时用于清除和重置终端。它在退出时调用，而不是在打开时调用。
 ```
 
-
+- [GitHub - SixArm/zsh-config: SixArm.com → Z shell → zsh configuration](https://github.com/SixArm/zsh-config)
 zshenv -> zprofile -> zshrc (current)
 zshenv   : always
 zprofile : if login shell
