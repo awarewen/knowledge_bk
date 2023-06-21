@@ -9,14 +9,12 @@ WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_star
 - ZUnit : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a zunit`
 
 ## plagin list:
--- z-shell/z-a-meta-plugins
--  - @annexes+ @zsh-users+fast @fuzzy
--- z-shell/H-S-MW
--- z-shell/z-a-eval
--- romkatv/powerlevel10k
--- jeffreytse/zsh-vi-mode
--- cantino/mcfly
-
+-- z-shell/z-a-meta-plugins : 元包
+- - @annexes+ @zsh-users+fast  @fuzzy
+-- romkatv/powerlevel10k : 主题
+-- jeffreytse/zsh-vi-mode : 更好的 vi 快捷键
+-- cantino/mcfly : 历史命令搜索
+-- z-shell/zsh-zoxide : 历史路径跳转
 
 ## zsh-vi-mode options (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
 ### add in .zshrc
@@ -32,38 +30,15 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
 - ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 ## zoxide
+需要另外下载 'zoxide' 依赖
 
-## Annexes
-- [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
+## [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
+这个 meta 包中包含了大部分插件需要的基础依赖
 
-### bin--gem-node
-[🌀 Bin Gem Node | Z-Shell](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
+## "z-shell/F-Sy-H": Zsh 功能丰富的语法高亮显示, 可用于替换 "zsh-syntax-highlighting"
+-- 此插件包含在了 meta 中的 "@zsh-users+fast"
 
-
-### Meta工具
-- [🌀 Meta Plugins | Z-Shell](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins)
-附件中的元包安装
-```sh taital:~/.zshrc
-zi light z-shell/z-a-meta-plugins
-```
-附件自动应用了精选的最佳 ice-modifiers 列表。
-
-> annexes
-> >
-
-## 常用终端工具粘合
-- fzf
-- mcfly
-- btroot
-- zsh-users/zsh-syntax-highlighting *
-- zsh-users/zsh-autosuggestions *
-- zsh-users/zsh-completions *
-- romkatv/powerlevel10k
-- jeffreytse/zsh-vi-mode
-- z-shell/zsh-zoxide
-
-
-- zinit light z-shell/F-Sy-H: Zsh 功能丰富的语法高亮显示, 可用于替换zsh-syntax-highlighting
+单独添加的话
 ````
     zi wait lucid for \
         atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
