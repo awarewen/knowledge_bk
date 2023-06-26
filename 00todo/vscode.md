@@ -10,3 +10,8 @@ _________________________
 --ozone-platform-hint=wayland
 --enable-wayland-ime
 ````
+
+## neovim适配
+- plugins
+    - vscode-neovim : 添加 neovim 支持
+- themes

@@ -9,15 +9,16 @@
 .zlogin 用于登录外壳。它来源于登录 shell 的开头，但在 .zshrc 之后，如果 shell 也是交互式的。此文件通常用于使用 startx 启动 X。某些系统在启动时启动 X，因此此文件并不总是很有用。
 
 .zlogout 有时用于清除和重置终端。它在退出时调用，而不是在打开时调用。
-```
 
 - [GitHub - SixArm/zsh-config: SixArm.com → Z shell → zsh configuration](https://github.com/SixArm/zsh-config)
+````
 zshenv -> zprofile -> zshrc (current)
 zshenv   : always
 zprofile : if login shell
 zshrc    : if interactive shell
 zlogin   : if login shell, after zshrc
 zlogout  : if login shell, after logout
+````
 
 ## ZSH 配置管理
 
