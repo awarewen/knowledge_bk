@@ -49,3 +49,9 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
          zsh-users/zsh-autosuggestions
 ````
 
+## cantino/mcfly BUG 修复
+- [thread 'main' panicked at 'McFly error: Please ensure HISTFILE or MCFLY_HISTFILE is set · Issue #313 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/issues/313)
+
+- [Ensure at least MCFLY_HISTFILE is set for history import by cantino · Pull Request #315 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/pull/315)
+
+- 需要注意脚本中设置的`MCFLY_HISTFILE`变量和当前存储历史的文件名称是否一样
