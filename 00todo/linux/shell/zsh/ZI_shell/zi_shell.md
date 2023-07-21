@@ -13,7 +13,8 @@ WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_star
 - - @annexes+ @zsh-users+fast  @fuzzy
 -- romkatv/powerlevel10k : 主题
 -- jeffreytse/zsh-vi-mode : 更好的 vi 快捷键
--- cantino/mcfly : 历史命令搜索
+-- cantino/mcfly : 历史命令搜索 (zsh 下面有问题)
+    -- 使用 z-shell/h-s-mw 替换 mcfly
 -- z-shell/zsh-zoxide : 历史路径跳转
 
 ## zsh-vi-mode options (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
@@ -49,7 +50,7 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
          zsh-users/zsh-autosuggestions
 ````
 
-## cantino/mcfly BUG 修复
+## cantino/mcfly BUG 修复 (无法修复)
 - [thread 'main' panicked at 'McFly error: Please ensure HISTFILE or MCFLY_HISTFILE is set · Issue #313 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/issues/313)
 
 - [Ensure at least MCFLY_HISTFILE is set for history import by cantino · Pull Request #315 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/pull/315)
