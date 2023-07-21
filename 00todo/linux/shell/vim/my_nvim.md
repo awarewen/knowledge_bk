@@ -1,6 +1,5 @@
 # 从0开始的NeoVim生活
 - [mhinz/vim-galore: All things Vim!](https://github.com/mhinz/vim-galore#buffers-windows-tabs)
-- 多种配置的融合归纳
 
 各种配置，每个人的编写风格也不一样，从nvim lua guide开始学习
 
@@ -115,3 +114,7 @@ vim.go        用于表示全局选项（global options），例如 guifont、gu
 
 ## 光标跳跃效果
 [Issues · edluffy/specs.nvim --- 问题 ·edluffy/specs.nvim](https://github.com/edluffy/specs.nvim)
+
+## kickstart.nvim [A launch point for your personal nvim configuration](https://github.com/nvim-lua/kickstart.nvim)
+采用lazynivm 作为插件管理器的配置
+- 插件安装
