@@ -11,6 +11,7 @@
   - feh
   - hsetroot
   - xwallpaper
+  - swww
 
 ## 程序的使用以及脚本示例
 

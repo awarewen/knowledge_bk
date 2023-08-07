@@ -109,12 +109,23 @@ vim.go        用于表示全局选项（global options），例如 guifont、gu
 :set scrollbind
 ````
 
-## neovide + ranger(xoxide) + nvim_server
-使用ranger(xoxide) 来跳转编辑的文件目录，使用快捷键绑定执行nvim_server，再调用neovide开启GUI
-
 ## 光标跳跃效果
 [Issues · edluffy/specs.nvim --- 问题 ·edluffy/specs.nvim](https://github.com/edluffy/specs.nvim)
 
 ## kickstart.nvim [A launch point for your personal nvim configuration](https://github.com/nvim-lua/kickstart.nvim)
 采用lazynivm 作为插件管理器的配置
 - 插件安装
+
+
+## neovide 启动 env -u WAYLAND_DISPLAY neovide
+
+
+## lazyvim start
+
+### init.lua
+- 一般的配置步骤：
+    1. 确定 `leader`
+        `mapleader` :作全局插件映射
+        `maplocalleader` :作文件类型插件映射
+        - NOTE: 两者不同的映射可以减少映射冲突的可能
+
