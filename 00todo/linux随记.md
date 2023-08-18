@@ -1,4 +1,4 @@
-##  GRUB
+## 电源节能
 ```sh
       /etc/default/grub
       _________________
@@ -30,22 +30,35 @@
 #     -- 待了解里面各项值的含义 
 ```
 
-##  Error
-```i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=44085 end=44086) time 2 us, min 1908, max 1919, scanline start 1920, end>```
-
-```markdown
-  /etc/mkinitcpio.conf
-  ____________________
-  MOUDULE(i915)
-
-  /etc/default/grub
-  ____________________
-  i915.enable_guc=2
-
-  sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-  sudo mkinitcpio -P
-```
-
 ## How To Fix “unable to lock database” Error In Arch Linux
   `sudo rm /var/lib/pacman/db.lck`
+
+
+## `zsh Shell` 中从 `.zlogin` 还是 `.zprofile` 启动wm
+[Zsh - ArchWiki](https://wiki.archlinux.org/title/Zsh#Startup/Shutdown_files)
+如果 zsh 配置目录 `$ZDOTDIR` 没有设置，则使用`$HOME`，并且如果没有在任何配置中设置 `RCS` 选项，则加载完最后的配置文件之后将不再读取任何其他配置文件
+
+### `/etc/zsh/*` 通常用于为所有用户设置交互式 shell 配置和执行命令，在作为交互式 shell 启动时将被读取
+- `/etc/zsh/zshenv` 全局的环境变量为所有的用户设置环境变量；它不应该包含生成输出的命令或假定外壳程序附加到 TTY 的命令。当文件存在时，它始终被读取，不能被覆盖。
+
+- `/etc/zsh/zprofile` 用于 **启动时** 为所有用户执行的命令，启动时将作为 **login shell** 被读取，在 archlinux 上默认情况下它包含[一行](https://gitlab.archlinux.org/archlinux/packaging/packages/zsh/-/blob/main/zprofile) `source /etc/profile`
+    - `/etc/profile` 此文件应该在 **登陆时** 由 **所有的 POSIX sh-compatible shell** source：它在 **登陆时** 设置 `$PATH` 和其他的环境变量以及特定于应用程序的 (`/etc/profile.d/*.sh`) 设置
+
+- `/etc/zsh/zshrc` 用于设置所有用户 **interactive shell** 配置和执行命令，作为 **interactive shell** 启动时将被读取
+
+-`/etc/zsh/zlogin` 在登陆时的初始化进度条结束时为所有用户执行命令，在启动时作为 **login shell** 被读取
+
+### `$ZDOTDIR` 通常用于为当前用户
+- `$ZDOTDIR/.zshenv` 用于设置当前用户的环境变量；它不应该包含生成输出或假定外壳程序附加到 TTY 的命令。当文件存在时，它始终被读取，不能被覆盖。
+
+- `$ZDOTDIR/.zprofile` 用于在启动时执行用户的命令，在启动时作为 login shell 被读取。通常用于自启动图形会话和设置会话范围的环境变量
+
+- `$ZDOTDIR/.zshrc` 用于设置当前用户的环境变量，在启动时作为 interactive shell 被读取。
+
+- `$ZDOTDIR/.zlogin` 用于在初始进度结束时执行当前用户的命令，在 **启动时** 作为 **login shell** 被读取，通常用于自启动命令行实用程序。不作为自启动图形会话，因为此时的会话可能包含 **interactive shell** 的配置
+
+
+
+## arch linux 孤包
+- [pacman - Arch Linux 中文维基](https://wiki.archlinuxcn.org/wiki/Pacman)
+- [到底什么是“孤立”包？Arch Linux 中文论坛](https://bbs.archlinuxcn.org/viewtopic.php?id=12252)

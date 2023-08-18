@@ -1,14 +1,6 @@
-.zshenv
+## [login shell and interactive](https://zsh.sourceforge.io/Guide/zshguide02.html)
+在首次登陆计算机时 shell 是 interactive shell ，但它同时也是一个 login shell
 
-.zprofile 用于登录外壳。它与 .zlogin 基本相同，只是它的来源在 .zshrc 之前，而 .zlogin 的来源在 .zshrc 之后。根据 zsh 文档，“ .zprofile 是 ksh 粉丝 .zlogin 的替代品;这两者不打算一起使用，尽管如果需要，这当然可以做到。
-
-
- .zshrc 用于交互式 shell。您可以使用 setopt 和 unsetopt 命令在此处设置交互式 shell 的选项。您还可以加载 shell 模块、设置历史记录选项、更改提示、设置 zle 和完成等。您还可以设置仅在交互式 shell 中使用的任何变量（例如 $LS_COLORS ).
-
-
-.zlogin 用于登录外壳。它来源于登录 shell 的开头，但在 .zshrc 之后，如果 shell 也是交互式的。此文件通常用于使用 startx 启动 X。某些系统在启动时启动 X，因此此文件并不总是很有用。
-
-.zlogout 有时用于清除和重置终端。它在退出时调用，而不是在打开时调用。
 
 - [GitHub - SixArm/zsh-config: SixArm.com → Z shell → zsh configuration](https://github.com/SixArm/zsh-config)
 ````
