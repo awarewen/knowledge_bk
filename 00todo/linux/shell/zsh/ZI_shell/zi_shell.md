@@ -8,30 +8,9 @@ WIKI:[⚡️ 安装 | Z-Shell](https://wiki.zshell.dev/zh-Hans/docs/getting_star
 - Annex : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a annex`
 - ZUnit : `sh -c "$(curl -fsSL get.zshell.dev)" -- -a zunit`
 
-## plagin list:
--- z-shell/z-a-meta-plugins : 元包
-- - @annexes+ @zsh-users+fast  @fuzzy
--- romkatv/powerlevel10k : 主题
--- jeffreytse/zsh-vi-mode : 更好的 vi 快捷键
--- cantino/mcfly : 历史命令搜索 (zsh 下面有问题)
-    -- 使用 z-shell/h-s-mw 替换 mcfly
--- z-shell/zsh-zoxide : 历史路径跳转
-
 ## zsh-vi-mode options (URL:https://github.com/jeffreytse/zsh-vi-mode#custom-escape-key)
-### add in .zshrc
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-### use 'jk'
-```
-ZVM_VI_ESCAPE_BINDKEY: The vi escape key in all modes (default is ^[ => ESC)
-ZVM_VI_INSERT_ESCAPE_BINDKEY: The vi escape key in insert mode (default is $ZVM_VI_ESCAPE_BINDKEY)
-ZVM_VI_VISUAL_ESCAPE_BINDKEY: The vi escape key in visual mode (default is $ZVM_VI_ESCAPE_BINDKEY)
-ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (default is $ZVM_VI_ESCAPE_BINDKEY)
-```
-- ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 ## zoxide
-需要另外下载 'zoxide' 依赖
 
 ## [🌀 Annexes | Z-Shell](https://wiki.zshell.dev/ecosystem/category/-annexes)
 这个 meta 包中包含了大部分插件需要的基础依赖
@@ -50,7 +29,7 @@ ZVM_VI_OPPEND_ESCAPE_BINDKEY: The vi escape key in operator pending mode (defaul
          zsh-users/zsh-autosuggestions
 ````
 
-## cantino/mcfly BUG 修复 (无法修复)
+## cantino/mcfly BUG 修复 (未修复)
 - [thread 'main' panicked at 'McFly error: Please ensure HISTFILE or MCFLY_HISTFILE is set · Issue #313 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/issues/313)
 
 - [Ensure at least MCFLY_HISTFILE is set for history import by cantino · Pull Request #315 · cantino/mcfly · GitHub](https://github.com/cantino/mcfly/pull/315)

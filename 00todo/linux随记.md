@@ -62,3 +62,39 @@
 ## arch linux 孤包
 - [pacman - Arch Linux 中文维基](https://wiki.archlinuxcn.org/wiki/Pacman)
 - [到底什么是“孤立”包？Arch Linux 中文论坛](https://bbs.archlinuxcn.org/viewtopic.php?id=12252)
+
+
+## 查看linux文件/文件夹大小 (du)
+- [du 查看文件夹大小 — Linux latest 文档](https://gnu-linux.readthedocs.io/zh/latest/Chapter01/00_du.html)
+
+````
+-h, --human-readable    以K，M，G为单位，显示文件的大小
+-s, --summarize         只显示总计的文件大小
+-S, --separate-dirs     显示时并不含其子文件夹的大小
+-d, --max-depth=N       显示子文件夹的深度（层级）
+````
+
+## PPPOE with NetworkManager
+NM 需要额外的包(rp-pppoe)支持才能使用PPPOE/DSL
+
+在添加后重启 NM 服务，可以使用 nm-connevyion-editor,也可以使用nmtui
+
+
+## 在安装firefox插件沙拉查词遇到的问题
+- [compression - "gzip: stdin has more than one entry--rest ignored" and "gzip: tmp.gz has more than one entry -- unchanged" - Super User](https://superuser.com/questions/1237854/gzip-stdin-has-more-than-one-entry-rest-ignored-and-gzip-tmp-gz-has-more-t)
+- *.Zip 和 *.tar.gz
+````
+As explained by 'druuna' at http://www.linuxquestions.org/questions/linux-software-2/gunzip-%5Bfile%5D-has-more-than-one-entry-unchanged-618990/#post3047709, this can happen if it's actually a ZIP-file rather than a gz-file, just with a misleading extension, and it contains multiple files. (gzip -d does support ZIP-files that contain only one file.)
+
+正如 http://www.linuxquestions.org/questions/linux-software-2/gunzip-%5Bfile%5D-has-more-than-one-entry-unchanged-618990/#post3047709 的“druuna”所解释的那样，如果它实际上是一个ZIP文件而不是gz文件，只是带有误导性的扩展名，并且它包含多个文件，则可能会发生这种情况。（ gzip -d 支持仅包含一个文件的 ZIP 文件。
+````
+可以使用 file 命令检查文件实际类型
+将解压缩的命令更改为 unzip -d 可以工作
+
+
+## tesseract 配合 pot-desktop 实现 ocr 识别并翻译
+pot 有一个 'tesseract.js' 但是识别的效果和速度都不理想，而 arch linux 中可以安装本地的 tesseract 识别引擎，搭配对应语言的数据文件识别精度速度都成倍提升。
+````
+tesseract-data-chi_sim 中文简体
+tesseract-data-eng     英语
+````

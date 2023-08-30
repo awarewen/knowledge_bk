@@ -1,7 +1,6 @@
 ## [login shell and interactive](https://zsh.sourceforge.io/Guide/zshguide02.html)
 在首次登陆计算机时 shell 是 interactive shell ，但它同时也是一个 login shell
 
-
 - [GitHub - SixArm/zsh-config: SixArm.com → Z shell → zsh configuration](https://github.com/SixArm/zsh-config)
 ````
 zshenv -> zprofile -> zshrc (current)
