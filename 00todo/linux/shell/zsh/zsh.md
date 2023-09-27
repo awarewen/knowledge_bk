@@ -1,4 +1,6 @@
 ## [login shell and interactive](https://zsh.sourceforge.io/Guide/zshguide02.html)
+[A User's Guide to the Z-Shell](https://zsh.sourceforge.io/Guide/zshguide02.html#l9)
+[System startup files - IBM 文档 --- System startup files - IBM 文档](https://www.ibm.com/docs/zh/aix/7.1?topic=customization-system-startup-files)
 在首次登陆计算机时 shell 是 interactive shell ，但它同时也是一个 login shell
 
 - [GitHub - SixArm/zsh-config: SixArm.com → Z shell → zsh configuration](https://github.com/SixArm/zsh-config)

@@ -98,3 +98,45 @@ pot 有一个 'tesseract.js' 但是识别的效果和速度都不理想，而 ar
 tesseract-data-chi_sim 中文简体
 tesseract-data-eng     英语
 ````
+
+## 串口连接
+- tinyserial
+提供了 `com` 命令
+`Quidway s5700 series` 交换机
+````
+sudo com /dev/ttyUSB0 6900 (连接交换机)
+
+$ system-view 进入配置模式(系统预览)
+$ dis cu                  (配置预览)
+
+## 1-22口做vlan 23 24口做双下联
+$ vlan batch 101 to 124
+
+$ interface 网卡名称0/0/1 (配置 1 号口)
+$ port link-type access
+$ port dafault vlan 101
+$ quit
+... 一直到22口
+$ interface 网卡名称0/0/22 (配置 22 号口)
+$ port link-type access
+$ port dafault vlan 122
+$ quit
+
+$ interface 网卡名称0/0/23 (配置 23 号口)
+$ port link-type trunk
+$ port trunk allow-pass vlan 101 to 124
+$ quit
+
+$ interface 网卡名称0/0/24 (配置 24 号口)
+$ port link-type trunk
+$ port trunk allow-pass vlan 101 to 124
+$ quit
+
+$ quit  (退出配置模式)
+$ save  (保存配置)
+
+## 清除配置
+$ reset saved-configuration
+## 重启
+$ reboot
+````
