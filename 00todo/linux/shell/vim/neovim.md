@@ -5,3 +5,5 @@
 ## lua configurations setup
 
 ## option setting
+
+- optong 
