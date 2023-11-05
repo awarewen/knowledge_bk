@@ -1,16 +1,22 @@
 # fzf
 - [junegunn/fzf: A command-line fuzzy finder](https://github.com/junegunn/fzf)
 
-## install
-```markdown
-sudo pacman -S fzf
+install: `sudo pacman -S fzf`
 
-# shell setting
-export FZF_DEFAULT_COMMAND='fd --hidden --follow . /home/awarewen /etc --ignore-file=~/.gitignore' #. /etc /home
-export FZF_DEFAULT_OPTS='--height 60% --layout=reverse-list --border --preview "echo {} | ~/.config/fzf/fzf_preview.py" --preview-window=top'
+## configuretion
+```markdown
+
+- zoxide fzf OPT
+export _ZO_FZF_OPTS='--height 60% --layout=reverse-list --border --preview "echo {} | ~/.config/fzf/fzf_preview.py" --preview-window=right -m'
+
+- fzf OPT
+export FZF_DEFAULT_COMMAND='fd --hidden --follow . /home/awarewen /etc /usr' #. /etc /home
+export FZF_DEFAULT_OPTS='--height 60% --layout=reverse-list --border --preview "echo {} | ~/.config/fzf/fzf_preview.py" --preview-window=right -m'
+
 ```
 
-## fzf_preview theme
+## fzf_preview
+- 添加文件预览 使用 `bat`
 ```markdown
 .config/fzf/fzf_preview
 _______________________
@@ -52,4 +58,26 @@ if __name__ == "__main__":
     else:
         os.system('bat --style=numbers --color=always -r {}: {}'.format(
             preview_nameandline[1], preview_nameandline[0]))
+```
+
+## 相关的应用
+
+- neovim 配置选择器 `add to .zshrc`
+```
+function nvims() {
+  items=(
+    "knvim"
+    "lnvim"
+    #"SpaceVim"
+  )
+  NVIM_CONFIG=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $NVIM_CONFIG ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $NVIM_CONFIG == "default" ]]; then
+    NVIM_CONFIG=""
+  fi
+  NVIM_APPNAME=$NVIM_CONFIG nvim $@
+}
+
 ```

@@ -7,3 +7,6 @@
   ffmpeg -y -framerate 25 -1 path/to/images/%04d.png path/to/save/a.mp4
 
 ## 转换
+## crf 压缩质量
+
+ffmpeg -i D:\src.mov -c:v libx264 -preset veryslow -crf 18 -c:acopy D:\dest1.mp4
