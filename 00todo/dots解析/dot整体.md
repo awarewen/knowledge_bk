@@ -51,8 +51,8 @@ yay -Sy acpi alsa-utils-git blueman brave-bin bspwm
 ```
 
 
-### 背光方案采用 `light` 
-- 将当前用户添加到 ‘VIDEO’ 组，以获取到控制背光的权限(light)  
+### 背光方案采用 `light`
+- 将当前用户添加到 ‘VIDEO’ 组，以获取到控制背光的权限(light)
 
 ```markdown
 # 将用户添加到video组
