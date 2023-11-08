@@ -4,8 +4,26 @@
 ## 完全初学者入门
 - Getting started with the web
     - Installing basic software
-        1. vscode: 代码编辑
-        2. browsers: 测试代码
+        1. `vscode`: 代码编辑
+        2. `browsers`: 测试代码
+    - What will your website look like
+        在编写之前需要对网站进行规划和设计
+        1. 网站是关于什么的
+        2. 图文内容
+        3. Themes
+        可以粗略的勾勒一个整体布局情况
+        草图 -> 数字模型 -> web页面
+    - Dealing with files
+        网站由许多文件组成，需要在本地计算机上将这些文件组成一个合理的结构。
+        1. 以小写形式命名文件夹和文件，不带空格
+            *. 在计算机中尤其是服务器是区分大小写的。
+            *. 浏览器、web服务器和编程语言无法一致的处理空格。（最好使用连字符分隔，而不是下划线）
+        2. 网站结构
+            *. `index.html`: web 主页内容
+            *. `images/`: 存放网站上使用的图像
+            *. `styles/`: 将包含用于设置内容样式的 `CSS` 代码
+            *. `script/`: 将包含用于网站交互功能的所有的 `JavaScript` 代码
+    - HTML basics
 
 - Setup a local testing server
 
