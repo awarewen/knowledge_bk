@@ -34,3 +34,11 @@ bind = $ALT_MOD, B, exec, notify-send "Pot 剪切板翻译" && pot popclip "$(wl
 windowrulev2 = float, class:(pot), title:(Translator|OCR|PopClip|Screenshot Translate) # Translation window floating
 windowrulev2 = move cursor 0 0, class:(pot), title:(Translator|PopClip|Screenshot Translate) # Translation window follows the mouse position.
 ````
+
+## tesseract 配合 pot-desktop 实现 ocr 识别并翻译
+pot 有一个 'tesseract.js' 但是识别的效果和速度都不理想，而 arch linux 中可以安装本地的 tesseract 识别引擎，搭配对应语言的数据文件识别精度速度都成倍提升。
+````
+tesseract-data-chi_sim 中文简体
+tesseract-data-eng     英语
+````
+

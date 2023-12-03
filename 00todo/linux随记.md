@@ -113,13 +113,16 @@ $ dis cu                  (配置预览)
 $ vlan batch 101 to 124
 
 $ interface 网卡名称0/0/1 (配置 1 号口)
+$ interface GigabitEthernet0/0/1
 $ port link-type access
-$ port dafault vlan 101
+$ port default vlan 101
 $ quit
+
 ... 一直到22口
+
 $ interface 网卡名称0/0/22 (配置 22 号口)
 $ port link-type access
-$ port dafault vlan 122
+$ port default vlan 122
 $ quit
 
 $ interface 网卡名称0/0/23 (配置 23 号口)
@@ -137,6 +140,10 @@ $ save  (保存配置)
 
 ## 清除配置
 $ reset saved-configuration
+
 ## 重启
 $ reboot
 ````
+
+## 取消一个配置
+`undo link-type trunk`
